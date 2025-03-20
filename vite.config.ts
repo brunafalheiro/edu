@@ -23,6 +23,7 @@ export default defineConfig(({ command }) => {
         '@ui': path.resolve(__dirname, 'src/ui'),
         '@router': path.resolve(__dirname, 'src/router'),
         '@tools': path.resolve(__dirname, 'src/tools'),
+        '@assets': path.resolve(__dirname, 'src/assets'),
       },
     },
     css: {
