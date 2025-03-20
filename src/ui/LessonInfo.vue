@@ -9,7 +9,7 @@
       <p class="mb-9">Lorem ipsum dolor sit amet consectetur. Natoque viverra tempor mauris blandit in vel nulla nulla. Netus tellus ut sit praesent massa id est. Ac feugiat odio diam in. Mi iaculis ut dui duis amet sed a lorem faucibus.</p>
       <Button class="mb-12">Começar</Button>
 
-      <p class="text-2xl font-black mb-6">Conteúdo</p>
+      <p class="text-xl font-black mb-6">Conteúdo</p>
 
       <div class="p-4 bg-gray-100 rounded-lg mb-12">
         <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
