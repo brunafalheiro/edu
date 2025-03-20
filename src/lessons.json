@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "title": "Introdução às Árvores Binárias",
+    "description": "Entenda o conceito de árvores binárias, sua estrutura e aplicações.",
+    "icon": "tree_icon1",
+    "content": [
+      { "type": "text", "value": "Uma árvore binária é uma estrutura de dados hierárquica composta por nós." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "Cada nó pode ter no máximo dois filhos, chamados de filho esquerdo e filho direito." }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Percursos em Árvores Binárias",
+    "description": "Aprenda sobre os tipos de percursos: pré-ordem, em-ordem e pós-ordem.",
+    "icon": "tree_icon2",
+    "content": [
+      { "type": "text", "value": "Os percursos em árvores são fundamentais para a manipulação de dados." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "Os principais tipos de percursos são: pré-ordem, em-ordem e pós-ordem." }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Operações Básicas em Árvores Binárias",
+    "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
+    "icon": "tree_icon3",
+    "content": [
+      { "type": "text", "value": "As principais operações em árvores são inserção, remoção e busca." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "A remoção de um nó pode envolver diferentes casos, dependendo do número de filhos." }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Árvores Binárias de Busca (BST)",
+    "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
+    "icon": "tree_icon4",
+    "content": [
+      { "type": "text", "value": "Uma BST é uma árvore binária onde cada nó segue uma ordem definida." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "O nó esquerdo contém valores menores e o nó direito, valores maiores." }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Balanceamento de Árvores Binárias",
+    "description": "Saiba por que o balanceamento é importante e como melhorar o desempenho.",
+    "icon": "tree_icon5",
+    "content": [
+      { "type": "text", "value": "O balanceamento de árvores é essencial para manter a eficiência de busca." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "Uma árvore balanceada evita que as buscas tenham complexidade O(n)." }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Árvores AVL",
+    "description": "Conheça as árvores AVL e como elas mantêm o balanceamento automaticamente.",
+    "icon": "tree_icon6",
+    "content": [
+      { "type": "text", "value": "A árvore AVL é uma BST que se autoequilibra." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "Ela utiliza rotações para corrigir desequilíbrios após inserções e remoções." }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Árvores Vermelho-Preto",
+    "description": "Entenda como funciona o balanceamento dinâmico nas árvores vermelho-preto.",
+    "icon": "tree_icon7",
+    "content": [
+      { "type": "text", "value": "As árvores vermelho-preto garantem balanceamento dinâmico." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "Utilizam regras de coloração para evitar desbalanceamento extremo." }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Casos de Uso e Aplicações",
+    "description": "Veja como árvores binárias são usadas em bancos de dados, IA e mais.",
+    "icon": "tree_icon8",
+    "content": [
+      { "type": "text", "value": "As árvores binárias têm diversas aplicações na computação." },
+      { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+      { "type": "text", "value": "São usadas em bancos de dados, inteligência artificial e compressão de dados." }
+    ]
+  }
+]
