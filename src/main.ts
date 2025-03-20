@@ -1,14 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { nextTick } from 'vue';
+import App from './App.vue';
+import router from './router/router';
+import './style.css';
+import './demos/ipc';
 
-import './style.css'
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
 
-import './demos/ipc'
-// If you want use Node.js, the`nodeIntegration` needs to be enabled in the Main process.
-// import './demos/node'
-
-createApp(App)
-  .mount('#app')
-  .$nextTick(() => {
-    postMessage({ payload: 'removeLoading' }, '*')
-  })
+nextTick(() => {
+  postMessage({ payload: 'removeLoading' }, '*');
+});
