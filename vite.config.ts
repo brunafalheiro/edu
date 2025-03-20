@@ -5,8 +5,8 @@ import electron from 'vite-plugin-electron/simple';
 import autoprefixer from 'autoprefixer';
 import tailwind from 'tailwindcss';
 import pkg from './package.json';
+import path from 'node:path';
 
-// https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   fs.rmSync('dist-electron', { recursive: true, force: true })
 
@@ -15,6 +15,13 @@ export default defineConfig(({ command }) => {
   const sourcemap = isServe || !!process.env.VSCODE_DEBUG
 
   return {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        '@components': path.resolve(__dirname, 'src/components'),
+        '@utils': path.resolve(__dirname, 'src/utils'),
+      },
+    },
     css: {
       postcss: {
         plugins: [tailwind(), autoprefixer()],
