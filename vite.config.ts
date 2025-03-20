@@ -22,6 +22,7 @@ export default defineConfig(({ command }) => {
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@ui': path.resolve(__dirname, 'src/ui'),
         '@router': path.resolve(__dirname, 'src/router'),
+        '@tools': path.resolve(__dirname, 'src/tools'),
       },
     },
     css: {
