@@ -4,9 +4,9 @@
       <Button class="mb-12" @click="goBack">Voltar</Button>
       <div class="flex items-center mb-3">
         <div class="flex items-center justify-center rounded-sm h-12 w-12 bg-gray-100 mr-6"></div>
-        <p class="text-2xl font-black">Lesson Screen</p>
+        <p class="text-2xl font-black">{{ course.name }}</p>
       </div>
-      <p class="mb-9">Lorem ipsum dolor sit amet consectetur. Natoque viverra tempor mauris blandit in vel nulla nulla. Netus tellus ut sit praesent massa id est. Ac feugiat odio diam in. Mi iaculis ut dui duis amet sed a lorem faucibus.</p>
+      <p class="mb-9">{{ course.description }}</p>
       <Button class="mb-12">Começar</Button>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
@@ -29,13 +29,18 @@
   import Button from '@components/ui/button/Button.vue'
   import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
   import { useRouter } from 'vue-router';
+  import courses from '@/courses.json';
 
-  const accordionItems = [
-    { value: 'item-1', title: 'Is it accessible?', content: 'Yes. It adheres to the WAI-ARIA design pattern.' },
-    { value: 'item-2', title: 'Is it unstyled?', content: 'Yes. It\'s unstyled by default, giving you freedom over the look and feel.' },
-    { value: 'item-3', title: 'Can it be animated?', content: 'Yes! You can use the transition prop to configure the animation.' },
-  ];
 
   const router = useRouter();
+  const courseId = router.currentRoute.value.params.id;
+  const course = courses.find(course => course.id === courseId);
+
+  const accordionItems = course.content.map((item, index) => ({
+    value: index,
+    title: item.title,
+    content: item.description,
+  }));
+
   const goBack = () => { router.push('/'); };
 </script>
