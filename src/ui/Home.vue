@@ -13,7 +13,7 @@
         </div>
         <div class="flex items-center justify-center">
           <div class="flex items-center">
-            <i class="pi pi-closck mr-2 mt-px"></i>
+            <i class="pi pi-clock mr-2 mt-px"></i>
             <p class="font-semibold mr-12">16 min</p>
           </div>
           <Button class="h-8" @click="goToCourseInfo(course.id)">Ver curso</Button>
@@ -43,4 +43,5 @@
   const goToHello = () => { router.push('/hello'); };
   const goToCourseInfo = (courseId) => { router.push(`/course/${courseId}/info`); };
   const goToBinaryTreeSimulator = () => { router.push('/binary-tree-simulator'); };
+  
 </script>
