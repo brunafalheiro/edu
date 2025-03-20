@@ -2,8 +2,8 @@ import { createApp } from 'vue';
 import { nextTick } from 'vue';
 import App from './App.vue';
 import router from './router/router';
-import './style.css';
 import './demos/ipc';
+import '@/assets/index.css';
 
 const app = createApp(App);
 app.use(router);
