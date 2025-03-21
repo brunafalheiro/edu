@@ -14,12 +14,14 @@
       </p>
       
       <div class="flex items-center mb-8">
-        <Button class="mr-4">Ir para o próximo item</Button>
+        <Button class="mr-6">Ir para o próximo item</Button>
+        <i class="pi pi-check mr-2"></i>
         <p class="font-bold">Concluído</p>
       </div>
 
-      <div class="h-px w-full bg-gray-100 mb-6"></div>
+      <div class="h-px w-full bg-gray-200 mb-6"></div>
       <div class="flex items-center">
+        <i class="pi pi-flag mr-2"></i>
         <p class="font-semibold text-sm">Reportar problema</p>
       </div>
     </div>
