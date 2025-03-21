@@ -7,10 +7,9 @@
         <p class="text-2xl font-black">{{ course.name }}</p>
       </div>
       <p class="mb-9">{{ course.description }}</p>
-      <Button class="mb-12">Começar</Button>
+      <Button @click="goToCourse" class="mb-12">Começar</Button>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
-
       <div class="p-4 bg-gray-100 rounded-lg mb-12">
         <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
           <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
@@ -27,10 +26,9 @@
 
 <script setup>
   import Button from '@components/ui/button/Button.vue'
-  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
   import { useRouter } from 'vue-router';
   import courses from '@/courses.json';
-
 
   const router = useRouter();
   const courseId = router.currentRoute.value.params.id;
@@ -43,4 +41,5 @@
   }));
 
   const goBack = () => { router.push('/'); };
+  const goToCourse = () => { router.push(`/course/${courseId}`); };
 </script>
