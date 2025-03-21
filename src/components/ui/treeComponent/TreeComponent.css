@@ -9,9 +9,7 @@
 }
 
 .tree-container {
-	max-width: 1080px;
-	max-height: 640px;
-	overflow: auto;
+	overflow-x: auto;
 }
 
 .tree {
