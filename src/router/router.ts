@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@ui/Home.vue';
-import HelloWorld from '@ui/HelloWorld.vue';
-import CourseInfo from '@/ui/CourseInfo.vue'
-import BinaryTreeSimulator from '@ui/BinaryTreeSimulator.vue'
+import CourseInfo from '@/ui/CourseInfo.vue';
+import BinaryTreeSimulator from '@ui/BinaryTreeSimulator.vue';
+import Course from '@ui/Course.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
-  { path: '/hello', name: 'hello', component: HelloWorld },
   { path: '/course/:id/info', name: 'courseInfo', component: CourseInfo },
+  { path: '/course/:id', name: 'course', component: Course },
   { path: '/binary-tree-simulator', name: 'binaryTreeSimulator', component: BinaryTreeSimulator },
 ];
 
