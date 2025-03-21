@@ -20,7 +20,7 @@
       </div>
 
       <div class="h-px w-full bg-gray-200 mb-6"></div>
-      <div class="flex items-center">
+      <div @click="" class="flex items-center cursor-pointer">
         <i class="pi pi-flag mr-2"></i>
         <p class="font-semibold text-sm">Reportar problema</p>
       </div>
@@ -32,7 +32,6 @@
 <script setup>
   import Button from '@components/ui/button/Button.vue';
   import { useRouter } from 'vue-router';
-  import courses from '@/courses.json';
 
   const router = useRouter();
   const goBack = () => { router.back(); };
