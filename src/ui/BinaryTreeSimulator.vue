@@ -13,24 +13,55 @@
       </div>
       
       <div class="p-8 bg-gray-100 w-[360px] rounded-lg ml-12">
-        <div class="flex mb-5">
-          <Input type="number" placeholder="Nó" v-model="rootValue" class="w-full mr-4"></Input>
-          <Button @click="setTree" class="w-[96px]">Criar árvore</Button>
+        <div class="flex items-end mb-12">
+          <NumberField v-model="nodeAmount">
+            <Label>Quantidade de nós</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+          
+          <Button @click="generateRandomTree">Gerar árvore</Button>
         </div>
 
-        <div class="flex mb-5">
-          <Input type="number" placeholder="Nó" v-model="nodeValue" class="w-full mr-4"></Input>
-          <Button @click="insertNode" class="w-[96px]">Adicionar Nó</Button>
+        <div class="flex items-end mb-5">
+          <NumberField v-model="rootValue">
+            <Label>Valor da raiz</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+          <Button @click="setTree">Criar árvore</Button>
         </div>
 
-        <div class="flex mb-5">
-          <Input type="number" placeholder="Nó" v-model="nodeToBeSearched" class="w-full mr-4"></Input>
-          <Button @click="searchNode" class="w-[96px]">Buscar nó</Button>
+        <div class="flex items-end mb-5">
+          <NumberField v-model="nodeValue">
+            <Label>Valor do nó</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+
+          <Button @click="insertNode">Adicionar Nó</Button>
         </div>
-        
-        <div class="flex mb-12">
-          <Input type="number" placeholder="Qt Nós" v-model="nodeAmount" class="w-full mr-4"></Input>
-          <Button @click="generateRandomTree" class="w-[96px]">Gerar árvore aleatória</Button>
+
+        <div class="flex items-end mb-5">
+          <NumberField v-model="nodeToBeSearched">
+            <Label>Valor do Nó</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+
+          <Button @click="searchNode">Buscar nó</Button>
         </div>
         
         <Button @click="clearTree" class="w-full">Limpar</Button>
@@ -46,6 +77,14 @@
   import Button from '@components/ui/button/Button.vue';
   import Input from '@/components/ui/input/Input.vue';
   import TreeComponent from '@/components/ui/TreeComponent/TreeComponent.vue';
+  import { Label } from '@/components/ui/label'
+  import {
+    NumberField,
+    NumberFieldContent,
+    NumberFieldDecrement,
+    NumberFieldIncrement,
+    NumberFieldInput,
+  } from '@/components/ui/number-field'
 
   let tree = ref(null);
   let nodeValue = ref(null);
