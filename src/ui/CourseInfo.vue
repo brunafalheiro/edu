@@ -13,7 +13,7 @@
       <div class="p-4 bg-gray-100 rounded-lg mb-12">
         <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
           <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
-            <AccordionTrigger>{{ item.title }}</AccordionTrigger>
+            <AccordionTrigger>{{ item.name }}</AccordionTrigger>
             <AccordionContent>
               {{ item.content }}
             </AccordionContent>
@@ -34,9 +34,9 @@
   const courseId = router.currentRoute.value.params.id;
   const course = courses.find(course => course.id === courseId);
 
-  const accordionItems = course.content.map((item, index) => ({
+  const accordionItems = course.classes.map((item, index) => ({
     value: index,
-    title: item.title,
+    name: item.name,
     content: item.description,
   }));
 

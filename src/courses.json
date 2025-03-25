@@ -4,85 +4,205 @@
     "name": "Árvores Binárias",
     "description": "Aprenda sobre árvores binárias, percursos, operações e balanceamento.",
     "icon": "iconBinaryTree",
-    "content": [
+    "classes": [
       {
-        "id": "1",
-        "title": "Introdução às Árvores Binárias",
+        "id": "binaryTree_1",
+        "name": "Introdução às Árvores Binárias",
         "description": "Entenda o conceito de árvores binárias, sua estrutura e aplicações.",
-        "content": [
-          { "type": "text", "value": "Uma árvore binária é uma estrutura de dados hierárquica composta por nós." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "Cada nó pode ter no máximo dois filhos, chamados de filho esquerdo e filho direito." }
+        "topics": [
+          {
+            "id": "binaryTree_1_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_1_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "2",
-        "title": "Percursos em Árvores Binárias",
+        "id": "binaryTree_2",
+        "name": "Percursos em Árvores Binárias",
         "description": "Aprenda sobre os tipos de percursos: pré-ordem, em-ordem e pós-ordem.",
-        "content": [
-          { "type": "text", "value": "Os percursos em árvores são fundamentais para a manipulação de dados." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "Os principais tipos de percursos são: pré-ordem, em-ordem e pós-ordem." }
+        "topics": [
+          {
+            "id": "binaryTree_2_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_2_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "3",
-        "title": "Operações Básicas em Árvores Binárias",
+        "id": "binaryTree_3",
+        "name": "Operações Básicas em Árvores Binárias",
         "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
-        "content": [
-          { "type": "text", "value": "As principais operações em árvores são inserção, remoção e busca." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "A remoção de um nó pode envolver diferentes casos, dependendo do número de filhos." }
+        "topics": [
+          {
+            "id": "binaryTree_3_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_3_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "4",
-        "title": "Árvores Binárias de Busca (BST)",
+        "id": "binaryTree_4",
+        "name": "Árvores Binárias de Busca (BST)",
         "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
-        "content": [
-          { "type": "text", "value": "Uma BST é uma árvore binária onde cada nó segue uma ordem definida." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "O nó esquerdo contém valores menores e o nó direito, valores maiores." }
+        "topics": [
+          {
+            "id": "binaryTree_4_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_4_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "5",
-        "title": "Balanceamento de Árvores Binárias",
+        "id": "binaryTree_5",
+        "name": "Balanceamento de Árvores Binárias",
         "description": "Saiba por que o balanceamento é importante e como melhorar o desempenho.",
-        "content": [
-          { "type": "text", "value": "O balanceamento de árvores é essencial para manter a eficiência de busca." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "Uma árvore balanceada evita que as buscas tenham complexidade O(n)." }
+        "topics": [
+          {
+            "id": "binaryTree_5_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_5_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "6",
-        "title": "Árvores AVL",
+        "id": "binaryTree_6",
+        "name": "Árvores AVL",
         "description": "Conheça as árvores AVL e como elas mantêm o balanceamento automaticamente.",
-        "content": [
-          { "type": "text", "value": "A árvore AVL é uma BST que se autoequilibra." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "Ela utiliza rotações para corrigir desequilíbrios após inserções e remoções." }
+        "topics": [
+          {
+            "id": "binaryTree_6_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_6_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "7",
-        "title": "Árvores Vermelho-Preto",
+        "id": "binaryTree_7",
+        "name": "Árvores Vermelho-Preto",
         "description": "Entenda como funciona o balanceamento dinâmico nas árvores vermelho-preto.",
-        "content": [
-          { "type": "text", "value": "As árvores vermelho-preto garantem balanceamento dinâmico." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "Utilizam regras de coloração para evitar desbalanceamento extremo." }
+        "topics": [
+          {
+            "id": "binaryTree_7_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_7_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       },
       {
-        "id": "8",
-        "title": "Casos de Uso e Aplicações",
+        "id": "binaryTree_8",
+        "name": "Casos de Uso e Aplicações",
         "description": "Veja como árvores binárias são usadas em bancos de dados, IA e mais.",
-        "content": [
-          { "type": "text", "value": "As árvores binárias têm diversas aplicações na computação." },
-          { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-          { "type": "text", "value": "São usadas em bancos de dados, inteligência artificial e compressão de dados." }
+        "topics": [
+          {
+            "id": "binaryTree_8_1",
+            "name": "aula 1",
+            "content": [
+              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 1 parte 2." }
+            ]
+          }, 
+          {
+            "id": "binaryTree_8_2",
+            "name": "aula 2",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          } 
         ]
       }
     ]

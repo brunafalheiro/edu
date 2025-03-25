@@ -12,28 +12,28 @@
         </div>
       </div>
       
-      <div class="p-8 bg-primary w-[360px] rounded-lg ml-12">
+      <div class="p-8 bg-gray-100 w-[360px] rounded-lg ml-12">
         <div class="flex mb-5">
           <Input type="number" placeholder="Nó" v-model="rootValue" class="w-full mr-4"></Input>
-          <Button @click="setTree" class="w-[96px]" variant="secondary">Criar árvore</Button>
+          <Button @click="setTree" class="w-[96px]">Criar árvore</Button>
         </div>
 
         <div class="flex mb-5">
           <Input type="number" placeholder="Nó" v-model="nodeValue" class="w-full mr-4"></Input>
-          <Button @click="insertNode" class="w-[96px]" variant="secondary">Adicionar Nó</Button>
+          <Button @click="insertNode" class="w-[96px]">Adicionar Nó</Button>
         </div>
 
         <div class="flex mb-5">
           <Input type="number" placeholder="Nó" v-model="nodeToBeSearched" class="w-full mr-4"></Input>
-          <Button @click="searchNode" class="w-[96px]" variant="secondary">Buscar nó</Button>
+          <Button @click="searchNode" class="w-[96px]">Buscar nó</Button>
         </div>
         
         <div class="flex mb-12">
           <Input type="number" placeholder="Qt Nós" v-model="nodeAmount" class="w-full mr-4"></Input>
-          <Button @click="generateRandomTree" class="w-[96px]" variant="secondary">Gerar árvore aleatória</Button>
+          <Button @click="generateRandomTree" class="w-[96px]">Gerar árvore aleatória</Button>
         </div>
         
-        <Button @click="clearTree" class="w-full" variant="secondary">Limpar</Button>
+        <Button @click="clearTree" class="w-full">Limpar</Button>
       </div>
     </div>
   </div>
