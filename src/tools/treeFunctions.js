@@ -29,6 +29,51 @@ class TreeFunctions {
     return tree;
   }
 
+  static async removeNode(tree, value) {
+    if (!tree) return null;
+
+    // Destacar o nó sendo visitado
+    tree.isBeingVisited = true;
+    await new Promise(resolve => setTimeout(resolve, 500));
+    tree.isBeingVisited = false;
+
+    if (value < tree.value) {
+      tree.left = await TreeFunctions.removeNode(tree.left, value);
+      return tree;
+    }
+
+    if (value > tree.value) {
+      tree.right = await TreeFunctions.removeNode(tree.right, value);
+      return tree;
+    }
+
+    // Case 1: Node without child
+    if (!tree.left && !tree.right) {
+      return null;
+    }
+
+    // Case 2: Node with one child
+    if (!tree.left) {
+      return tree.right;
+    }
+
+    if (!tree.right) {
+      return tree.left;
+    }
+
+    // Case 3: Node with two children
+    let minValueNode = TreeFunctions.findMinNode(tree.right);
+    tree.value = minValueNode.value;
+    tree.right = await TreeFunctions.removeNode(tree.right, minValueNode.value);
+    return tree;
+  }
+
+  // Auxiliar function to find the node with the smallest value in a subtree
+  static findMinNode(tree) {
+    while (tree.left) tree = tree.left;
+    return tree;
+  }
+
   static async searchNode(tree, value) {
     if (!tree) return null;
 

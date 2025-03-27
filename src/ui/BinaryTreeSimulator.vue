@@ -39,7 +39,7 @@
         </div>
 
         <div class="flex items-end mb-5">
-          <NumberField v-model="nodeValue">
+          <NumberField v-model="nodeToBeAdded">
             <Label>Valor do nó</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
@@ -49,6 +49,19 @@
           </NumberField>
 
           <Button @click="insertNode">Adicionar Nó</Button>
+        </div>
+        
+        <div class="flex items-end mb-5">
+          <NumberField v-model="nodeToBeRemoved">
+            <Label>Valor do nó</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+
+          <Button @click="removeNode">Remover Nó</Button>
         </div>
 
         <div class="flex items-end mb-5">
@@ -87,9 +100,10 @@
   } from '@/components/ui/number-field'
 
   let tree = ref(null);
-  let nodeValue = ref(null);
+  let nodeToBeAdded = ref(null);
   let rootValue = ref(null);
   let nodeToBeSearched = ref(null);
+  let nodeToBeRemoved = ref(null);
   let nodeAmount = ref(null);
 
   const setTree = () => {
@@ -98,7 +112,12 @@
 
   const insertNode = () => {
     if (!tree.value) return;
-    TreeFunctions.insertNode(tree.value, nodeValue.value);
+    TreeFunctions.insertNode(tree.value, nodeToBeAdded.value);
+  };
+
+  const removeNode = () => {
+    if (!tree.value) return;
+    TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
   };
 
   const searchNode = async () => {
@@ -112,7 +131,8 @@
 
   const clearTree = () => {
     tree.value = null;
-    nodeValue.value = null;
+    nodeToBeAdded.value = null;
+    nodeToBeRemoved.value = null;
     rootValue.value = null;
     nodeToBeSearched.value = null;
     nodeAmount.value = null;
