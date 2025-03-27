@@ -26,7 +26,6 @@ class TreeFunctions {
       return tree;
     }
     
-    console.log("Value already exists in the tree");
     return tree;
   }
 

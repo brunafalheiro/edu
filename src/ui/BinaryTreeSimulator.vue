@@ -94,25 +94,16 @@
 
   const setTree = () => {
     tree.value = TreeFunctions.createTree(rootValue.value);
-    console.log(tree.value);
   };
 
   const insertNode = () => {
-    if (!tree.value) {
-      console.log('Árvore não criada');
-      return;
-    }
+    if (!tree.value) return;
     TreeFunctions.insertNode(tree.value, nodeValue.value);
   };
 
   const searchNode = async () => {
-    if (!tree.value) {
-      console.log('Árvore não criada');
-      return;
-    }
-
-    const searchedNode = await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
-    console.log(searchedNode);
+    if (!tree.value) return;
+    await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
   };
 
   const generateRandomTree = () => {
