@@ -32,7 +32,7 @@ class TreeFunctions {
   static async removeNode(tree, value) {
     if (!tree) return null;
 
-    // Destacar o nó sendo visitado
+    // Mark the node as being visited
     tree.isBeingVisited = true;
     await new Promise(resolve => setTimeout(resolve, 500));
     tree.isBeingVisited = false;
