@@ -12,10 +12,11 @@
         </div>
       </div>
       
-      <div class="p-8 bg-gray-100 w-[360px] rounded-lg ml-12">
-        <div class="flex items-end mb-12">
-          <NumberField v-model="nodeAmount">
-            <Label>Quantidade de nós</Label>
+      <div class="p-8 bg-gray-50 w-[360px] rounded-lg ml-12">
+        <p class="font-semibold mb-2">Gerar árvore aleatória</p>
+        <div class="flex items-end mb-8">
+          <NumberField v-model="nodeAmount" class="mr-4">
+            <Label class="text-sm">Quantidade de nós</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />
@@ -23,24 +24,26 @@
             </NumberFieldContent>
           </NumberField>
           
-          <Button @click="generateRandomTree">Gerar árvore</Button>
+          <Button @click="generateRandomTree" class="w-40">Gerar</Button>
         </div>
 
-        <div class="flex items-end mb-5">
-          <NumberField v-model="rootValue">
-            <Label>Valor da raiz</Label>
+        <p class="font-semibold mb-2">Criar árvore</p>
+        <div class="flex items-end mb-8">
+          <NumberField v-model="rootValue" class="mr-4">
+            <Label class="text-sm">Valor da raiz</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />
               <NumberFieldIncrement />
             </NumberFieldContent>
           </NumberField>
-          <Button @click="setTree">Criar árvore</Button>
+          <Button @click="setTree" class="w-40">Criar</Button>
         </div>
 
-        <div class="flex items-end mb-5">
-          <NumberField v-model="nodeToBeAdded">
-            <Label>Valor do nó</Label>
+        <p class="font-semibold mb-2">Adicionar nó</p>
+        <div class="flex items-end mb-8">
+          <NumberField v-model="nodeToBeAdded" class="mr-4">
+            <Label class="text-sm">Valor do nó</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />
@@ -48,12 +51,13 @@
             </NumberFieldContent>
           </NumberField>
 
-          <Button @click="insertNode">Adicionar Nó</Button>
+          <Button @click="insertNode" class="w-40">Adicionar</Button>
         </div>
         
-        <div class="flex items-end mb-5">
-          <NumberField v-model="nodeToBeRemoved">
-            <Label>Valor do nó</Label>
+        <p class="font-semibold mb-2">Remover nó</p>
+        <div class="flex items-end mb-8">
+          <NumberField v-model="nodeToBeRemoved" class="mr-4">
+            <Label class="text-sm">Valor do nó</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />
@@ -61,12 +65,13 @@
             </NumberFieldContent>
           </NumberField>
 
-          <Button @click="removeNode">Remover Nó</Button>
+          <Button @click="removeNode" class="w-40">Remover</Button>
         </div>
-
-        <div class="flex items-end mb-5">
-          <NumberField v-model="nodeToBeSearched">
-            <Label>Valor do Nó</Label>
+  
+        <p class="font-semibold mb-2">Buscar nó</p>
+        <div class="flex items-end mb-12">
+          <NumberField v-model="nodeToBeSearched" class="mr-4">
+            <Label class="text-sm">Valor do Nó</Label>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />
@@ -74,7 +79,7 @@
             </NumberFieldContent>
           </NumberField>
 
-          <Button @click="searchNode">Buscar nó</Button>
+          <Button @click="searchNode" class="w-40">Buscar</Button>
         </div>
         
         <Button @click="clearTree" class="w-full">Limpar</Button>
@@ -88,7 +93,6 @@
   import { TreeFunctions } from '@tools/treeFunctions.js';
   import { ref } from 'vue';
   import Button from '@components/ui/button/Button.vue';
-  import Input from '@/components/ui/input/Input.vue';
   import TreeComponent from '@/components/ui/TreeComponent/TreeComponent.vue';
   import { Label } from '@/components/ui/label'
   import {
