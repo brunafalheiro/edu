@@ -73,7 +73,7 @@
           v-for="(cls, index) in classes"
           :key="cls.id"
           :value="cls.name"
-          class="py-3 px-4 mb-3 rounded-3xl border border-slate-900"
+          class="relative py-3 px-4 mb-3 rounded-3xl border border-slate-900"
         >
           <AccordionTrigger class="text-left">
             <div class="flex items-center mr-2">
@@ -85,9 +85,19 @@
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div v-for="topic in cls.topics" :key="topic.id" class="p-4">
-              <div class="flex items-center w-full">
-                <div class="min-w-6 min-h-6 rounded-full bg-primary mr-3"></div>
+            <div
+              v-for="(topic, topicIndex) in cls.topics"
+              :key="topic.id"
+              class="relative flex items-center py-4 px-3 pl-[10px]"
+            >
+              <div class="relative flex items-center w-full">
+                <div
+                  v-if="topicIndex !== cls.topics.length - 1"
+                  class="absolute left-[14px] top-full w-px h-full border-l-2 border-dashed border-gray-400"
+                ></div>
+                <div
+                  class="min-w-7 min-h-7 rounded-full bg-primary mr-3 relative z-10"
+                ></div>
                 <div class="w-full flex justify-between">
                   <p class="font-semibold">{{ topic.name }}</p>
                   <p class="text-sm text-gray-500">5 min</p>
