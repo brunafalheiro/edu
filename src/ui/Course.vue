@@ -66,18 +66,33 @@
     </div>
 
     <div
-      class="w-full max-w-xs bg-slate-100 fixed right-0 h-screen p-12 pt-24 overflow-y-auto"
+      class="w-full max-w-xs bg-slate-100 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
     >
       <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
-        <AccordionItem v-for="cls in classes" :key="cls.id" :value="cls.name">
-          <AccordionTrigger class="text-left">{{ cls.name }}</AccordionTrigger>
+        <AccordionItem
+          v-for="(cls, index) in classes"
+          :key="cls.id"
+          :value="cls.name"
+          class="py-3 px-4 mb-3 rounded-3xl border border-slate-900"
+        >
+          <AccordionTrigger class="text-left">
+            <div class="flex items-center mr-2">
+              <div class="min-w-12 min-h-12 bg-primary mr-4 rounded-full"></div>
+              <div>
+                <p class="text-xs text-gray-500 font-medium">Aula {{ index + 1 }}</p>
+                <p>{{ cls.name }}</p>
+              </div>
+            </div>
+          </AccordionTrigger>
           <AccordionContent>
-            <div
-              v-for="topic in cls.topics"
-              :key="topic.id"
-              class="p-4 bg-white rounded-lg mb-4"
-            >
-              <p>{{ topic.name }}</p>
+            <div v-for="topic in cls.topics" :key="topic.id" class="p-4">
+              <div class="flex items-center w-full">
+                <div class="min-w-6 min-h-6 rounded-full bg-primary mr-3"></div>
+                <div class="w-full flex justify-between">
+                  <p class="font-semibold">{{ topic.name }}</p>
+                  <p class="text-sm text-gray-500">5 min</p>
+                </div>
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
