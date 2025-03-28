@@ -132,11 +132,8 @@ const classes = course.classes.map(({ name, id, topics }) => ({
   name,
   topics: topics.map(({ name, id }) => ({ name, id })),
 }));
-console.log(classes);
 
-const goBack = () => {
-  router.back();
-};
+const goBack = () => router.back();
 </script>
 
 <style lang="scss">
