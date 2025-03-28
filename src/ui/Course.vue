@@ -93,7 +93,7 @@
               <div class="relative flex items-center w-full">
                 <div
                   v-if="topicIndex !== cls.topics.length - 1"
-                  class="absolute left-[14px] top-full w-px h-full border-l-2 border-dashed border-gray-400"
+                  class="absolute left-[14px] top-full w-px h-12 border-l-2 border-dashed border-gray-400"
                 ></div>
                 <div
                   class="min-w-7 min-h-7 rounded-full bg-primary mr-3 relative z-10"
