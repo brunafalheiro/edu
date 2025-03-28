@@ -1,88 +1,97 @@
 <template>
   <div class="w-full flex justify-center">
-    <div class="w-full min-h-screen flex p-12 pt-24">
-      <div class="w-full">
-        <Button class="mb-12" @click="goBack">Voltar</Button>
-        <p class="text-2xl font-black mb-12">Simulador de Árvores Binárias</p>
-
-        <div class="tree-container">
-          <div class="tree">
-            <TreeComponent v-if="tree" :tree="tree" />
-          </div>
-        </div>
+    <div class="w-full p-12 pt-24" style="height: calc(100vh - 48px);">
+      <Button class="mb-12" @click="goBack">Voltar</Button>
+      <p class="text-2xl font-black mb-2">Simulador de Árvores Binárias</p>
+      <Button @click="clearTree" class="w-40 mb-12">Limpar</Button>
+      
+      <div class="tree mb-8" style="border: 1px solid red; height: calc(100% - 340px) !important; overflow:auto">
+        <TreeComponent v-if="tree" :tree="tree" />
       </div>
       
-      <div class="p-8 bg-gray-50 w-[360px] rounded-lg ml-12">
-        <p class="font-semibold mb-2">Gerar árvore aleatória</p>
-        <div class="flex items-end mb-8">
-          <NumberField v-model="nodeAmount" class="mr-4">
-            <Label class="text-sm">Quantidade de nós</Label>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
-          
-          <Button @click="generateRandomTree" class="w-40">Gerar</Button>
+      <div class="flex flex-wrap justify-center gap-8 p-6 rounded-lg bg-gray-50">
+        <div class="flex flex-col items-start">
+          <p class="font-semibold mb-4 text-center">Gerar árvore aleatória</p>
+          <div class="flex items-end w-min">
+            <NumberField v-model="nodeAmount" class="mr-4">
+              <Label class="text-sm">Qt de nós</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+            <Button @click="generateRandomTree" class="w-40">Gerar</Button>
+          </div>
         </div>
 
-        <p class="font-semibold mb-2">Criar árvore</p>
-        <div class="flex items-end mb-8">
-          <NumberField v-model="rootValue" class="mr-4">
-            <Label class="text-sm">Valor da raiz</Label>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
-          <Button @click="setTree" class="w-40">Criar</Button>
+        <Separator orientation="vertical" class="hidden md:block w-2 h-full bg-red-500" />
+
+        <div class="flex flex-col items-start">
+          <p class="font-semibold mb-4 text-center">Criar árvore</p>
+          <div class="flex items-end w-min">
+            <NumberField v-model="rootValue" class="mr-4">
+              <Label class="text-sm">Valor da raiz</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+            <Button @click="setTree" class="w-40">Criar</Button>
+          </div>
         </div>
 
-        <p class="font-semibold mb-2">Adicionar nó</p>
-        <div class="flex items-end mb-8">
-          <NumberField v-model="nodeToBeAdded" class="mr-4">
-            <Label class="text-sm">Valor do nó</Label>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
+        <Separator orientation="vertical" class="hidden md:block w-2 h-full bg-red-500" />
 
-          <Button @click="insertNode" class="w-40">Adicionar</Button>
+        <div class="flex flex-col items-start">
+          <p class="font-semibold mb-4 text-center">Adicionar nó</p>
+          <div class="flex items-end w-min">
+            <NumberField v-model="nodeToBeAdded" class="mr-4">
+              <Label class="text-sm">Valor do nó</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+            <Button @click="insertNode" class="w-40">Adicionar</Button>
+          </div>
         </div>
-        
-        <p class="font-semibold mb-2">Remover nó</p>
-        <div class="flex items-end mb-8">
-          <NumberField v-model="nodeToBeRemoved" class="mr-4">
-            <Label class="text-sm">Valor do nó</Label>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
 
-          <Button @click="removeNode" class="w-40">Remover</Button>
-        </div>
-  
-        <p class="font-semibold mb-2">Buscar nó</p>
-        <div class="flex items-end mb-12">
-          <NumberField v-model="nodeToBeSearched" class="mr-4">
-            <Label class="text-sm">Valor do Nó</Label>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
+        <Separator orientation="vertical" class="hidden md:block w-2 h-full bg-red-500" />
 
-          <Button @click="searchNode" class="w-40">Buscar</Button>
+        <div class="flex flex-col items-start">
+          <p class="font-semibold mb-4 text-center">Remover nó</p>
+          <div class="flex items-end w-min">
+            <NumberField v-model="nodeToBeRemoved" class="mr-4">
+              <Label class="text-sm">Valor do nó</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+            <Button @click="removeNode" class="w-40">Remover</Button>
+          </div>
         </div>
-        
-        <Button @click="clearTree" class="w-full">Limpar</Button>
+
+        <Separator orientation="vertical" class="hidden md:block w-2 h-full bg-red-500" />
+
+        <div class="flex flex-col items-start">
+          <p class="font-semibold mb-4 text-center">Buscar nó</p>
+          <div class="flex items-end w-min">
+            <NumberField v-model="nodeToBeSearched" class="mr-4">
+              <Label class="text-sm">Valor do Nó</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+            <Button @click="searchNode" class="w-40">Buscar</Button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,9 +101,10 @@
   import { useRouter } from 'vue-router';
   import { TreeFunctions } from '@tools/treeFunctions.js';
   import { ref } from 'vue';
+  import { Label } from '@/components/ui/label'
+  import Separator from '@/components/ui/separator/Separator.vue'
   import Button from '@components/ui/button/Button.vue';
   import TreeComponent from '@/components/ui/TreeComponent/TreeComponent.vue';
-  import { Label } from '@/components/ui/label'
   import {
     NumberField,
     NumberFieldContent,
