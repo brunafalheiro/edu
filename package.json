@@ -44,7 +44,7 @@
     "@vueuse/core": "^13.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "electron-store": "^10.0.1",
+    "electron-store": "^8.2.0",
     "lucide-vue-next": "^0.483.0",
     "primeicons": "^7.0.0",
     "reka-ui": "^2.1.1",
