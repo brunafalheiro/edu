@@ -108,6 +108,13 @@ function useLoading() {
 
 // ----------------------------------------------------------------------
 
+contextBridge.exposeInMainWorld("store", {
+  set: (key: string, value: any) => ipcRenderer.invoke("store:set", key, value),
+  get: (key: string) => ipcRenderer.invoke("store:get", key),
+});
+
+// ----------------------------------------------------------------------
+
 const { appendLoading, removeLoading } = useLoading()
 domReady().then(appendLoading)
 

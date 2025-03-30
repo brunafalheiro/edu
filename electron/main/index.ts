@@ -1,8 +1,9 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
-import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
-import os from 'node:os'
+import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import os from 'node:os';
+import Store from "electron-store";
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -118,3 +119,13 @@ ipcMain.handle('open-win', (_, arg) => {
     childWindow.loadFile(indexHtml, { hash: arg })
   }
 })
+
+const store = new Store();
+
+ipcMain.handle("store:set", (_, key: string, value: any) => {
+  store.set(key, value);
+});
+
+ipcMain.handle("store:get", (_, key: string) => {
+  return store.get(key);
+});
