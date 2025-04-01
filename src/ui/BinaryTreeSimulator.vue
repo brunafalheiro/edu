@@ -162,7 +162,5 @@ const clearTree = () => {
 };
 
 const router = useRouter();
-const goBack = () => {
-  router.push("/");
-};
+const goBack = () => router.push("/");
 </script>

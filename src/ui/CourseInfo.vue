@@ -3,16 +3,24 @@
     <div class="w-full max-w-5xl p-12 pt-24">
       <Button class="mb-12" @click="goBack">Voltar</Button>
       <div class="flex items-center mb-3">
-        <div class="flex items-center justify-center rounded-sm h-12 w-12 bg-gray-100 mr-6"></div>
+        <div
+          class="flex items-center justify-center rounded-sm h-12 w-12 bg-gray-100 mr-6"
+        ></div>
         <p class="text-2xl font-black">{{ course.name }}</p>
       </div>
       <p class="mb-9">{{ course.description }}</p>
-      <Button @click="goToCourse" class="mb-12">Começar</Button>
+
+      <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">Começar</Button>
+      <Button v-else @click="goToClass" class="mb-12">Continuar</Button>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
       <div class="p-4 bg-gray-100 rounded-lg mb-12">
         <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
-          <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
+          <AccordionItem
+            v-for="item in accordionItems"
+            :key="item.value"
+            :value="item.value"
+          >
             <AccordionTrigger>{{ item.name }}</AccordionTrigger>
             <AccordionContent>
               {{ item.content }}
@@ -25,21 +33,57 @@
 </template>
 
 <script setup>
-  import Button from '@components/ui/button/Button.vue'
-  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-  import { useRouter } from 'vue-router';
-  import courses from '@/courses.json';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import Button from "@components/ui/button/Button.vue";
+import courses from "@/courses.json";
 
-  const router = useRouter();
-  const courseId = router.currentRoute.value.params.id;
-  const course = courses.find(course => course.id === courseId);
+const router = useRouter();
+const courseId = router.currentRoute.value.params.courseId;
+const course = courses.find((course) => course.id === courseId);
 
-  const accordionItems = course.classes.map((item, index) => ({
-    value: index,
-    name: item.name,
-    content: item.description,
-  }));
+const accordionItems = course.classes.map((item, index) => ({
+  value: index,
+  name: item.name,
+  content: item.description,
+}));
 
-  const goBack = () => { router.push('/'); };
-  const goToCourse = () => { router.push(`/course/${courseId}`); };
+const goBack = () => router.push("/");
+
+const isOngoingCourse = ref(false);
+const coursesProgress = ref({});
+
+const checkCourseStatus = async () => {
+  coursesProgress.value = (await window.store.get("progress")) || {};
+  const course = coursesProgress.value[courseId];
+  isOngoingCourse.value = course ? !course.completed : false;
+};
+
+checkCourseStatus();
+
+const startCourse = async () => {
+  const progress = (await window.store.get("progress")) || {};
+  progress[courseId] = {
+    currentClass: 1,
+    currentTopic: 1,
+    completed: false,
+  };
+
+  await window.store.set("progress", progress);
+  router.push(`/course/${courseId}`);
+};
+
+const goToClass = async () => {
+  const progress = (await window.store.get("progress")) || {};
+  const classId = progress[courseId].currentClass;
+  const topicId = progress[courseId].currentTopic;
+
+  router.push(`/course/${courseId}/${classId}/${topicId}`);
+};
 </script>

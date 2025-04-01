@@ -6,8 +6,8 @@ import Course from '@ui/Course.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
-  { path: '/course/:id/info', name: 'courseInfo', component: CourseInfo },
-  { path: '/course/:id', name: 'course', component: Course },
+  { path: '/course/:courseId/info', name: 'courseInfo', component: CourseInfo },
+  { path: '/course/:courseId/:classId/:topicId', name: 'course', component: Course },
   { path: '/binary-tree-simulator', name: 'binaryTreeSimulator', component: BinaryTreeSimulator },
 ];
 
