@@ -11,7 +11,10 @@
       >
         <AccordionTrigger class="text-left">
           <div class="flex items-center mr-2">
-            <div class="min-w-12 min-h-12 bg-primary mr-4 rounded-full"></div>
+            <div
+              class="min-w-12 min-h-12 rounded-full mr-4"
+              :class="isClassCompleted(cls.id) ? 'bg-red-500' : 'bg-primary'"
+            ></div>
             <div>
               <p class="text-xs text-gray-500 font-medium mb-1">Aula {{ index + 1 }}</p>
               <p>{{ cls.name }}</p>
@@ -30,7 +33,8 @@
                 class="absolute left-[14px] top-full w-px h-12 border-l-2 border-dashed border-gray-400"
               ></div>
               <div
-                class="min-w-7 min-h-7 rounded-full bg-primary mr-3 relative z-10"
+                class="min-w-7 min-h-7 rounded-full mr-3 relative z-10"
+                :class="isTopicCompleted(cls.id, topic.id) ? 'bg-red-500' : 'bg-primary'"
               ></div>
               <div class="w-full flex justify-between">
                 <p class="font-semibold">{{ topic.name }}</p>
@@ -45,6 +49,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted, watch } from "vue";
 import {
   Accordion,
   AccordionContent,
@@ -52,5 +57,30 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-defineProps({ classes: Array });
+const props = defineProps({ classes: Array });
+const progress = ref({});
+
+const loadProgress = async () => {
+  progress.value = (await window.store.get("progress")) || {};
+};
+
+const isClassCompleted = (classId) => {
+  return Object.values(progress.value).some(
+    (p) => p.currentClass > parseInt(classId) || p.completed
+  );
+};
+
+const isTopicCompleted = (classId, topicId) => {
+  return Object.values(progress.value).some(
+    (p) =>
+      p.currentClass > parseInt(classId) ||
+      (p.currentClass === parseInt(classId) && p.currentTopic >= parseInt(topicId))
+  );
+};
+
+onMounted(loadProgress);
+
+watch(progress, async () => {
+  progress.value = (await window.store.get("progress")) || {};
+});
 </script>
