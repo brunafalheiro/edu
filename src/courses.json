@@ -6,21 +6,21 @@
     "icon": "iconBinaryTree",
     "classes": [
       {
-        "id": "binaryTree_1",
+        "id": "1",
         "name": "Introdução às Árvores Binárias",
         "description": "Entenda o conceito de árvores binárias, sua estrutura e aplicações.",
         "topics": [
           {
-            "id": "binaryTree_1_1",
-            "name": "aula 1",
+            "id": "1",
+            "name": "O que são árvores binárias",
             "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "text", "value": "Texto de introdução a arvores binarias" },
               { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
+              { "type": "text", "value": "Texto do topico 1 aula 1" }
             ]
           }, 
           {
-            "id": "binaryTree_1_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -29,7 +29,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_1_3",
+            "id": "3",
             "name": "aula 3",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -40,12 +40,12 @@
         ]
       },
       {
-        "id": "binaryTree_2",
+        "id": "2",
         "name": "Percursos em Árvores Binárias",
         "description": "Aprenda sobre os tipos de percursos: pré-ordem, em-ordem e pós-ordem.",
         "topics": [
           {
-            "id": "binaryTree_2_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -54,7 +54,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_2_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -65,12 +65,12 @@
         ]
       },
       {
-        "id": "binaryTree_3",
+        "id": "3",
         "name": "Operações Básicas em Árvores Binárias",
         "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
         "topics": [
           {
-            "id": "binaryTree_3_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -79,7 +79,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_3_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -90,12 +90,12 @@
         ]
       },
       {
-        "id": "binaryTree_4",
+        "id": "4",
         "name": "Árvores Binárias de Busca (BST)",
         "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
         "topics": [
           {
-            "id": "binaryTree_4_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -104,7 +104,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_4_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -115,12 +115,12 @@
         ]
       },
       {
-        "id": "binaryTree_5",
+        "id": "5",
         "name": "Balanceamento de Árvores Binárias",
         "description": "Saiba por que o balanceamento é importante e como melhorar o desempenho.",
         "topics": [
           {
-            "id": "binaryTree_5_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -129,7 +129,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_5_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -140,12 +140,12 @@
         ]
       },
       {
-        "id": "binaryTree_6",
+        "id": "6",
         "name": "Árvores AVL",
         "description": "Conheça as árvores AVL e como elas mantêm o balanceamento automaticamente.",
         "topics": [
           {
-            "id": "binaryTree_6_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -154,7 +154,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_6_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -165,12 +165,12 @@
         ]
       },
       {
-        "id": "binaryTree_7",
+        "id": "7",
         "name": "Árvores Vermelho-Preto",
         "description": "Entenda como funciona o balanceamento dinâmico nas árvores vermelho-preto.",
         "topics": [
           {
-            "id": "binaryTree_7_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -179,7 +179,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_7_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
@@ -190,12 +190,12 @@
         ]
       },
       {
-        "id": "binaryTree_8",
+        "id": "8",
         "name": "Casos de Uso e Aplicações",
         "description": "Veja como árvores binárias são usadas em bancos de dados, IA e mais.",
         "topics": [
           {
-            "id": "binaryTree_8_1",
+            "id": "1",
             "name": "aula 1",
             "content": [
               { "type": "text", "value": "Texto da aula 1 parte 1" },
@@ -204,7 +204,7 @@
             ]
           }, 
           {
-            "id": "binaryTree_8_2",
+            "id": "2",
             "name": "aula 2",
             "content": [
               { "type": "text", "value": "Texto da aula 2 parte 1" },
