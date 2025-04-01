@@ -69,6 +69,9 @@ checkCourseStatus();
 
 const startCourse = async () => {
   const progress = (await window.store.get("progress")) || {};
+  const classId = 1;
+  const topicId = 1;
+
   progress[courseId] = {
     currentClass: 1,
     currentTopic: 1,
@@ -76,13 +79,14 @@ const startCourse = async () => {
   };
 
   await window.store.set("progress", progress);
-  router.push(`/course/${courseId}`);
+  router.push(`/course/${courseId}/${classId}/${topicId}`);
 };
 
 const goToClass = async () => {
   const progress = (await window.store.get("progress")) || {};
-  const classId = progress[courseId].currentClass;
-  const topicId = progress[courseId].currentTopic;
+  const currentProgress = progress[courseId];
+  const classId = currentProgress.currentClass;
+  const topicId = currentProgress.currentTopic;
 
   router.push(`/course/${courseId}/${classId}/${topicId}`);
 };

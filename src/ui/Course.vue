@@ -7,7 +7,9 @@
       <div class="w-full max-w-[860px] h-full p-12 pt-24">
         <Button @click="goBack">Voltar</Button>
         <p class="text-2xl font-black mt-12 mb-2">{{ currentTopic.name }}</p>
-        <p class="text-sm text-gray-500 mb-10">Curso {{ courseName }}</p>
+        <p class="text-sm text-gray-500 mb-10">
+          Curso {{ course.name }}: {{ currentClassName }}
+        </p>
         <div class="mb-10" style="min-height: calc(100vh - 482px)">
           <div v-for="content in currentTopic.content" class="mb-6">
             <p v-if="content.type === 'text'" class="text-justify">{{ content.value }}</p>
@@ -16,7 +18,7 @@
         </div>
 
         <div class="flex items-center mb-8">
-          <Button class="mr-6">Ir para o próximo item</Button>
+          <Button @click="goToNextTopic" class="mr-6">Ir para o próximo item</Button>
           <i class="pi pi-check mr-2"></i>
           <p class="font-bold">Concluído</p>
         </div>
@@ -28,31 +30,84 @@
         </div>
       </div>
     </div>
-    <Sidebar :classes="classes" />
+    <Sidebar :classes="classesSkeleton" />
   </div>
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { ref, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Sidebar from "@components/ui/sidebar/Sidebar.vue";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
 
 const router = useRouter();
-const routerParams = router.currentRoute.value.params;
-const { courseId, classId, topicId } = routerParams;
+const route = useRoute();
 
-const course = courses.find((course) => course.id === courseId);
-const courseName = course.name;
-const classes = course.classes.map(({ name, id, topics }) => ({
+const course = ref(null);
+const classes = ref([]);
+const topicsFromClass = ref([]);
+const currentTopic = ref(null);
+const currentClassName = ref(null);
+const classesSkeleton = ref([]);
+
+const loadCourseData = () => {
+  const { courseId, classId, topicId } = route.params;
+
+  const currentCourse = courses.find((course) => course.id === courseId);
+  if (!currentCourse) return;
+
+  course.value = currentCourse;
+  classes.value = currentCourse.classes;
+  topicsFromClass.value = classes.value.find((c) => c.id === classId)?.topics || [];
+  currentClassName.value = classes.value.find((c) => c.id === classId)?.name || null;
+  currentTopic.value = topicsFromClass.value.find((t) => t.id === topicId) || null;
+};
+
+loadCourseData();
+classesSkeleton.value = classes.value.map(({ name, id, topics }) => ({
   id,
   name,
   topics: topics.map(({ name, id }) => ({ name, id })),
 }));
 
-const currentTopic = course.classes
-  .find((classItem) => classItem.id === classId)
-  .topics.find((topic) => topic.id === topicId);
+// Watch to params to update the course data when the route changes
+watch(() => route.params, loadCourseData, { deep: true });
 
 const goBack = () => router.back();
+const goToNextTopic = async () => {
+  const { courseId, classId, topicId } = route.params;
+
+  const isLastTopicFromClass = topicId == topicsFromClass.value.length;
+  const isLastClass = classId == classes.value[classes.value.length - 1].id;
+  const isLastTopicFromCourse = isLastClass && isLastTopicFromClass;
+  const progress = (await window.store.get("progress")) || {};
+
+  if (isLastTopicFromCourse) {
+    console.log("Curso concluído!");
+    progress[courseId].completed = true;
+    await window.store.set("progress", progress);
+    router.push("/");
+    return;
+  }
+
+  let nextClassId = parseInt(classId);
+  let nextTopicId = parseInt(topicId);
+
+  if (isLastTopicFromClass) {
+    nextTopicId = 1;
+    nextClassId += 1;
+  } else {
+    nextTopicId += 1;
+  }
+
+  console.log(`aula: ${nextClassId}\ntópico: ${nextTopicId}`);
+  progress[courseId] = {
+    currentClass: nextClassId,
+    currentTopic: nextTopicId,
+    completed: false,
+  };
+  await window.store.set("progress", progress);
+  router.push(`/course/${courseId}/${nextClassId}/${nextTopicId}`);
+};
 </script>
