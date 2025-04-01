@@ -38,7 +38,7 @@
               ></div>
               <div class="w-full flex justify-between">
                 <p class="font-semibold">{{ topic.name }}</p>
-                <p class="text-sm text-gray-500">5 min</p>
+                <p class="text-sm text-end min-w-12 text-gray-500">5 min</p>
               </div>
             </div>
           </div>
