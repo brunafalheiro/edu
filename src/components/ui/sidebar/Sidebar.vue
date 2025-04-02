@@ -2,11 +2,11 @@
   <div
     class="w-full max-w-xs bg-slate-100 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
   >
-    <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
+    <Accordion type="single" class="w-full" collapsible v-model="activeAccordion">
       <AccordionItem
         v-for="(cls, index) in classes"
         :key="cls.id"
-        :value="cls.name"
+        :value="cls.id"
         class="accordion-item relative px-4 mb-3 rounded-3xl border border-slate-900"
       >
         <AccordionTrigger class="text-left">
@@ -61,7 +61,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, watch, onMounted, computed } from "vue";
+import { useRoute } from "vue-router";
 import {
   Accordion,
   AccordionContent,
@@ -70,31 +71,41 @@ import {
 } from "@/components/ui/accordion";
 
 const props = defineProps({ classes: Array });
+
 const progress = ref({});
+const route = useRoute();
+const activeAccordion = ref(route.params.classId || null);
 
-const loadProgress = async () => {
+const fetchProgress = async () => {
   progress.value = (await window.store.get("progress")) || {};
 };
 
-const isClassCompleted = (classId) => {
+onMounted(fetchProgress);
+
+const isClassCompleted = computed(() => (classId) => {
   return Object.values(progress.value).some(
-    (p) => p.currentClass > parseInt(classId) || p.completed
+    ({ currentClass, completed }) => currentClass > parseInt(classId) || completed
   );
-};
-
-const isTopicCompleted = (classId, topicId) => {
-  return Object.values(progress.value).some(
-    (p) =>
-      p.currentClass > parseInt(classId) ||
-      (p.currentClass === parseInt(classId) && p.currentTopic >= parseInt(topicId))
-  );
-};
-
-onMounted(loadProgress);
-
-watch(progress, async () => {
-  progress.value = (await window.store.get("progress")) || {};
 });
+
+const isTopicCompleted = computed(() => (classId, topicId) => {
+  return Object.values(progress.value).some(
+    ({ currentClass, currentTopic }) =>
+      currentClass > parseInt(classId) ||
+      (currentClass === parseInt(classId) && currentTopic >= parseInt(topicId))
+  );
+});
+
+watch(
+  () => route.params.classId,
+  (newClassId) => {
+    if (newClassId !== activeAccordion.value) {
+      activeAccordion.value = newClassId;
+    }
+  }
+);
+
+watch(() => route.params, fetchProgress);
 </script>
 
 <style lang="scss">

@@ -41,9 +41,7 @@ import Sidebar from "@components/ui/sidebar/Sidebar.vue";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
 
-const router = useRouter();
 const route = useRoute();
-
 const course = ref(null);
 const classes = ref([]);
 const topicsFromClass = ref([]);
@@ -74,6 +72,7 @@ classesSkeleton.value = classes.value.map(({ name, id, topics }) => ({
 // Watch to params to update the course data when the route changes
 watch(() => route.params, loadCourseData, { deep: true });
 
+const router = useRouter();
 const goBack = () => router.back();
 const goToNextTopic = async () => {
   const { courseId, classId, topicId } = route.params;
@@ -101,7 +100,6 @@ const goToNextTopic = async () => {
     nextTopicId += 1;
   }
 
-  console.log(`aula: ${nextClassId}\ntópico: ${nextTopicId}`);
   progress[courseId] = {
     currentClass: nextClassId,
     currentTopic: nextTopicId,
