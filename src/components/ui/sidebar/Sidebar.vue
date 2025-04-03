@@ -17,7 +17,12 @@
             >
               <i class="pi pi-check text-white text-base"></i>
             </div>
-            <div v-else class="bg-primary min-w-12 min-h-12 rounded-full mr-4"></div>
+            <div
+              v-else
+              class="bg-primary min-w-12 min-h-12 rounded-full mr-4 flex items-center justify-center"
+            >
+              <p class="text-white">{{ classProgressPercentage(cls.id) }}%</p>
+            </div>
 
             <div>
               <p class="text-xs text-gray-500 font-medium mb-1">Aula {{ index + 1 }}</p>
@@ -105,6 +110,14 @@ const isTopicCompleted = computed(() => (classId, topicId) => {
 
 const isOngoingTopic = computed(() => (topicId) => {
   return topicId === route.params.topicId;
+});
+
+const classProgressPercentage = computed(() => (classId) => {
+  const classProgress = progress.value[courseId]?.completedContent[classId];
+  if (!classProgress) return 0;
+
+  const completedTopics = classProgress.filter((topic) => topic.completed).length;
+  return Math.round((completedTopics / classProgress.length) * 100);
 });
 
 watch(
