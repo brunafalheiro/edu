@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full max-w-xs bg-slate-100 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
+    class="w-full max-w-xs bg-slate-50 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
   >
     <Accordion type="single" class="w-full" collapsible v-model="activeAccordion">
       <AccordionItem
@@ -64,25 +64,25 @@
             <div class="relative flex items-center w-full">
               <div
                 v-if="topicIndex !== cls.topics.length - 1"
-                class="absolute left-[14px] top-full w-px h-12 border-l-2 border-dashed border-gray-400"
+                class="absolute left-[14px] top-full w-px h-12 border-l-2 border-dashed border-gray-300"
               ></div>
 
               <div
-                v-if="isTopicCompleted(cls.id, topic.id)"
-                class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-red-500 flex items-center justify-center"
+                :key="topic.id"
+                :class="[
+                  'min-w-7 min-h-7 rounded-full mr-3 relative z-10 flex items-center justify-center transition-all duration-700 ease-in-out',
+                  isTopicCompleted(cls.id, topic.id)
+                    ? 'bg-red-500'
+                    : isOngoingTopic(cls.id, topic.id)
+                    ? 'bg-red-300'
+                    : 'bg-white border-2 border-gray-300',
+                ]"
               >
-                <i class="pi pi-check text-white text-xs"></i>
+                <i
+                  v-if="isTopicCompleted(cls.id, topic.id)"
+                  class="pi pi-check text-white text-xs"
+                ></i>
               </div>
-
-              <div
-                v-else-if="isOngoingTopic(cls.id, topic.id)"
-                class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-red-300 flex items-center justify-center"
-              ></div>
-
-              <div
-                v-else
-                class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-primary"
-              ></div>
 
               <div class="w-full flex justify-between">
                 <p class="font-semibold">{{ topic.name }}</p>
