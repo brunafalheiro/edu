@@ -68,26 +68,29 @@
               ></div>
 
               <div
-                :key="topic.id"
-                :class="[
-                  'min-w-7 min-h-7 rounded-full mr-3 relative z-10 flex items-center justify-center transition-all duration-700 ease-in-out',
-                  isTopicCompleted(cls.id, topic.id)
-                    ? 'bg-red-500'
-                    : isOngoingTopic(cls.id, topic.id)
-                    ? 'bg-red-300'
-                    : 'bg-white border-2 border-gray-300',
-                ]"
+                @click="goToTopic(cls.id, topic.id)"
+                class="w-full flex items-center cursor-pointer"
               >
-                <i
-                  v-if="isTopicCompleted(cls.id, topic.id)"
-                  class="pi pi-check text-white text-xs"
-                ></i>
+                <div
+                  :key="topic.id"
+                  :class="[
+                    'min-w-7 min-h-7 rounded-full mr-3 relative z-10 flex items-center justify-center transition-all duration-700 ease-in-out',
+                    isTopicCompleted(cls.id, topic.id)
+                      ? 'bg-red-500'
+                      : isOngoingTopic(cls.id, topic.id)
+                      ? 'bg-red-300'
+                      : 'bg-white border-2 border-gray-300',
+                  ]"
+                >
+                  <i
+                    v-if="isTopicCompleted(cls.id, topic.id)"
+                    class="pi pi-check text-white text-xs"
+                  ></i>
+                </div>
+                <p class="font-semibold">{{ topic.name }}</p>
               </div>
 
-              <div class="w-full flex justify-between">
-                <p class="font-semibold">{{ topic.name }}</p>
-                <p class="text-sm text-end min-w-12 text-gray-500">5 min</p>
-              </div>
+              <p class="text-sm text-end min-w-12 text-gray-500">5 min</p>
             </div>
           </div>
         </AccordionContent>
@@ -98,7 +101,7 @@
 
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {
   Accordion,
   AccordionContent,
@@ -144,6 +147,11 @@ const classProgressPercentage = computed(() => (classId) => {
   const completedTopics = classProgress.filter((topic) => topic.completed).length;
   return Math.round((completedTopics / classProgress.length) * 100);
 });
+
+const router = useRouter();
+const goToTopic = (classId, topicId) => {
+  router.push(`/course/${courseId}/${classId}/${topicId}`);
+};
 
 watch(
   () => [route.params.classId, route.params.topicId],
