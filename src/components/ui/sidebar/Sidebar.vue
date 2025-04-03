@@ -122,9 +122,10 @@ const fetchProgress = async () => {
 const courseId = route.params.courseId;
 
 const isClassCompleted = computed(() => (classId) => {
-  return Object.values(progress.value).some(
-    ({ currentClass, completed }) => currentClass > parseInt(classId) || completed
-  );
+  const courseProgress = progress.value[courseId]?.completedContent;
+  if (!courseProgress || !courseProgress[classId]) return false;
+
+  return courseProgress[classId].every((topic) => topic.completed);
 });
 
 const isTopicCompleted = computed(() => (classId, topicId) => {
