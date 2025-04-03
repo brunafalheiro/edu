@@ -1,13 +1,13 @@
 <template>
   <div
-    class="w-full max-w-xs bg-slate-50 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
+    class="w-full max-w-xs bg-white border-l border-gray-400 fixed right-0 h-screen p-4 pt-24 overflow-y-auto"
   >
     <Accordion type="single" class="w-full" collapsible v-model="activeAccordion">
       <AccordionItem
         v-for="(cls, index) in classes"
         :key="cls.id"
         :value="cls.id"
-        class="accordion-item relative px-4 mb-3 rounded-3xl border border-slate-900"
+        class="accordion-item relative px-4 mb-3 rounded-3xl border border-gray-400"
       >
         <AccordionTrigger class="text-left">
           <div class="flex items-center mr-2">
