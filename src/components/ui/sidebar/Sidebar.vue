@@ -75,7 +75,7 @@
               </div>
 
               <div
-                v-else-if="isOngoingTopic(topic.id)"
+                v-else-if="isOngoingTopic(cls.id, topic.id)"
                 class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-red-300 flex items-center justify-center"
               ></div>
 
@@ -133,8 +133,8 @@ const isTopicCompleted = computed(() => (classId, topicId) => {
   );
 });
 
-const isOngoingTopic = computed(() => (topicId) => {
-  return topicId === route.params.topicId;
+const isOngoingTopic = computed(() => (classId, topicId) => {
+  return topicId === route.params.topicId && classId === route.params.classId;
 });
 
 const classProgressPercentage = computed(() => (classId) => {
@@ -146,8 +146,8 @@ const classProgressPercentage = computed(() => (classId) => {
 });
 
 watch(
-  () => route.params.classId,
-  (newClassId) => {
+  () => [route.params.classId, route.params.topicId],
+  ([newClassId]) => {
     if (newClassId !== activeAccordion.value) {
       activeAccordion.value = newClassId;
     }
