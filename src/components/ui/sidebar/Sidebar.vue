@@ -43,6 +43,12 @@
               >
                 <i class="pi pi-check text-white text-xs"></i>
               </div>
+
+              <div
+                v-else-if="isOngoingTopic(topic.id)"
+                class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-red-300 flex items-center justify-center"
+              ></div>
+
               <div
                 v-else
                 class="min-w-7 min-h-7 rounded-full mr-3 relative z-10 bg-primary"
@@ -96,6 +102,10 @@ const isTopicCompleted = computed(() => (classId, topicId) => {
   return courseProgress[classId].some(
     (topic) => topic.topicId === topicId && topic.completed
   );
+});
+
+const isOngoingTopic = computed(() => (topicId) => {
+  return topicId === route.params.topicId;
 });
 
 watch(
