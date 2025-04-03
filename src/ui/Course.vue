@@ -4,7 +4,7 @@
       class="min-h-screen flex flex-col items-center"
       style="width: calc(100% - 320px)"
     >
-      <div class="w-full max-w-[860px] h-full p-12 pt-24">
+      <div v-if="!isFinishedCourse" class="w-full max-w-[860px] h-full p-12 pt-24">
         <Button @click="goBack">Voltar</Button>
         <p class="text-2xl font-black mt-12 mb-2">{{ currentTopic.name }}</p>
         <p class="text-sm text-gray-500 mb-10">
@@ -29,6 +29,10 @@
           <p class="font-semibold text-sm">Reportar problema</p>
         </div>
       </div>
+      <div v-else>
+        <p>Finalizado</p>
+        <Button @click="goToHome" class="mr-6">Ir para o menu</Button>
+      </div>
     </div>
     <Sidebar :classes="classesSkeleton" />
   </div>
@@ -48,6 +52,7 @@ const topicsFromClass = ref([]);
 const currentTopic = ref(null);
 const currentClassName = ref(null);
 const classesSkeleton = ref([]);
+const isFinishedCourse = ref(false);
 
 const loadCourseData = () => {
   const { courseId, classId, topicId } = route.params;
@@ -84,8 +89,9 @@ const goToNextTopic = async () => {
 
   if (isLastTopicFromCourse) {
     progress[courseId].completed = true;
+    progress[courseId].completedContent[classId][topicId - 1].completed = true;
+    isFinishedCourse.value = true;
     await window.store.set("progress", progress);
-    router.push("/");
     return;
   }
 
@@ -95,17 +101,15 @@ const goToNextTopic = async () => {
   if (isLastTopicFromClass) {
     nextTopicId = 1;
     nextClassId += 1;
-  } else {
-    nextTopicId += 1;
-  }
+  } else nextTopicId += 1;
 
   progress[courseId].currentClass = nextClassId;
   progress[courseId].currentTopic = nextTopicId;
   progress[courseId].completedContent[classId][topicId - 1].completed = true;
 
-  console.log(progress);
-
   await window.store.set("progress", progress);
   router.push(`/course/${courseId}/${nextClassId}/${nextTopicId}`);
 };
+
+const goToHome = () => router.push("/");
 </script>
