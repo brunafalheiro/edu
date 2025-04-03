@@ -17,11 +17,36 @@
             >
               <i class="pi pi-check text-white text-base"></i>
             </div>
-            <div
-              v-else
-              class="bg-primary min-w-12 min-h-12 rounded-full mr-4 flex items-center justify-center"
-            >
-              <p class="text-white">{{ classProgressPercentage(cls.id) }}%</p>
+            <div v-else class="relative max-w-12 max-h-12 w-full h-full mr-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <!-- Background circle -->
+                <circle
+                  class="text-gray-200 stroke-current"
+                  stroke-width="3"
+                  cx="18"
+                  cy="18"
+                  r="15.915"
+                  fill="transparent"
+                />
+                <!-- Progress circle -->
+                <circle
+                  class="text-red-500 stroke-current transition-all duration-700 ease-in-out"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  cx="18"
+                  cy="18"
+                  r="15.915"
+                  fill="transparent"
+                  stroke-dasharray="100"
+                  :stroke-dashoffset="100 - classProgressPercentage(cls.id)"
+                  transform="rotate(-90 18 18)"
+                />
+              </svg>
+              <p
+                class="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-900"
+              >
+                {{ classProgressPercentage(cls.id) }}%
+              </p>
             </div>
 
             <div>
