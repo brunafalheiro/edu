@@ -86,7 +86,7 @@ const fetchProgress = async () => {
   progress.value = (await window.store.get("progress")) || {};
 };
 
-onMounted(fetchProgress);
+const courseId = route.params.courseId;
 
 const isClassCompleted = computed(() => (classId) => {
   return Object.values(progress.value).some(
@@ -94,7 +94,6 @@ const isClassCompleted = computed(() => (classId) => {
   );
 });
 
-const courseId = route.params.courseId;
 const isTopicCompleted = computed(() => (classId, topicId) => {
   const courseProgress = progress.value[courseId]?.completedContent;
   if (!courseProgress || !courseProgress[classId]) return false;
@@ -118,6 +117,7 @@ watch(
 );
 
 watch(() => route.params, fetchProgress);
+onMounted(fetchProgress);
 </script>
 
 <style lang="scss">
