@@ -88,11 +88,13 @@ const isClassCompleted = computed(() => (classId) => {
   );
 });
 
+const courseId = route.params.courseId;
 const isTopicCompleted = computed(() => (classId, topicId) => {
-  return Object.values(progress.value).some(
-    ({ currentClass, currentTopic }) =>
-      currentClass > parseInt(classId) ||
-      (currentClass === parseInt(classId) && currentTopic >= parseInt(topicId))
+  const courseProgress = progress.value[courseId]?.completedContent;
+  if (!courseProgress || !courseProgress[classId]) return false;
+
+  return courseProgress[classId].some(
+    (topic) => topic.topicId === topicId && topic.completed
   );
 });
 

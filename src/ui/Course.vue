@@ -83,7 +83,6 @@ const goToNextTopic = async () => {
   const progress = (await window.store.get("progress")) || {};
 
   if (isLastTopicFromCourse) {
-    console.log("Curso concluído!");
     progress[courseId].completed = true;
     await window.store.set("progress", progress);
     router.push("/");
@@ -100,11 +99,12 @@ const goToNextTopic = async () => {
     nextTopicId += 1;
   }
 
-  progress[courseId] = {
-    currentClass: nextClassId,
-    currentTopic: nextTopicId,
-    completed: false,
-  };
+  progress[courseId].currentClass = nextClassId;
+  progress[courseId].currentTopic = nextTopicId;
+  progress[courseId].completedContent[classId][topicId - 1].completed = true;
+
+  console.log(progress);
+
   await window.store.set("progress", progress);
   router.push(`/course/${courseId}/${nextClassId}/${nextTopicId}`);
 };

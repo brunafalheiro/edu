@@ -72,10 +72,19 @@ const startCourse = async () => {
   const classId = 1;
   const topicId = 1;
 
+  const completedContent = {};
+  course.classes.forEach((classItem) => {
+    completedContent[classItem.id] = classItem.topics.map((topic) => ({
+      topicId: topic.id,
+      completed: false,
+    }));
+  });
+
   progress[courseId] = {
     currentClass: 1,
     currentTopic: 1,
     completed: false,
+    completedContent,
   };
 
   await window.store.set("progress", progress);
