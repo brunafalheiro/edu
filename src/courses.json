@@ -36,7 +36,34 @@
               { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
               { "type": "text", "value": "Texto da aula 2 parte 2" }
             ]
-          } 
+          }, 
+          {
+            "id": "4",
+            "name": "aula 4",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          }, 
+          {
+            "id": "5",
+            "name": "aula 5",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          }, 
+          {
+            "id": "6",
+            "name": "aula 6",
+            "content": [
+              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              { "type": "image", "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png" },
+              { "type": "text", "value": "Texto da aula 2 parte 2" }
+            ]
+          }
         ]
       },
       {
