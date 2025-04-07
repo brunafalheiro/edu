@@ -56,58 +56,24 @@ import Sidebar from "@components/ui/sidebar/Sidebar.vue";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
 
+// Routing
+const router = useRouter();
 const route = useRoute();
+
+// Reactive state
 const course = ref(null);
 const classes = ref([]);
+const classesSkeleton = ref([]);
 const topicsFromClass = ref([]);
 const currentTopic = ref(null);
 const currentClassName = ref(null);
-const classesSkeleton = ref([]);
 const isFinishedCourse = ref(false);
 
-const loadCourseData = () => {
-  const { courseId, classId, topicId } = route.params;
-
-  const currentCourse = courses.find((course) => course.id === courseId);
-  if (!currentCourse) return;
-
-  course.value = currentCourse;
-  classes.value = currentCourse.classes;
-
-  topicsFromClass.value =
-    classes.value.find((c) => c.id === classId)?.topics || [];
-
-  currentClassName.value =
-    classes.value.find((c) => c.id === classId)?.name || null;
-
-  currentTopic.value =
-    topicsFromClass.value.find((t) => t.id === topicId) || null;
-};
-
-loadCourseData();
-classesSkeleton.value = classes.value.map(({ name, id, topics }) => ({
-  id,
-  name,
-  topics: topics.map(({ name, id }) => ({ name, id })),
-}));
-
-// Watch to params to update the course data when the route changes
-watch(() => route.params, loadCourseData, { deep: true });
-
-const router = useRouter();
-const goBack = () => router.back();
-
+// Utility functions
 const isCourseCompleted = (completedContent) => {
-  for (const classId in completedContent) {
-    const topics = completedContent[classId];
-
-    const hasIncomplete = topics.some((topic) => !topic.completed);
-    if (hasIncomplete) {
-      return false;
-    }
-  }
-
-  return true;
+  return Object.values(completedContent).every((topics) =>
+    topics.every((topic) => topic.completed)
+  );
 };
 
 const getFirstIncomplete = (completedContent) => {
@@ -117,68 +83,101 @@ const getFirstIncomplete = (completedContent) => {
 
   for (const classId of sortedClassIds) {
     const topics = completedContent[classId];
+    const firstIncompleteIndex = topics.findIndex((t) => !t.completed);
 
-    for (let i = 0; i < topics.length; i++) {
-      if (!topics[i].completed) {
-        return {
-          firstIncompleteClass: Number(classId),
-          firstIncompleteTopic: i + 1,
-        };
-      }
+    if (firstIncompleteIndex !== -1) {
+      return {
+        firstIncompleteClass: Number(classId),
+        firstIncompleteTopic: firstIncompleteIndex + 1,
+      };
     }
   }
 
-  return false;
+  return null;
 };
+
+// Navigation
+const goBack = () => router.back();
+const goToHome = () => router.push("/");
 
 const goToNextTopic = async () => {
   const { courseId, classId, topicId } = route.params;
-
   const progress = (await window.store.get("progress")) || {};
-  const isLastTopicFromClass = topicId == topicsFromClass.value.length;
-  const islastClassFromCourse = classId == classes.value.length;
-  const isLastTopicFromCourse = islastClassFromCourse && isLastTopicFromClass;
-  const isCompleted = isCourseCompleted(
-    progress[courseId]?.completedContent || {}
-  );
+  const courseProgress = progress[courseId] || {};
 
-  if (isCompleted) {
+  const currentClassIndex = parseInt(classId);
+  const currentTopicIndex = parseInt(topicId);
+
+  const isLastTopicFromClass =
+    currentTopicIndex === topicsFromClass.value.length;
+  const isLastClassFromCourse = currentClassIndex === classes.value.length;
+  const isLastTopicFromCourse = isLastClassFromCourse && isLastTopicFromClass;
+
+  const completedContent = courseProgress.completedContent || {};
+  const courseCompleted = isCourseCompleted(completedContent);
+
+  // Mark current topic as completed
+  completedContent[classId][currentTopicIndex - 1].completed = true;
+
+  if (courseCompleted) {
     isFinishedCourse.value = true;
-    progress[courseId].completed = true;
-    progress[courseId].completedContent[classId][topicId - 1].completed = true;
+    courseProgress.completed = true;
     await window.store.set("progress", progress);
     return;
   }
 
-  if (!isCompleted && isLastTopicFromCourse) {
-    const { firstIncompleteClass, firstIncompleteTopic } = getFirstIncomplete(
-      progress[courseId].completedContent
-    );
-    progress[courseId].currentClass = firstIncompleteClass;
-    progress[courseId].currentTopic = firstIncompleteTopic;
-    progress[courseId].completedContent[classId][topicId - 1].completed = true;
-    await window.store.set("progress", progress);
-    router.push(
-      `/course/${courseId}/${firstIncompleteClass}/${firstIncompleteTopic}`
-    );
+  if (isLastTopicFromCourse) {
+    const next = getFirstIncomplete(completedContent);
+    if (next) {
+      courseProgress.currentClass = next.firstIncompleteClass;
+      courseProgress.currentTopic = next.firstIncompleteTopic;
+      await window.store.set("progress", progress);
+      router.push(
+        `/course/${courseId}/${next.firstIncompleteClass}/${next.firstIncompleteTopic}`
+      );
+    }
     return;
   }
 
-  let nextClassId = parseInt(classId);
-  let nextTopicId = parseInt(topicId);
+  const nextClassId = isLastTopicFromClass
+    ? currentClassIndex + 1
+    : currentClassIndex;
+  const nextTopicId = isLastTopicFromClass ? 1 : currentTopicIndex + 1;
 
-  if (isLastTopicFromClass) {
-    nextTopicId = 1;
-    nextClassId += 1;
-  } else nextTopicId += 1;
-
-  progress[courseId].currentClass = nextClassId;
-  progress[courseId].currentTopic = nextTopicId;
-  progress[courseId].completedContent[classId][topicId - 1].completed = true;
+  courseProgress.currentClass = nextClassId;
+  courseProgress.currentTopic = nextTopicId;
 
   await window.store.set("progress", progress);
   router.push(`/course/${courseId}/${nextClassId}/${nextTopicId}`);
 };
 
-const goToHome = () => router.push("/");
+// Course loading
+const loadCourseData = () => {
+  const { courseId, classId, topicId } = route.params;
+
+  const selectedCourse = courses.find((c) => c.id === courseId);
+  if (!selectedCourse) return;
+
+  course.value = selectedCourse;
+  classes.value = selectedCourse.classes;
+
+  const selectedClass = classes.value.find((c) => c.id === classId);
+  topicsFromClass.value = selectedClass?.topics || [];
+  currentClassName.value = selectedClass?.name || null;
+
+  currentTopic.value =
+    topicsFromClass.value.find((t) => t.id === topicId) || null;
+
+  classesSkeleton.value = classes.value.map(({ id, name, topics }) => ({
+    id,
+    name,
+    topics: topics.map(({ id, name }) => ({ id, name })),
+  }));
+};
+
+// Watch for route changes
+watch(() => route.params, loadCourseData, { deep: true });
+
+// Initial load
+loadCourseData();
 </script>
