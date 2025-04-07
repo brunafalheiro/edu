@@ -51,27 +51,29 @@
       </div>
 
       <p class="text-xl font-black mb-4">Cursos</p>
-      <div
-        v-for="course in courses"
-        key="{{ course.id }}"
-        class="h-16 w-full flex justify-between items-center bg-gray-100 rounded-lg px-4 py-2 mb-12"
-      >
-        <div class="flex items-center justify-center">
-          <div
-            class="flex items-center justify-center rounded-sm h-11 w-11 bg-neutral-50 mr-4"
-          >
-            <img :src="getIcon(course.icon)" alt="" />
+      <div class="mb-12">
+        <div
+          v-for="course in courses"
+          key="{{ course.id }}"
+          class="h-16 w-full flex justify-between items-center bg-gray-100 rounded-lg px-4 py-2 mb-4"
+        >
+          <div class="flex items-center justify-center">
+            <div
+              class="flex items-center justify-center rounded-sm h-11 w-11 bg-neutral-50 mr-4"
+            >
+              <img :src="getIcon(course.icon)" alt="" />
+            </div>
+            <p class="font-bold">{{ course.name }}</p>
           </div>
-          <p class="font-bold">{{ course.name }}</p>
-        </div>
-        <div class="flex items-center justify-center">
-          <div class="flex items-center">
-            <i class="pi pi-clock mr-2 mt-[2px]"></i>
-            <p class="font-semibold mr-12">16min</p>
+          <div class="flex items-center justify-center">
+            <div class="flex items-center">
+              <i class="pi pi-clock mr-2 mt-[2px]"></i>
+              <p class="font-semibold mr-12">16min</p>
+            </div>
+            <Button class="h-8" @click="goToCourseInfo(course.id)"
+              >Ver curso</Button
+            >
           </div>
-          <Button class="h-8" @click="goToCourseInfo(course.id)"
-            >Ver curso</Button
-          >
         </div>
       </div>
 
