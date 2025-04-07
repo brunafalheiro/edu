@@ -4,7 +4,10 @@
       class="min-h-screen flex flex-col items-center"
       style="width: calc(100% - 320px)"
     >
-      <div v-if="!isFinishedCourse" class="w-full max-w-[860px] h-full p-12 pt-24">
+      <div
+        v-if="!isFinishedCourse"
+        class="w-full max-w-[860px] h-full p-12 pt-24"
+      >
         <Button @click="goBack">Voltar</Button>
         <p class="text-2xl font-black mt-12 mb-2">{{ currentTopic.name }}</p>
         <p class="text-sm text-gray-500 mb-10">
@@ -12,13 +15,21 @@
         </p>
         <div class="mb-10" style="min-height: calc(100vh - 482px)">
           <div v-for="content in currentTopic.content" class="mb-6">
-            <p v-if="content.type === 'text'" class="text-justify">{{ content.value }}</p>
-            <img v-if="content.type === 'image'" :src="content.value" class="mx-auto" />
+            <p v-if="content.type === 'text'" class="text-justify">
+              {{ content.value }}
+            </p>
+            <img
+              v-if="content.type === 'image'"
+              :src="content.value"
+              class="mx-auto"
+            />
           </div>
         </div>
 
         <div class="flex items-center mb-8">
-          <Button @click="goToNextTopic" class="mr-6">Ir para o próximo item</Button>
+          <Button @click="goToNextTopic" class="mr-6"
+            >Ir para o próximo item</Button
+          >
           <i class="pi pi-check mr-2"></i>
           <p class="font-bold">Concluído</p>
         </div>
@@ -62,9 +73,15 @@ const loadCourseData = () => {
 
   course.value = currentCourse;
   classes.value = currentCourse.classes;
-  topicsFromClass.value = classes.value.find((c) => c.id === classId)?.topics || [];
-  currentClassName.value = classes.value.find((c) => c.id === classId)?.name || null;
-  currentTopic.value = topicsFromClass.value.find((t) => t.id === topicId) || null;
+
+  topicsFromClass.value =
+    classes.value.find((c) => c.id === classId)?.topics || [];
+
+  currentClassName.value =
+    classes.value.find((c) => c.id === classId)?.name || null;
+
+  currentTopic.value =
+    topicsFromClass.value.find((t) => t.id === topicId) || null;
 };
 
 loadCourseData();
@@ -79,19 +96,71 @@ watch(() => route.params, loadCourseData, { deep: true });
 
 const router = useRouter();
 const goBack = () => router.back();
+
+const isCourseCompleted = (completedContent) => {
+  for (const classId in completedContent) {
+    const topics = completedContent[classId];
+
+    const hasIncomplete = topics.some((topic) => !topic.completed);
+    if (hasIncomplete) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const getFirstIncomplete = (completedContent) => {
+  const sortedClassIds = Object.keys(completedContent).sort(
+    (a, b) => Number(a) - Number(b)
+  );
+
+  for (const classId of sortedClassIds) {
+    const topics = completedContent[classId];
+
+    for (let i = 0; i < topics.length; i++) {
+      if (!topics[i].completed) {
+        return {
+          firstIncompleteClass: Number(classId),
+          firstIncompleteTopic: i + 1,
+        };
+      }
+    }
+  }
+
+  return false;
+};
+
 const goToNextTopic = async () => {
   const { courseId, classId, topicId } = route.params;
 
-  const isLastTopicFromClass = topicId == topicsFromClass.value.length;
-  const isLastClass = classId == classes.value[classes.value.length - 1].id;
-  const isLastTopicFromCourse = isLastClass && isLastTopicFromClass;
   const progress = (await window.store.get("progress")) || {};
+  const isLastTopicFromClass = topicId == topicsFromClass.value.length;
+  const islastClassFromCourse = classId == classes.value.length;
+  const isLastTopicFromCourse = islastClassFromCourse && isLastTopicFromClass;
+  const isCompleted = isCourseCompleted(
+    progress[courseId]?.completedContent || {}
+  );
 
-  if (isLastTopicFromCourse) {
+  if (isCompleted) {
+    isFinishedCourse.value = true;
     progress[courseId].completed = true;
     progress[courseId].completedContent[classId][topicId - 1].completed = true;
-    isFinishedCourse.value = true;
     await window.store.set("progress", progress);
+    return;
+  }
+
+  if (!isCompleted && isLastTopicFromCourse) {
+    const { firstIncompleteClass, firstIncompleteTopic } = getFirstIncomplete(
+      progress[courseId].completedContent
+    );
+    progress[courseId].currentClass = firstIncompleteClass;
+    progress[courseId].currentTopic = firstIncompleteTopic;
+    progress[courseId].completedContent[classId][topicId - 1].completed = true;
+    await window.store.set("progress", progress);
+    router.push(
+      `/course/${courseId}/${firstIncompleteClass}/${firstIncompleteTopic}`
+    );
     return;
   }
 
