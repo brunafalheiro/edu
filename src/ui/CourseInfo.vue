@@ -10,16 +10,18 @@
       </div>
       <p class="mb-9">{{ course.description }}</p>
 
-      <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">Começar</Button>
+      <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">
+        Começar
+      </Button>
       <Button v-else @click="goToClass" class="mb-12">Continuar</Button>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
       <div class="p-4 bg-gray-100 rounded-lg mb-12">
-        <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
+        <Accordion type="single" class="w-full" collapsible>
           <AccordionItem
             v-for="item in accordionItems"
             :key="item.value"
-            :value="item.value"
+            :value="item.value.toString()"
           >
             <AccordionTrigger>{{ item.name }}</AccordionTrigger>
             <AccordionContent>
