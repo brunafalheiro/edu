@@ -41,10 +41,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
+import Button from "@components/ui/button/Button.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const courseId = router.currentRoute.value.params.courseId;
