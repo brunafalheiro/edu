@@ -149,6 +149,8 @@ const goToNextTopic = async () => {
         `/course/${courseId}/${next.firstIncompleteClass}/${next.firstIncompleteTopic}`
       );
     }
+
+    await window.store.set("progress", progress);
     return;
   }
 
