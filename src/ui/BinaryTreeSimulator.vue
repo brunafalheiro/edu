@@ -5,19 +5,19 @@
       <p class="text-2xl font-black mb-2">Simulador de Árvores Binárias</p>
       <Button @click="clearTree" class="w-40 mb-12">Limpar</Button>
 
-      <div
-        class="tree mb-8"
-        style="
-          border: 1px solid red;
-          height: calc(100% - 340px) !important;
-          overflow: auto;
-        "
-      >
-        <TreeComponent v-if="tree" :tree="tree" />
+      <div class="tree mb-8 viewer-container position-relative w-full">
+        <div
+          ref="zoomContainer"
+          class="zoom-wrapper inline-block cursor-grabbing"
+        >
+          <TreeComponent v-if="tree" :tree="tree" />
+        </div>
       </div>
 
       <div class="flex items-center justify-center">
-        <div class="flex flex-wrap justify-center gap-8 w-fit p-6 rounded-lg bg-gray-50">
+        <div
+          class="flex flex-wrap justify-center gap-8 w-fit p-6 rounded-lg bg-gray-50"
+        >
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Gerar árvore aleatória</p>
             <div class="flex items-end w-min">
@@ -109,11 +109,12 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { TreeFunctions } from "@tools/treeFunctions.js";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Label } from "@/components/ui/label";
 import Separator from "@/components/ui/separator/Separator.vue";
 import Button from "@components/ui/button/Button.vue";
 import TreeComponent from "@/components/ui/TreeComponent/TreeComponent.vue";
+import panzoom from "panzoom";
 import {
   NumberField,
   NumberFieldContent,
@@ -122,12 +123,12 @@ import {
   NumberFieldInput,
 } from "@/components/ui/number-field";
 
-let tree = ref(null);
-let nodeToBeAdded = ref(null);
-let rootValue = ref(null);
-let nodeToBeSearched = ref(null);
-let nodeToBeRemoved = ref(null);
-let nodeAmount = ref(null);
+const tree = ref(null);
+const nodeToBeAdded = ref(null);
+const rootValue = ref(null);
+const nodeToBeSearched = ref(null);
+const nodeToBeRemoved = ref(null);
+const nodeAmount = ref(null);
 
 const setTree = () => {
   tree.value = TreeFunctions.createTree(rootValue.value);
@@ -163,4 +164,36 @@ const clearTree = () => {
 
 const router = useRouter();
 const goBack = () => router.push("/");
+
+// Initialize panzoom on the tree component
+const zoomContainer = ref(null);
+const panzoomInstance = ref(null);
+
+watch(tree, (newVal) => {
+  if (newVal && zoomContainer.value) {
+    if (panzoomInstance.value) {
+      panzoomInstance.value.dispose();
+    }
+
+    panzoomInstance.value = panzoom(zoomContainer.value, {
+      smoothScroll: false,
+      bounds: false,
+      zoomDoubleClickSpeed: 1,
+      minZoom: 0.2,
+      maxZoom: 2,
+    });
+  }
+});
 </script>
+
+<style scoped lang="scss">
+.viewer-container {
+  height: calc(100% - 460px);
+  overflow: hidden;
+  background: #f9f9f9;
+
+  .zoom-wrapper:active {
+    cursor: grabbing;
+  }
+}
+</style>

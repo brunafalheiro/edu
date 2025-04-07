@@ -47,6 +47,7 @@
     "electron-store": "^8.2.0",
     "embla-carousel-vue": "^8.6.0",
     "lucide-vue-next": "^0.483.0",
+    "panzoom": "^9.4.3",
     "primeicons": "^7.0.0",
     "reka-ui": "^2.2.0",
     "tailwind-merge": "^3.0.2",
