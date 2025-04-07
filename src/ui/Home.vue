@@ -3,12 +3,14 @@
     <div class="w-full max-w-5xl p-12 pt-24">
       <div class="w-full h-[180px] bg-gray-100 rounded-lg relative p-6 mb-6">
         <div class="max-w-md w-full flex absolute right-6 bottom-6">
-          <div class="h-24 w-full bg-white rounded-lg flex items-center p-6 mr-4">
-            <p class="text-5xl font-black mr-4">11</p>
+          <div
+            class="h-24 w-full bg-white rounded-lg flex items-center p-6 mr-4"
+          >
+            <p class="text-5xl font-black mr-4">{{ completedCourses }}</p>
             <p class="text-sm font-medium">Cursos completados</p>
           </div>
           <div class="h-24 w-full bg-white rounded-lg flex items-center p-6">
-            <p class="text-5xl font-black mr-4">4</p>
+            <p class="text-5xl font-black mr-4">{{ ongoingCourses }}</p>
             <p class="text-sm font-medium">Cursos em andamento</p>
           </div>
         </div>
@@ -66,7 +68,9 @@
             <i class="pi pi-clock mr-2 mt-[2px]"></i>
             <p class="font-semibold mr-12">16min</p>
           </div>
-          <Button class="h-8" @click="goToCourseInfo(course.id)">Ver curso</Button>
+          <Button class="h-8" @click="goToCourseInfo(course.id)"
+            >Ver curso</Button
+          >
         </div>
       </div>
 
@@ -95,11 +99,32 @@
 import { useRouter } from "vue-router";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
+import { ref } from "vue";
+
+const completedCourses = ref(0);
+const ongoingCourses = ref(0);
 
 const router = useRouter();
 const goToCourseInfo = (courseId) => router.push(`/course/${courseId}/info`);
 const goToBinaryTreeSimulator = () => router.push("/binary-tree-simulator");
 
 const icons = import.meta.glob("@/assets/icons/*.svg", { eager: true });
-const getIcon = (iconName) => icons[`/src/assets/icons/${iconName}.svg`]?.default || "";
+const getIcon = (iconName) =>
+  icons[`/src/assets/icons/${iconName}.svg`]?.default || "";
+
+const updateCourseStatus = async () => {
+  const progress = (await window.store.get("progress")) ?? {};
+
+  let totalCompleted = 0;
+  let totalOngoing = 0;
+
+  for (const course of Object.values(progress)) {
+    course.completed ? totalCompleted++ : totalOngoing++;
+  }
+
+  completedCourses.value = totalCompleted;
+  ongoingCourses.value = totalOngoing;
+};
+
+updateCourseStatus();
 </script>
