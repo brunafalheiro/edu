@@ -8,7 +8,7 @@
         v-if="!isFinishedCourse"
         class="w-full max-w-[860px] h-full p-12 pt-24"
       >
-        <Button @click="goBack">Voltar</Button>
+        <Button @click="goToHome">Voltar</Button>
         <p class="text-2xl font-black mt-12 mb-2">{{ currentTopic.name }}</p>
         <p class="text-sm text-gray-500 mb-10">
           Curso {{ course.name }}: {{ currentClassName }}
@@ -30,8 +30,10 @@
           <Button @click="goToNextTopic" class="mr-6"
             >Ir para o próximo item</Button
           >
-          <i class="pi pi-check mr-2"></i>
-          <p class="font-bold">Concluído</p>
+          <div v-if="isTopicCompleted" class="flex items-center">
+            <i class="pi pi-check mr-2"></i>
+            <p class="font-bold">Concluído</p>
+          </div>
         </div>
 
         <div class="h-px w-full bg-gray-200 mb-6"></div>
@@ -68,12 +70,24 @@ const topicsFromClass = ref([]);
 const currentTopic = ref(null);
 const currentClassName = ref(null);
 const isFinishedCourse = ref(false);
+const isTopicCompleted = ref(false);
 
 // Utility functions
 const isCourseCompleted = (completedContent) => {
   return Object.values(completedContent).every((topics) =>
     topics.every((topic) => topic.completed)
   );
+};
+
+const updateTopicStatus = async () => {
+  const { courseId, classId, topicId } = route.params;
+  const progress = await window.store.get("progress");
+  const completedContent = progress?.[courseId]?.completedContent || {};
+  const topics = completedContent[classId];
+
+  if (!topics) return;
+  const topic = topics[topicId - 1];
+  isTopicCompleted.value = topic ? topic.completed : false;
 };
 
 const getFirstIncomplete = (completedContent) => {
@@ -97,7 +111,6 @@ const getFirstIncomplete = (completedContent) => {
 };
 
 // Navigation
-const goBack = () => router.back();
 const goToHome = () => router.push("/");
 
 const goToNextTopic = async () => {
@@ -176,7 +189,14 @@ const loadCourseData = () => {
 };
 
 // Watch for route changes
-watch(() => route.params, loadCourseData, { deep: true });
+watch(
+  () => route.params,
+  async () => {
+    loadCourseData();
+    await updateTopicStatus();
+  },
+  { deep: true }
+);
 
 // Initial load
 loadCourseData();
