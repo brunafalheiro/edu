@@ -4,20 +4,14 @@
       <Button class="mb-12" @click="goBack">Voltar</Button>
       <p class="text-2xl font-black mb-2">Simulador de Árvores Binárias</p>
       <Button @click="clearTree" class="w-40 mb-12">Limpar</Button>
-
-      <div class="tree mb-8 viewer-container position-relative w-full">
+      <div class="tree mb-8 viewer-container relative w-full">
         <div
           ref="zoomContainer"
           class="zoom-wrapper inline-block cursor-grabbing"
         >
           <TreeComponent v-if="tree" :tree="tree" />
         </div>
-      </div>
-
-      <div class="flex items-center justify-center">
-        <div
-          class="flex flex-wrap justify-center gap-8 w-fit p-6 rounded-lg bg-gray-50"
-        >
+        <div class="absolute right-0">
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Gerar árvore aleatória</p>
             <div class="flex items-end w-min">
@@ -33,7 +27,6 @@
             </div>
           </div>
 
-          <Separator orientation="vertical" class="h-auto" />
 
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Criar árvore</p>
@@ -50,7 +43,6 @@
             </div>
           </div>
 
-          <Separator orientation="vertical" class="h-auto" />
 
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Adicionar nó</p>
@@ -67,7 +59,6 @@
             </div>
           </div>
 
-          <Separator orientation="vertical" class="h-auto" />
 
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Remover nó</p>
@@ -84,7 +75,6 @@
             </div>
           </div>
 
-          <Separator orientation="vertical" class="h-auto" />
 
           <div class="flex flex-col items-start">
             <p class="font-semibold mb-4 text-center">Buscar nó</p>
@@ -188,7 +178,7 @@ watch(tree, (newVal) => {
 
 <style scoped lang="scss">
 .viewer-container {
-  height: calc(100% - 460px);
+  height: calc(100% - 160px);
   overflow: hidden;
   background: #f9f9f9;
 
