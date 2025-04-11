@@ -6,7 +6,7 @@
         <p class="text-2xl font-black">Simulador de Árvores Binárias</p>
       </div>
 
-      <div class="tree viewer-container w-full rounded-sm mb-6">
+      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-gray-100 rounded-sm cursor-grab mb-6">
         <div
           ref="zoomContainer"
           class="zoom-wrapper inline-block cursor-grabbing"
@@ -150,7 +150,5 @@ watch(tree, (newVal) => {
 .viewer-container {
   height: calc(100% - 96px);
   overflow: hidden;
-  background: #eeeeee;
-  cursor: grab;
 }
 </style>

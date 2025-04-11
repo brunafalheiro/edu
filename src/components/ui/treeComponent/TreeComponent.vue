@@ -1,13 +1,27 @@
 <template>
-  <ul>
+  <ul class="pt-5 relative w-max transition-all duration-500 ease-in-out">
     <li>
-      <a href="#" :class="{ visiting: tree.isBeingVisited, found: tree.found }">{{ tree.value }}</a>
-      <ul v-if="tree.left || tree.right">
-        <li v-if="tree.left">
+      <a
+        :class="{ visiting: tree.isBeingVisited, found: tree.found }"
+        class="p-[10px] inline-grid rounded-sm min-w-11 border border-gray-300 transition-all duration-500 ease-in-out cursor-pointer"
+      >
+        {{ tree.value }}
+      </a>
+      <ul
+        v-if="tree.left || tree.right"
+        class="pt-5 relative w-max transition-all duration-500 ease-in-out"
+      >
+        <li
+          v-if="tree.left"
+          class="inline-table text-center list-style-none relative p-3 transition-all duration-500 ease-in-out"
+        >
           <TreeComponent :tree="tree.left" />
         </li>
-        <li v-if="tree.right">
-          <TreeComponent :tree="tree.right" />
+        <li
+          v-if="tree.right"
+          class="inline-table text-center list-style-none relative p-3 transition-all duration-500 ease-in-out"
+        >
+          <TreeComponent :tree="tree.right"/>
         </li>
       </ul>
     </li>
@@ -20,4 +34,4 @@
   defineProps({ tree: Object });
 </script>
 
-<style>@import 'TreeComponent.css'</style>
+<style>@import 'treeComponent.scss'</style>
