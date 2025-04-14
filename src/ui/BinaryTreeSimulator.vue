@@ -92,8 +92,7 @@ const nodeAmount = ref(null);
 const insertNode = () => {
   if (!nodeToBeAdded.value) return;
   if (!tree.value) {
-    tree.value = TreeFunctions.createTree(nodeToBeAdded.value);
-    console.log("Tree created", tree.value);
+    TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
     return;
   }
 

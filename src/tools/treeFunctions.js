@@ -9,8 +9,8 @@ class TreeNode {
 }
 
 class TreeFunctions {
-  static createTree(value) {
-    return new TreeNode(value);
+  static createTree({ treeStore, rootValue }) {
+    treeStore.value = new TreeNode(rootValue);
   }
 
   static insertNode(tree, value) {
