@@ -28,6 +28,24 @@ class TreeFunctions {
     
     return tree;
   }
+  
+  static generateRandomTree(nodeCount) {
+    if (nodeCount <= 0) return null;
+
+    let usedValues = new Set();
+    while (usedValues.size < nodeCount) {
+      usedValues.add(Math.floor(Math.random() * 101));
+    }
+
+    let values = [...usedValues];
+    let root = new TreeNode(values[0]);
+
+    for (let i = 1; i < values.length; i++) {
+      TreeFunctions.insertNode(root, values[i]);
+    }
+
+    return root;
+  }
 
   static async removeNode(tree, value) {
     if (!tree) return null;
@@ -95,24 +113,6 @@ class TreeFunctions {
     tree.found = false;
     TreeFunctions.resetFoundFlag(tree.left);
     TreeFunctions.resetFoundFlag(tree.right);
-  }
-
-  static generateRandomTree(nodeCount) {
-    if (nodeCount <= 0) return null;
-
-    let usedValues = new Set();
-    while (usedValues.size < nodeCount) {
-      usedValues.add(Math.floor(Math.random() * 101));
-    }
-
-    let values = [...usedValues];
-    let root = new TreeNode(values[0]);
-
-    for (let i = 1; i < values.length; i++) {
-      TreeFunctions.insertNode(root, values[i]);
-    }
-
-    return root;
   }
 }
 
