@@ -111,6 +111,7 @@ const searchNode = async () => {
 };
 
 const generateRandomTree = () => {
+  if (nodeAmount.value < 1 || nodeAmount.value > 100) return;
   tree.value = TreeFunctions.generateRandomTree(nodeAmount.value);
 };
 
