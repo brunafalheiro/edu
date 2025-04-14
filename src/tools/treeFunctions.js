@@ -48,18 +48,11 @@ class TreeFunctions {
     }
 
     // Case 1: Node without child
-    if (!tree.left && !tree.right) {
-      return null;
-    }
+    if (!tree.left && !tree.right) return null;
 
     // Case 2: Node with one child
-    if (!tree.left) {
-      return tree.right;
-    }
-
-    if (!tree.right) {
-      return tree.left;
-    }
+    if (!tree.left) return tree.right;
+    if (!tree.right) return tree.left;
 
     // Case 3: Node with two children
     let minValueNode = TreeFunctions.findMinNode(tree.right);
