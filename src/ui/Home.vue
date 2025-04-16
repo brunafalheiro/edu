@@ -78,21 +78,18 @@
       </div>
 
       <p class="text-xl font-black mb-4">Ferramentas</p>
-      <div
-        @click="goToBinaryTreeSimulator"
-        class="h-16 w-full flex justify-between items-center bg-gray-100 rounded-lg pl-4 pr-6 py-2 mb-3 cursor-pointer group"
-      >
-        <div class="flex items-center justify-center">
-          <div
-            class="flex items-center justify-center rounded-sm h-11 w-11 bg-neutral-50 mr-4"
-          >
-            <img src="@assets/icons/iconBinaryTree.svg" alt="" />
-          </div>
-          <p class="font-bold">Simulação de Árvore Binária</p>
-        </div>
-        <i
-          class="pi pi-arrow-right text-neutral-400 transition-transform duration-300 group-hover:translate-x-2"
-        ></i>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <SimulatorCard
+        title="Árvores Binárias"
+        description="Simulador de árvores binárias"
+        icon="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg"
+        :clickFunction="() => redirectTo('binary-tree-simulator')"
+        />
+        <SimulatorCard
+          title="Tabelas Hash"
+          description="Simulador de tabelas hash"
+          icon="https://khalilstemmler.com/img/blog/data-structures/hash-tables/hash-table.png"
+        />
       </div>
     </div>
   </div>
@@ -100,9 +97,10 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
-import { ref } from "vue";
+import SimulatorCard from "@components/ui/SimulatorCard.vue";
 import {
   Carousel,
   CarouselContent,
@@ -119,7 +117,7 @@ const router = useRouter();
 const goToCourseInfo = (courseId) => router.push(`/course/${courseId}/info`);
 const goToCourse = (courseId, classId, topicId) =>
   router.push(`/course/${courseId}/${classId}/${topicId}`);
-const goToBinaryTreeSimulator = () => router.push("/binary-tree-simulator");
+const redirectTo = (path) => router.push(`/${path}`);
 
 const icons = import.meta.glob("@/assets/icons/*.svg", { eager: true });
 const getIcon = (iconName) =>
