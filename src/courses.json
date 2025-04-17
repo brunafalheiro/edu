@@ -308,22 +308,22 @@
   },
   {
     "id": "stack",
-    "name": "Pilhas",
-    "description": "Aprenda sobre pilhas, suas operações e aplicações.",
+    "name": "Tabelas Hash",
+    "description": "Aprenda sobre tabelas hash.",
     "icon": "iconBinaryTree",
     "classes": [
       {
         "id": "1",
-        "name": "Introdução às Pilhas",
-        "description": "Entenda o conceito de pilhas",
+        "name": "Introdução à Tabelas Hash",
+        "description": "Entenda o conceito de tabelas hash, sua estrutura e aplicações.",
         "topics": [
           {
             "id": "1",
-            "name": "O que são pilhas",
+            "name": "O que são tabelas hash",
             "content": [
               {
                 "type": "text",
-                "value": "Texto de introdução a arvores binarias"
+                "value": "Texto de introdução a tabelas hash"
               },
               {
                 "type": "image",

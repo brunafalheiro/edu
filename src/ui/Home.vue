@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div v-if="ongoingCourses?.length" class="w-full mb-12">
+      <div v-if="ongoingCourses?.length" class="w-full mb-16">
         <Carousel>
           <CarouselPrevious />
           <CarouselContent>
@@ -51,7 +51,7 @@
       </div>
 
       <p class="text-xl font-black mb-4">Cursos</p>
-      <div class="mb-12">
+      <div class="mb-16">
         <div
           v-for="course in courses"
           key="{{ course.id }}"
@@ -70,20 +70,19 @@
               <i class="pi pi-clock mr-2 mt-[2px]"></i>
               <p class="font-semibold mr-12">16min</p>
             </div>
-            <Button class="h-8" @click="goToCourseInfo(course.id)"
-              >Ver curso</Button
+            <Button class="h-8" @click="goToCourseInfo(course.id)">Ver curso</Button
             >
           </div>
         </div>
       </div>
 
-      <p class="text-xl font-black mb-4">Ferramentas</p>
+      <p class="text-xl font-black mb-6">Ferramentas</p>
       <div class="flex flex-wrap gap-8 justify-center">
         <SimulatorCard
-        title="Árvores Binárias"
-        description="Simulador de árvores binárias"
-        icon="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg"
-        :clickFunction="() => redirectTo('binary-tree-simulator')"
+          title="Árvores Binárias"
+          description="Simulador de árvores binárias"
+          icon="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg"
+          :clickFunction="() => redirectTo('binary-tree-simulator')"
         />
         <SimulatorCard
           title="Tabelas Hash"
