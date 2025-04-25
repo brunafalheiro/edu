@@ -1,11 +1,8 @@
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-5xl p-12 pt-24">
-      <Button class="mb-12" @click="goBack">Voltar</Button>
-      <div class="flex items-center mb-3">
-        <div
-          class="flex items-center justify-center rounded-sm h-12 w-12 bg-gray-100 mr-6"
-        ></div>
+      <div class="flex items-center mb-4">
+        <BackButton :backFunction="goBack"/>
         <p class="text-2xl font-black">{{ course.name }}</p>
       </div>
       <p class="mb-9">{{ course.description }}</p>
@@ -43,6 +40,7 @@ import {
 } from "@/components/ui/accordion";
 import courses from "@/courses.json";
 import Button from "@components/ui/button/Button.vue";
+import BackButton from "@/components/ui/BackButton.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 

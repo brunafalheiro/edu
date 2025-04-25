@@ -8,8 +8,8 @@
         v-if="!isFinishedCourse"
         class="w-full max-w-[860px] h-full p-12 pt-24"
       >
-        <Button @click="goToHome">Voltar</Button>
-        <p class="text-2xl font-black mt-12 mb-2">{{ currentTopic.name }}</p>
+        <BackButton class="mb-8" :backFunction="goToHome" />
+        <p class="text-2xl font-black mb-2">{{ currentTopic.name }}</p>
         <p class="text-sm text-gray-500 mb-10">
           Curso {{ course.name }}: {{ currentClassName }}
         </p>
@@ -57,6 +57,7 @@ import { useRouter, useRoute } from "vue-router";
 import Sidebar from "@components/ui/sidebar/Sidebar.vue";
 import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
+import BackButton from "@/components/ui/BackButton.vue";
 
 // Routing
 const router = useRouter();

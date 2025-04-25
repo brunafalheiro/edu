@@ -1,16 +1,10 @@
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full p-12 pt-24" style="height: calc(100vh - 48px)">
-      <div class="flex mb-12">
-        <Button class="mr-4" @click="goBack">Voltar</Button>
-        <p class="text-2xl font-black">Simulador de Árvores Binárias</p>
-      </div>
+      <BackButton class="mb-8" text="Simulador de Árvores Binárias" :backFunction="goBack" />
 
       <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-gray-100 rounded-sm cursor-grab mb-6">
-        <div
-          ref="zoomContainer"
-          class="zoom-wrapper inline-block cursor-grabbing"
-        >
+        <div ref="zoomContainer" class="zoom-wrapper inline-block cursor-grabbing">
           <TreeComponent v-if="tree" :tree="tree" />
         </div>
       </div>
@@ -60,7 +54,6 @@
           <Shuffle class="w-4 h-4" />
         </Button>
 
-
         <Button @click="clearTree" class="w-40">Limpar</Button>
       </div>
     </div>
@@ -68,87 +61,88 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { TreeFunctions } from "@tools/treeFunctions.js";
-import { ref, watch } from "vue";
-import Button from "@components/ui/button/Button.vue";
-import TreeComponent from "@/components/ui/TreeComponent/TreeComponent.vue";
-import { Shuffle } from 'lucide-vue-next';
-import panzoom from "panzoom";
-import {
-  NumberField,
-  NumberFieldContent,
-  NumberFieldDecrement,
-  NumberFieldIncrement,
-  NumberFieldInput,
-} from "@/components/ui/number-field";
+  import { useRouter } from "vue-router";
+  import { TreeFunctions } from "@tools/treeFunctions.js";
+  import { ref, watch } from "vue";
+  import { Shuffle } from 'lucide-vue-next';
+  import Button from "@components/ui/button/Button.vue";
+  import TreeComponent from "@/components/ui/TreeComponent/TreeComponent.vue";
+  import BackButton from "@/components/ui/BackButton.vue";
+  import panzoom from "panzoom";
+  import {
+    NumberField,
+    NumberFieldContent,
+    NumberFieldDecrement,
+    NumberFieldIncrement,
+    NumberFieldInput,
+  } from "@/components/ui/number-field";
 
-const tree = ref(null);
-const nodeToBeAdded = ref(null);
-const nodeToBeSearched = ref(null);
-const nodeToBeRemoved = ref(null);
-const nodeAmount = ref(null);
+  const tree = ref(null);
+  const nodeToBeAdded = ref(null);
+  const nodeToBeSearched = ref(null);
+  const nodeToBeRemoved = ref(null);
+  const nodeAmount = ref(null);
 
-const insertNode = () => {
-  if (!nodeToBeAdded.value) return;
-  if (!tree.value) {
-    TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
-    return;
-  }
-
-  TreeFunctions.insertNode(tree.value, nodeToBeAdded.value);
-};
-
-const removeNode = () => {
-  if (!tree.value) return;
-  TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
-};
-
-const searchNode = async () => {
-  if (!tree.value) return;
-  await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
-};
-
-const generateRandomTree = () => {
-  if (nodeAmount.value < 1 || nodeAmount.value > 100) return;
-  tree.value = TreeFunctions.generateRandomTree(nodeAmount.value);
-};
-
-const clearTree = () => {
-  tree.value = null;
-  nodeToBeAdded.value = null;
-  nodeToBeRemoved.value = null;
-  nodeToBeSearched.value = null;
-  nodeAmount.value = null;
-};
-
-const router = useRouter();
-const goBack = () => router.push("/");
-
-// Initialize panzoom on the tree component
-const zoomContainer = ref(null);
-const panzoomInstance = ref(null);
-
-watch(tree, (newVal) => {
-  if (newVal && zoomContainer.value) {
-    if (panzoomInstance.value) {
-      panzoomInstance.value.dispose();
+  const insertNode = () => {
+    if (!nodeToBeAdded.value) return;
+    if (!tree.value) {
+      TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
+      return;
     }
 
-    panzoomInstance.value = panzoom(zoomContainer.value, {
-      smoothScroll: false,
-      bounds: false,
-      zoomDoubleClickSpeed: 1,
-      minZoom: 0.2,
-      maxZoom: 2,
-    });
-  }
-});
+    TreeFunctions.insertNode(tree.value, nodeToBeAdded.value);
+  };
+
+  const removeNode = () => {
+    if (!tree.value) return;
+    TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
+  };
+
+  const searchNode = async () => {
+    if (!tree.value) return;
+    await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
+  };
+
+  const generateRandomTree = () => {
+    if (nodeAmount.value < 1 || nodeAmount.value > 100) return;
+    tree.value = TreeFunctions.generateRandomTree(nodeAmount.value);
+  };
+
+  const clearTree = () => {
+    tree.value = null;
+    nodeToBeAdded.value = null;
+    nodeToBeRemoved.value = null;
+    nodeToBeSearched.value = null;
+    nodeAmount.value = null;
+  };
+
+  const router = useRouter();
+  const goBack = () => router.push("/");
+
+  // Initialize panzoom on the tree component
+  const zoomContainer = ref(null);
+  const panzoomInstance = ref(null);
+
+  watch(tree, (newVal) => {
+    if (newVal && zoomContainer.value) {
+      if (panzoomInstance.value) {
+        panzoomInstance.value.dispose();
+      }
+
+      panzoomInstance.value = panzoom(zoomContainer.value, {
+        smoothScroll: false,
+        bounds: false,
+        zoomDoubleClickSpeed: 1,
+        minZoom: 0.2,
+        maxZoom: 2,
+      });
+    }
+  });
 </script>
 
 <style scoped lang="scss">
-.viewer-container {
-  height: calc(100% - 96px);
-  overflow: hidden;
-}
+  .viewer-container {
+    height: calc(100% - 96px);
+    overflow: hidden;
+  }
 </style>
