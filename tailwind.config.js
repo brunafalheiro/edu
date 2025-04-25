@@ -4,6 +4,9 @@ export default {
     content: ['./index.html', './src/**/*.{ts,js,vue}'],
   theme: {
   	extend: {
+		fontFamily: {
+		sans: ['Asap', 'sans-serif'],
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
