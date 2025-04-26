@@ -1,13 +1,13 @@
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-5xl p-12 pt-24">
-      <div class="w-full h-[180px] bg-gray-100 rounded-lg relative p-6 mb-6">
+      <div class="w-full h-[180px] bg-gray-100 rounded-lg relative p-6 mb-12">
         <div class="max-w-md w-full flex absolute right-6 bottom-6">
           <div
             class="h-24 w-full bg-white rounded-lg flex items-center p-6 mr-4"
           >
             <p class="text-5xl font-black mr-4">{{ completedCoursesAmount }}</p>
-            <p class="text-sm font-medium">Cursos completados</p>
+            <p class="text-sm font-medium">Cursos completos</p>
           </div>
           <div class="h-24 w-full bg-white rounded-lg flex items-center p-6">
             <p class="text-5xl font-black mr-4">{{ ongoingCoursesAmount }}</p>
@@ -16,10 +16,25 @@
         </div>
       </div>
 
-      <p class="text-xl font-black mb-4">Cursos</p>
+      <div class="w-fit flex bg-gray-100 rounded-full p-1 mb-4">
+        <button 
+          v-for="filter in filters" 
+          :key="filter.value"
+          @click="selectedFilter = filter.value"
+          :class="[
+            'px-4 py-1 rounded-full text-sm transition-colors',
+            selectedFilter === filter.value 
+              ? 'bg-white text-black shadow-sm' 
+              : 'text-gray-500 hover:text-gray-700'
+          ]"
+        >
+          {{ filter.label }}
+        </button>
+      </div>
+
       <div class="flex flex-wrap gap-6 mb-16">
         <CourseCard
-          v-for="course in courses"
+          v-for="course in filteredCourses"
           :key="course.id"
           :course="course"
           :isOngoing="ongoingCourses.find(c => c.id === course.id) !== undefined"
@@ -49,13 +64,32 @@
 import courses from "@/courses.json";
 import SimulatorCard from "@components/ui/SimulatorCard.vue";
 import CourseCard from "@components/ui/CourseCard.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 const completedCoursesAmount = ref(0);
 const ongoingCoursesAmount = ref(0);
 const ongoingCourses = ref([]);
 const router = useRouter();
+
+const filters = [
+  { label: 'Todos os cursos', value: 'all' },
+  { label: 'Em andamento', value: 'ongoing' },
+  { label: 'Completos', value: 'completed' }
+];
+
+const selectedFilter = ref('all');
+
+const filteredCourses = computed(() => {
+  if (selectedFilter.value === 'all') return courses;
+  
+  return courses.filter(course => {
+    const isOngoing = ongoingCourses.value.find(c => c.id === course.id) !== undefined;
+    if (selectedFilter.value === 'ongoing') return isOngoing;
+    if (selectedFilter.value === 'completed') return !isOngoing && completedCoursesAmount.value > 0;
+    return true;
+  });
+});
 
 const goToCourseInfo = (courseId) => router.push(`/course/${courseId}/info`);
 const redirectTo = (path) => router.push(`/${path}`);
