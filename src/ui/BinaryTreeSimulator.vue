@@ -92,7 +92,7 @@
 <script setup>
   import { useRouter } from "vue-router";
   import { TreeFunctions } from "@tools/treeFunctions.js";
-  import { ref, watch } from "vue";
+  import { ref, watch, onMounted } from "vue";
   import { Shuffle } from 'lucide-vue-next';
   import Button from "@components/ui/button/Button.vue";
   import TreeComponent from "@/components/ui/TreeComponent/TreeComponent.vue";
@@ -148,16 +148,13 @@
   const router = useRouter();
   const goBack = () => router.push("/");
 
-  // Initialize panzoom on the tree component
   const zoomContainer = ref(null);
   const panzoomInstance = ref(null);
 
-  watch(tree, (newVal) => {
-    if (newVal && zoomContainer.value) {
-      if (panzoomInstance.value) {
-        panzoomInstance.value.dispose();
-      }
+  const initPanzoom = () => {
+    if (panzoomInstance.value) { panzoomInstance.value.dispose(); }
 
+    if (zoomContainer.value) {
       panzoomInstance.value = panzoom(zoomContainer.value, {
         smoothScroll: false,
         bounds: false,
@@ -166,6 +163,16 @@
         maxZoom: 2,
       });
     }
+  };
+
+  watch(tree, (newVal) => {
+    if (!newVal) return;
+    setTimeout(initPanzoom, 0);
+  });
+
+  onMounted(() => {
+    if (!tree.value) return;
+    initPanzoom();
   });
 </script>
 
@@ -174,4 +181,6 @@
     height: calc(100% - 96px);
     overflow: hidden;
   }
+
+  .zoom-wrapper { transform-origin: center center; }
 </style>
