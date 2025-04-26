@@ -45,14 +45,14 @@
     {
       title: "Árvores Binárias",
       description: "Simulador de árvores binárias",
-      image: "https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg",
-      path: "binary-tree-simulator"
+      path: "binary-tree-simulator",
+      icon: "pi-sitemap"
     },
     {
       title: "Tabelas Hash",
       description: "Simulador de tabelas hash",
-      image: "https://khalilstemmler.com/img/blog/data-structures/hash-tables/hash-table.png",
-      path: "hash-tables"
+      path: "hash-tables",
+      icon: "pi-table"
     }
   ];
 
