@@ -13,28 +13,29 @@ class TreeFunctions {
     treeStore.value = new TreeNode(rootValue);
   }
 
-  static async insertNode(tree, value) {
+  static async insertNode(tree, value, animate = true) {
     if (!tree) return new TreeNode(value);
     
-    // Mark the node as being visited
-    tree.isBeingVisited = true;
-    await new Promise(resolve => setTimeout(resolve, 500));
-    tree.isBeingVisited = false;
+    if (animate) {
+      tree.isBeingVisited = true;
+      await new Promise(resolve => setTimeout(resolve, 500));
+      tree.isBeingVisited = false;
+    }
     
     if (value < tree.value) {
-      tree.left = await TreeFunctions.insertNode(tree.left, value);
+      tree.left = await TreeFunctions.insertNode(tree.left, value, animate);
       return tree;
     }
   
     if (value > tree.value) {
-      tree.right = await TreeFunctions.insertNode(tree.right, value);
+      tree.right = await TreeFunctions.insertNode(tree.right, value, animate);
       return tree;
     }
     
     return tree;
   }
   
-  static generateRandomTree(nodeCount) {
+  static async generateRandomTree(nodeCount) {
     if (nodeCount <= 0) return null;
 
     let usedValues = new Set();
@@ -46,7 +47,7 @@ class TreeFunctions {
     let root = new TreeNode(values[0]);
 
     for (let i = 1; i < values.length; i++) {
-      TreeFunctions.insertNode(root, values[i]);
+      await TreeFunctions.insertNode(root, values[i], false);
     }
 
     return root;

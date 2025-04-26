@@ -132,9 +132,9 @@
     await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
   };
 
-  const generateRandomTree = () => {
+  const generateRandomTree = async () => {
     if (nodeAmount.value < 1 || nodeAmount.value > 100) return;
-    tree.value = TreeFunctions.generateRandomTree(nodeAmount.value);
+    tree.value = await TreeFunctions.generateRandomTree(nodeAmount.value);
   };
 
   const clearTree = () => {
