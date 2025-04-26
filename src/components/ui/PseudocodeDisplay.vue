@@ -13,19 +13,17 @@
         </div>
       </div>
 
-      <div class="h-max">
-        <div class="flex-1 overflow-y-auto mt-4 mr-4">
-          <pre class="font-mono text-base"><code class="language-javascript">
-            <div
-              v-for="(line, index) in pseudocode" 
-              :key="index" 
-              class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
-              :style="{ paddingLeft: `${getIndentation(line)}rem` }"
-            >
-              <span class="whitespace-pre text-sm" v-html="highlightLine(line)"></span>
-            </div>
-          </code></pre>
-        </div>
+      <div class="flex-1 overflow-y-auto mt-4 mr-4">
+        <pre class="font-mono text-base"><code class="language-javascript">
+          <div
+            v-for="(line, index) in pseudocode" 
+            :key="index" 
+            class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
+            :style="{ paddingLeft: `${getIndentation(line)}rem` }"
+          >
+            <span class="whitespace-pre text-sm" v-html="highlightLine(line)"></span>
+          </div>
+        </code></pre>
       </div>
     </div>
   </div>
