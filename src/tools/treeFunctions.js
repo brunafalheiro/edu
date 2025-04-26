@@ -13,16 +13,21 @@ class TreeFunctions {
     treeStore.value = new TreeNode(rootValue);
   }
 
-  static insertNode(tree, value) {
+  static async insertNode(tree, value) {
     if (!tree) return new TreeNode(value);
     
+    // Mark the node as being visited
+    tree.isBeingVisited = true;
+    await new Promise(resolve => setTimeout(resolve, 500));
+    tree.isBeingVisited = false;
+    
     if (value < tree.value) {
-      tree.left = TreeFunctions.insertNode(tree.left, value);
+      tree.left = await TreeFunctions.insertNode(tree.left, value);
       return tree;
     }
   
     if (value > tree.value) {
-      tree.right = TreeFunctions.insertNode(tree.right, value);
+      tree.right = await TreeFunctions.insertNode(tree.right, value);
       return tree;
     }
     

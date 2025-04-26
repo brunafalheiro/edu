@@ -112,14 +112,14 @@
   const nodeToBeRemoved = ref(null);
   const nodeAmount = ref(null);
 
-  const insertNode = () => {
+  const insertNode = async () => {
     if (!nodeToBeAdded.value) return;
     if (!tree.value) {
       TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
       return;
     }
 
-    TreeFunctions.insertNode(tree.value, nodeToBeAdded.value);
+    await TreeFunctions.insertNode(tree.value, nodeToBeAdded.value);
   };
 
   const removeNode = () => {
