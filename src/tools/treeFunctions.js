@@ -13,8 +13,11 @@ class TreeFunctions {
     treeStore.value = new TreeNode(rootValue);
   }
 
-  static async insertNode(tree, value, animate = true) {
-    if (!tree) return new TreeNode(value);
+  static async insertNode(tree, value, animate = true, onLineChange = null) {
+    if (!tree) {
+      if (onLineChange) onLineChange(1);
+      return new TreeNode(value);
+    }
     
     if (animate) {
       tree.isBeingVisited = true;
@@ -23,15 +26,18 @@ class TreeFunctions {
     }
     
     if (value < tree.value) {
-      tree.left = await TreeFunctions.insertNode(tree.left, value, animate);
+      if (onLineChange) onLineChange(3);
+      tree.left = await TreeFunctions.insertNode(tree.left, value, animate, onLineChange);
       return tree;
     }
   
     if (value > tree.value) {
-      tree.right = await TreeFunctions.insertNode(tree.right, value, animate);
+      if (onLineChange) onLineChange(4);
+      tree.right = await TreeFunctions.insertNode(tree.right, value, animate, onLineChange);
       return tree;
     }
     
+    if (onLineChange) onLineChange(6);
     return tree;
   }
   
@@ -53,55 +59,68 @@ class TreeFunctions {
     return root;
   }
 
-  static async removeNode(tree, value) {
-    if (!tree) return null;
+  static async removeNode(tree, value, onLineChange = null) {
+    if (!tree) {
+      if (onLineChange) onLineChange(1);
+      return null;
+    }
 
-    // Mark the node as being visited
     tree.isBeingVisited = true;
     await new Promise(resolve => setTimeout(resolve, 500));
     tree.isBeingVisited = false;
 
     if (value < tree.value) {
-      tree.left = await TreeFunctions.removeNode(tree.left, value);
+      if (onLineChange) onLineChange(2);
+      tree.left = await TreeFunctions.removeNode(tree.left, value, onLineChange);
       return tree;
     }
 
     if (value > tree.value) {
-      tree.right = await TreeFunctions.removeNode(tree.right, value);
+      if (onLineChange) onLineChange(3);
+      tree.right = await TreeFunctions.removeNode(tree.right, value, onLineChange);
       return tree;
     }
 
-    // Case 1: Node without child
-    if (!tree.left && !tree.right) return null;
+    if (!tree.left && !tree.right) {
+      if (onLineChange) onLineChange(5);
+      return null;
+    }
 
-    // Case 2: Node with one child
-    if (!tree.left) return tree.right;
-    if (!tree.right) return tree.left;
+    if (!tree.left) {
+      if (onLineChange) onLineChange(6);
+      return tree.right;
+    }
+    
+    if (!tree.right) {
+      if (onLineChange) onLineChange(6);
+      return tree.left;
+    }
 
-    // Case 3: Node with two children
+    if (onLineChange) onLineChange(8);
     let minValueNode = TreeFunctions.findMinNode(tree.right);
     tree.value = minValueNode.value;
-    tree.right = await TreeFunctions.removeNode(tree.right, minValueNode.value);
+    tree.right = await TreeFunctions.removeNode(tree.right, minValueNode.value, onLineChange);
     return tree;
   }
 
-  // Auxiliar function to find the node with the smallest value in a subtree
   static findMinNode(tree) {
     while (tree.left) tree = tree.left;
     return tree;
   }
 
-  static async searchNode(tree, value) {
-    if (!tree) return null;
+  static async searchNode(tree, value, onLineChange = null) {
+    if (!tree) {
+      if (onLineChange) onLineChange(1);
+      return null;
+    }
 
-    // Reset the 'found' flag in the tree
     TreeFunctions.resetFoundFlag(tree);
 
-    // Highlight the node being visited
     tree.isBeingVisited = true;
     await new Promise(resolve => setTimeout(resolve, 500));
 
     if (tree.value === value) {
+      if (onLineChange) onLineChange(2);
       tree.isBeingVisited = false;
       tree.found = true; 
       return tree;
@@ -109,11 +128,14 @@ class TreeFunctions {
 
     tree.isBeingVisited = false;
 
-    if (value < tree.value) return TreeFunctions.searchNode(tree.left, value);
-    return TreeFunctions.searchNode(tree.right, value);
+    if (value < tree.value) {
+      if (onLineChange) onLineChange(3);
+      return TreeFunctions.searchNode(tree.left, value, onLineChange);
+    }
+    if (onLineChange) onLineChange(4);
+    return TreeFunctions.searchNode(tree.right, value, onLineChange);
   }
 
-  // Auxiliar function to reset the 'found' flag in the tree
   static resetFoundFlag(tree) {
     if (!tree) return;
     tree.found = false;
