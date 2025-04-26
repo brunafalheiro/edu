@@ -1,60 +1,89 @@
 <template>
-  <div class="w-full flex justify-center">
-    <div class="w-full p-12 pt-24" style="height: calc(100vh - 48px)">
-      <BackButton class="mb-8" text="Simulador de Árvores Binárias" :backFunction="goBack" />
+  <div class="w-full min-h-screen bg-slate-50">
+    <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
+      <BackButton class="mb-6" text="Simulador de Árvores Binárias" :backFunction="goBack" />
 
-      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-gray-100 rounded-sm cursor-grab mb-6">
-        <div ref="zoomContainer" class="zoom-wrapper inline-block cursor-grabbing">
-          <TreeComponent v-if="tree" :tree="tree" />
+      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl shadow-sm cursor-grab mb-8">
+        <div v-if="!tree" class="flex flex-col items-center justify-center h-full text-slate-400">
+          <i class="pi pi-tree text-4xl mb-2"></i>
+          <p class="text-sm">Nenhuma árvore criada. Use os controles abaixo para começar.</p>
+        </div>
+        <div v-else ref="zoomContainer" class="zoom-wrapper inline-block cursor-grabbing">
+          <TreeComponent :tree="tree" />
         </div>
       </div>
-      <div class="w-full h-12 flex items-center justify-center rounded-sm bg-gray-200">
-        <NumberField v-model="nodeToBeAdded" class="w-20 mr-2">
-          <NumberFieldContent>
-            <NumberFieldDecrement />
-            <NumberFieldInput />
-            <NumberFieldIncrement />
-          </NumberFieldContent>
-        </NumberField>
-        <Button @click="insertNode" class="w-8 h-8 mr-8">
-          <i class="pi pi-plus w-4 h-4"></i>
-        </Button>
 
-        <NumberField v-model="nodeToBeRemoved" class="w-20 mr-2">
-          <NumberFieldContent>
-            <NumberFieldDecrement />
-            <NumberFieldInput />
-            <NumberFieldIncrement />
-          </NumberFieldContent>
-        </NumberField>
-        <Button @click="removeNode" class="w-8 h-8 mr-8">
-          <i class="pi pi-minus w-4 h-4"></i>
-        </Button>
+      <div class="bg-white rounded-xl shadow-sm p-6 w-fit mx-auto">
+        <div class="flex flex-wrap items-end gap-8">
+          <div class="flex flex-col gap-1">
+            <div class="text-xs font-medium text-slate-500">Inserir Nó</div>
+            <div class="flex items-center gap-2">
+              <NumberField v-model="nodeToBeAdded" class="w-24">
+                <NumberFieldContent>
+                  <NumberFieldDecrement />
+                  <NumberFieldInput />
+                  <NumberFieldIncrement />
+                </NumberFieldContent>
+              </NumberField>
+              <Button @click="insertNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="pi pi-plus w-4 h-4"></i>
+              </Button>
+            </div>
+          </div>
 
-        <NumberField v-model="nodeToBeSearched" class="w-20 mr-2">
-          <NumberFieldContent>
-            <NumberFieldDecrement />
-            <NumberFieldInput />
-            <NumberFieldIncrement />
-          </NumberFieldContent>
-        </NumberField>
-        <Button @click="searchNode" class="w-8 h-8 mr-8">
-          <i class="pi pi-search w-4 h-4"></i>
-        </Button>
+          <div class="flex flex-col gap-1">
+            <div class="text-xs font-medium text-slate-500">Remover Nó</div>
+            <div class="flex items-center gap-2">
+              <NumberField v-model="nodeToBeRemoved" class="w-24">
+                <NumberFieldContent>
+                  <NumberFieldDecrement />
+                  <NumberFieldInput />
+                  <NumberFieldIncrement />
+                </NumberFieldContent>
+              </NumberField>
+              <Button @click="removeNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="pi pi-minus w-4 h-4"></i>
+              </Button>
+            </div>
+          </div>
 
-        <NumberField v-model="nodeAmount" class="w-20 mr-2">
-          <NumberFieldContent>
-            <NumberFieldDecrement />
-            <NumberFieldInput />
-            <NumberFieldIncrement />
-          </NumberFieldContent>
-        </NumberField>
+          <div class="flex flex-col gap-1">
+            <div class="text-xs font-medium text-slate-500">Buscar Nó</div>
+            <div class="flex items-center gap-2">
+              <NumberField v-model="nodeToBeSearched" class="w-24">
+                <NumberFieldContent>
+                  <NumberFieldDecrement />
+                  <NumberFieldInput />
+                  <NumberFieldIncrement />
+                </NumberFieldContent>
+              </NumberField>
+              <Button @click="searchNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="pi pi-search w-4 h-4"></i>
+              </Button>
+            </div>
+          </div>
 
-        <Button @click="generateRandomTree" class="w-8 h-8 mr-8">
-          <Shuffle class="w-4 h-4" />
-        </Button>
+          <div class="flex flex-col gap-1">
+            <div class="text-xs font-medium text-slate-500">Gerar Árvore Aleatória</div>
+            <div class="flex items-center gap-2">
+              <NumberField v-model="nodeAmount" class="w-24">
+                <NumberFieldContent>
+                  <NumberFieldDecrement />
+                  <NumberFieldInput />
+                  <NumberFieldIncrement />
+                </NumberFieldContent>
+              </NumberField>
+              <Button @click="generateRandomTree" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <Shuffle class="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
 
-        <Button @click="clearTree" class="w-40">Limpar</Button>
+          <Button @click="clearTree" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-colors duration-200 flex items-center justify-center">
+            <i class="pi pi-trash w-4 h-4 mr-2"></i>
+            Limpar
+          </Button>
+        </div>
       </div>
     </div>
   </div>
