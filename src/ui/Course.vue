@@ -8,10 +8,12 @@
         v-if="!isFinishedCourse"
         class="w-full max-w-[860px] h-full p-12 pt-24"
       >
-        <BackButton class="mb-8" :backFunction="goToHome" />
-        <p class="text-2xl font-black mb-2">{{ currentTopic.name }}</p>
-        <p class="text-sm text-gray-500 mb-10">
-          Curso {{ course.name }}: {{ currentClassName }}
+        <div class="flex items-center mb-2">
+          <BackButton :backFunction="goToHome" />
+          <p class="text-2xl font-black">{{ currentTopic.name }}</p>
+        </div>
+        <p class="text-sm text-gray-500 mb-10 ml-2">
+          {{ course.name }}: {{ currentClassName }}
         </p>
         <div class="mb-10" style="min-height: calc(100vh - 482px)">
           <div v-for="content in currentTopic.content" class="mb-6">
