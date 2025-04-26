@@ -1,7 +1,6 @@
 <template>
   <div class="absolute right-[-400px] top-0 w-[380px] h-full bg-white border-l border-black transition-all duration-300 ease-in-out z-10" :class="{ '!right-0': isVisible }">
     <div class="h-full flex flex-col">
-      <!-- Fixed Header -->
       <div class="px-4 py-2 border-b border-black bg-white">
         <div class="flex items-center justify-between">
           <h3 class="text-sm font-semibold text-slate-800">Pseudocódigo</h3>
@@ -14,15 +13,15 @@
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto">
-        <div class="font-mono text-sm">
+      <div class="flex-1 overflow-y-auto mt-4 mr-4">
+        <div class="font-mono text-base">
           <div
             v-for="(line, index) in pseudocode" 
             :key="index" 
-            class="min-h-[1.5rem] flex items-center hover:bg-slate-50"
+            class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
             :style="{ paddingLeft: `${getIndentation(line)}rem` }"
           >
-            <span class="whitespace-pre text-xs">{{ line.trim() }}</span>
+            <span class="whitespace-pre text-sm">{{ line.trim() }}</span>
           </div>
         </div>
       </div>
