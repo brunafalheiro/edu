@@ -1,11 +1,14 @@
 <template>
   <div
-    class="rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-xl hover:scale-[1.02] bg-white"
+    class="border border-black rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[336px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-xl hover:scale-[1.02] bg-white"
     @click="clickFunction(course.id)"
   >
-    <div class="w-full h-48 bg-gray-100 relative">
-      <img :src="course.image" class="object-cover w-full h-full">
-      <div class="absolute inset-0 bg-gray-100"></div>
+    <div class="w-full h-48">
+      <img 
+        :src="courseImagePath" 
+        @error="handleImageError"
+        class="object-cover w-full h-full"
+      >
     </div>
 
     <div
@@ -55,6 +58,12 @@
     clickFunction: Function,
   });
 
+  const courseImagePath = ref('');
+
+  const handleImageError = () => {
+    courseImagePath.value = 'https://i0.wp.com/espaferro.com.br/wp-content/uploads/2024/06/placeholder.png?resize=768%2C512&ssl=1';
+  };
+
   const progress = ref({});
   const courseStatus = computed(() => {
     const courseProgress = progress.value[props.course.id];
@@ -93,5 +102,8 @@
     progress.value = (await window.store.get("progress")) || {};
   };
 
-  onMounted(fetchProgress);
+  onMounted(() => {
+    courseImagePath.value = new URL(`../../assets/images/${props.course.id}.png`, import.meta.url).href;
+    fetchProgress();
+  });
 </script>
