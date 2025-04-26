@@ -3,7 +3,6 @@
     "id": "binaryTree",
     "name": "Árvores Binárias",
     "description": "Aprenda sobre árvores binárias, percursos, operações e balanceamento.",
-    "icon": "iconBinaryTree",
     "classes": [
       {
         "id": "1",
@@ -310,7 +309,6 @@
     "id": "stack",
     "name": "Tabelas Hash",
     "description": "Aprenda sobre tabelas hash.",
-    "icon": "iconBinaryTree",
     "classes": [
       {
         "id": "1",
