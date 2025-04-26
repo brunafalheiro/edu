@@ -16,62 +16,40 @@
         </div>
       </div>
 
-      <div v-if="ongoingCourses?.length" class="w-full mb-16">
-        <Carousel>
-          <CarouselPrevious />
-          <CarouselContent>
-            <CarouselItem v-for="course in ongoingCourses">
-              <div
-                class="h-16 w-full flex justify-between items-center bg-gray-100 rounded-lg px-4 py-2"
-              >
-                <div class="flex items-center justify-center">
-                  <div
-                    class="flex items-center justify-center rounded-sm h-11 w-11 bg-neutral-50 mr-4"
-                  >
-                    <img :src="getIcon(course.icon)" alt="" />
-                  </div>
-                  <p class="font-bold">{{ course.name }}</p>
-                </div>
-                <Button
-                  class="h-8"
-                  @click="
-                    goToCourse(
-                      course.id,
-                      course.currentClass,
-                      course.currentTopic
-                    )
-                  "
-                  >Continuar</Button
-                >
-              </div>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselNext />
-        </Carousel>
-      </div>
-
       <p class="text-xl font-black mb-4">Cursos</p>
-      <div class="mb-16">
+      <div class="flex flex-wrap gap-6 mb-16">
         <div
           v-for="course in courses"
-          key="{{ course.id }}"
-          class="h-16 w-full flex justify-between items-center bg-gray-100 rounded-lg px-4 py-2 mb-4"
+          :key="course.id"
+          class= "rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer"
+          @click="goToCourseInfo(course.id)"
         >
-          <div class="flex items-center justify-center">
-            <div
-              class="flex items-center justify-center rounded-sm h-11 w-11 bg-neutral-50 mr-4"
-            >
-              <img :src="getIcon(course.icon)" alt="" />
-            </div>
-            <p class="font-bold">{{ course.name }}</p>
+          <div class="w-full h-40 bg-gray-100">
+            <img :src="course.image" class="object-cover">
           </div>
-          <div class="flex items-center justify-center">
-            <div class="flex items-center">
-              <i class="pi pi-clock mr-2 mt-[2px]"></i>
-              <p class="font-semibold mr-12">16min</p>
+
+          <div
+            :class="[
+              'absolute top-2 right-2 px-3 py-1 text-xs font-bold rounded-full',
+              ongoingCourses.find(id === course.id) === 'Ongoing' ? 'bg-orange-200 text-orange-800' : 'bg-pink-200 text-pink-800'
+            ]"
+          >
+            <p>Em andamento</p>
+          </div>
+
+          <div class="flex justify-between items-center px-4 my-3">
+            <h2 class="font-semibold mr-2">{{ course.name }}</h2>
+            <span class="text font-bold text-red-500">32%</span>
+          </div>
+
+          <div class="flex px-4 pb-3">
+            <div class="text-sm text-gray-600 flex items-center mr-4">
+              <i class="pi pi-clock mr-1"></i>
+              <p>2h 30min</p>
             </div>
-            <Button class="h-8" @click="goToCourseInfo(course.id)">Ver curso</Button
-            >
+            <div class="text-sm text-gray-600">
+              <p>19 módulos</p>
+            </div>
           </div>
         </div>
       </div>
@@ -95,18 +73,10 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import Button from "@components/ui/button/Button.vue";
 import courses from "@/courses.json";
 import SimulatorCard from "@components/ui/SimulatorCard.vue";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const completedCoursesAmount = ref(0);
 const ongoingCoursesAmount = ref(0);
@@ -117,10 +87,6 @@ const goToCourseInfo = (courseId) => router.push(`/course/${courseId}/info`);
 const goToCourse = (courseId, classId, topicId) =>
   router.push(`/course/${courseId}/${classId}/${topicId}`);
 const redirectTo = (path) => router.push(`/${path}`);
-
-const icons = import.meta.glob("@/assets/icons/*.svg", { eager: true });
-const getIcon = (iconName) =>
-  icons[`/src/assets/icons/${iconName}.svg`]?.default || "";
 
 const loadCoursesData = async () => {
   const progress = (await window.store.get("progress")) ?? {};
