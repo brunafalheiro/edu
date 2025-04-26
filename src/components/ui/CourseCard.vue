@@ -11,11 +11,11 @@
     <div
       v-if="courseStatus !== 'not_started'"
       :class="[ 
-        'absolute top-3 right-3 px-4 py-1.5 text-xs font-semibold rounded-full shadow-sm',
-        courseStatus === 'completed' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+        'absolute top-3 right-3 px-4 py-1.5 rounded-full shadow-sm',
+        courseStatus === 'completed' ? 'bg-green-dark text-green' : 'bg-lavender-light text-lavender-dark'
       ]"
     >
-      <p>{{ courseStatus === 'completed' ? 'Completado' : 'Em andamento' }}</p>
+      <p class="text-xs font-medium">{{ courseStatus === 'completed' ? 'Finalizado' : 'Em andamento' }}</p>
     </div>
 
     <div class="p-4">

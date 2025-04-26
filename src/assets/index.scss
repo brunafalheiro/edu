@@ -34,7 +34,7 @@
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 210 71% 7%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 12 85% 60%;
+    --secondary: 260 100% 87%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --tertiary: 11 87% 87%;
     --tertiary-foreground: 222.2 47.4% 11.2%;
@@ -52,7 +52,12 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+    --green: 150 88% 63%;
+    --green-dark: 152 41% 27%;
+    --lavender: 270 100% 56%;
+    --lavender-light: 270 100% 85%;
+    --lavender-dark: 270 100% 15%;
   }
   .dark {
     --background: 222.2 84% 4.9%;
