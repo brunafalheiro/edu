@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex justify-center">
-    <div class="w-full max-w-5xl p-12 pt-24">
+    <div class="w-full max-w-6xl p-12 pt-24">
       <div class="w-full h-[180px] bg-gray-100 rounded-lg relative p-6 mb-12">
         <div class="max-w-md w-full flex absolute right-6 bottom-6">
           <div
@@ -47,13 +47,13 @@
         <SimulatorCard
           title="Árvores Binárias"
           description="Simulador de árvores binárias"
-          icon="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg"
+          image="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/07/Binary-Trees-in-C-normal-image01.jpg"
           :clickFunction="() => redirectTo('binary-tree-simulator')"
         />
         <SimulatorCard
           title="Tabelas Hash"
           description="Simulador de tabelas hash"
-          icon="https://khalilstemmler.com/img/blog/data-structures/hash-tables/hash-table.png"
+          image="https://khalilstemmler.com/img/blog/data-structures/hash-tables/hash-table.png"
         />
       </div>
     </div>
@@ -119,7 +119,6 @@ const loadCoursesData = async () => {
       return {
         id: course.id,
         name: course.name,
-        icon: course.icon,
         currentTopic,
         currentClass,
       };

@@ -7,7 +7,7 @@
       {{ props.title }}
     </p>
     <div class="h-auto w-full rounded-md overflow-hidden">
-      <img :src="props.icon" alt="" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+      <img :src="props.image" alt="" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 const props = defineProps({
   title: String,
   description: String,
-  icon: String,
+  image: String,
   clickFunction: Function,
 });
 </script>
