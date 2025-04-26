@@ -48,7 +48,7 @@
               <p>2h 30min</p>
             </div>
             <div class="text-sm text-gray-600">
-              <p>19 módulos</p>
+              <p>{{ course.classes.length }} módulos</p>
             </div>
           </div>
         </div>
