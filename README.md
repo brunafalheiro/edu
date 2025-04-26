@@ -2,10 +2,10 @@
 
 ```sh
 # clone the project
-git clone https://github.com/electron-vite/electron-vite-vue.git
+git clone [https://github.com/brunafalheiro/edu.git](https://github.com/brunafalheiro/edu.git)
 
 # enter the project directory
-cd electron-vite-vue
+cd edu
 
 # install dependency
 npm install
