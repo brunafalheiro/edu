@@ -13,7 +13,6 @@
       <div class="font-mono">
         <pre
           v-for="(line, index) in pseudocode" :key="index" 
-          :class="{ 'text-pink-500 font-medium': currentLine === index }"
           class="text-xs text-slate-600 py-0.5 px-2 whitespace-pre transition-colors duration-200"
         >
           {{ line }}
@@ -28,7 +27,6 @@
 
   const props = defineProps({
     isVisible: Boolean,
-    currentLine: Number,
     operation: String
   });
 

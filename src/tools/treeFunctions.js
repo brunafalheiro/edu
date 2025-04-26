@@ -13,9 +13,8 @@ class TreeFunctions {
     treeStore.value = new TreeNode(rootValue);
   }
 
-  static async insertNode(tree, value, animate = true, onLineChange = null) {
+  static async insertNode(tree, value, animate = true) {
     if (!tree) {
-      if (onLineChange) onLineChange(1);
       return new TreeNode(value);
     }
     
@@ -26,18 +25,15 @@ class TreeFunctions {
     }
     
     if (value < tree.value) {
-      if (onLineChange) onLineChange(3);
-      tree.left = await TreeFunctions.insertNode(tree.left, value, animate, onLineChange);
+      tree.left = await TreeFunctions.insertNode(tree.left, value, animate);
       return tree;
     }
   
     if (value > tree.value) {
-      if (onLineChange) onLineChange(4);
-      tree.right = await TreeFunctions.insertNode(tree.right, value, animate, onLineChange);
+      tree.right = await TreeFunctions.insertNode(tree.right, value, animate);
       return tree;
     }
     
-    if (onLineChange) onLineChange(6);
     return tree;
   }
   
@@ -59,9 +55,8 @@ class TreeFunctions {
     return root;
   }
 
-  static async removeNode(tree, value, onLineChange = null) {
+  static async removeNode(tree, value) {
     if (!tree) {
-      if (onLineChange) onLineChange(1);
       return null;
     }
 
@@ -70,36 +65,30 @@ class TreeFunctions {
     tree.isBeingVisited = false;
 
     if (value < tree.value) {
-      if (onLineChange) onLineChange(2);
-      tree.left = await TreeFunctions.removeNode(tree.left, value, onLineChange);
+      tree.left = await TreeFunctions.removeNode(tree.left, value);
       return tree;
     }
 
     if (value > tree.value) {
-      if (onLineChange) onLineChange(3);
-      tree.right = await TreeFunctions.removeNode(tree.right, value, onLineChange);
+      tree.right = await TreeFunctions.removeNode(tree.right, value);
       return tree;
     }
 
     if (!tree.left && !tree.right) {
-      if (onLineChange) onLineChange(5);
       return null;
     }
 
     if (!tree.left) {
-      if (onLineChange) onLineChange(6);
       return tree.right;
     }
     
     if (!tree.right) {
-      if (onLineChange) onLineChange(6);
       return tree.left;
     }
 
-    if (onLineChange) onLineChange(8);
     let minValueNode = TreeFunctions.findMinNode(tree.right);
     tree.value = minValueNode.value;
-    tree.right = await TreeFunctions.removeNode(tree.right, minValueNode.value, onLineChange);
+    tree.right = await TreeFunctions.removeNode(tree.right, minValueNode.value);
     return tree;
   }
 
@@ -108,9 +97,8 @@ class TreeFunctions {
     return tree;
   }
 
-  static async searchNode(tree, value, onLineChange = null) {
+  static async searchNode(tree, value) {
     if (!tree) {
-      if (onLineChange) onLineChange(1);
       return null;
     }
 
@@ -120,7 +108,6 @@ class TreeFunctions {
     await new Promise(resolve => setTimeout(resolve, 500));
 
     if (tree.value === value) {
-      if (onLineChange) onLineChange(2);
       tree.isBeingVisited = false;
       tree.found = true; 
       return tree;
@@ -129,11 +116,9 @@ class TreeFunctions {
     tree.isBeingVisited = false;
 
     if (value < tree.value) {
-      if (onLineChange) onLineChange(3);
-      return TreeFunctions.searchNode(tree.left, value, onLineChange);
+      return TreeFunctions.searchNode(tree.left, value);
     }
-    if (onLineChange) onLineChange(4);
-    return TreeFunctions.searchNode(tree.right, value, onLineChange);
+    return TreeFunctions.searchNode(tree.right, value);
   }
 
   static resetFoundFlag(tree) {

@@ -13,7 +13,6 @@
         </div>
         <PseudocodeDisplay 
           v-model:is-visible="showPseudocode"
-          :current-line="currentPseudocodeLine"
           :operation="currentOperation"
         />
         <button 
@@ -125,44 +124,30 @@
   const nodeAmount = ref(null);
 
   const showPseudocode = ref(false);
-  const currentPseudocodeLine = ref(-1);
   const currentOperation = ref('');
 
   const insertNode = async () => {
     if (!nodeToBeAdded.value) return;
     currentOperation.value = 'insert';
-    currentPseudocodeLine.value = 0;
     
     if (!tree.value) {
       TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
-      currentPseudocodeLine.value = 1;
       return;
     }
 
-    await TreeFunctions.insertNode(tree.value, nodeToBeAdded.value, true, (line) => {
-      currentPseudocodeLine.value = line;
-    });
-    currentPseudocodeLine.value = -1;
+    await TreeFunctions.insertNode(tree.value, nodeToBeAdded.value, true);
   };
 
   const removeNode = async () => {
     if (!tree.value) return;
     currentOperation.value = 'remove';
-    currentPseudocodeLine.value = 0;
-    await TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value, (line) => {
-      currentPseudocodeLine.value = line;
-    });
-    currentPseudocodeLine.value = -1;
+    await TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
   };
 
   const searchNode = async () => {
     if (!tree.value) return;
     currentOperation.value = 'search';
-    currentPseudocodeLine.value = 0;
-    await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value, (line) => {
-      currentPseudocodeLine.value = line;
-    });
-    currentPseudocodeLine.value = -1;
+    await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
   };
 
   const generateRandomTree = async () => {
