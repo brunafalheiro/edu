@@ -55,33 +55,10 @@ import { useRouter } from "vue-router";
 const completedCoursesAmount = ref(0);
 const ongoingCoursesAmount = ref(0);
 const ongoingCourses = ref([]);
-
 const router = useRouter();
+
 const goToCourseInfo = (courseId) => router.push(`/course/${courseId}/info`);
-const goToCourse = (courseId, classId, topicId) =>
-  router.push(`/course/${courseId}/${classId}/${topicId}`);
 const redirectTo = (path) => router.push(`/${path}`);
-
-const MINUTES_PER_TOPIC = 15;
-const MINUTES_IN_HOUR = 60;
-
-const formatDuration = (hours, minutes) => {
-  if (minutes === 0) return `${hours}h`;
-  return `${hours}h ${minutes}min`;
-};
-
-const calculateCourseDuration = (course) => {
-  const totalTopics = course.classes.reduce(
-    (total, cls) => total + cls.topics.length, 
-    0
-  );
-  
-  const totalMinutes = totalTopics * MINUTES_PER_TOPIC;
-  const hours = Math.floor(totalMinutes / MINUTES_IN_HOUR);
-  const minutes = totalMinutes % MINUTES_IN_HOUR;
-  
-  return formatDuration(hours, minutes);
-};
 
 const loadCoursesData = async () => {
   const progress = (await window.store.get("progress")) ?? {};
@@ -116,5 +93,6 @@ const loadCoursesData = async () => {
     .filter(Boolean);
 };
 
+// Initialize data
 loadCoursesData();
 </script>
