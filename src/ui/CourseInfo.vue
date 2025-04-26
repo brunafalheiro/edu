@@ -21,7 +21,14 @@
             :value="item.value.toString()"
             class="border-gray-600"
           >
-            <AccordionTrigger>{{ item.name }}</AccordionTrigger>
+            <AccordionTrigger>
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 flex items-center justify-center bg-lavender-ultralight text-lavender-dark rounded-full font-semibold">
+                  {{ item.value + 1 }}
+                </span>
+                <p class="font-semibold text-gray-800">{{ item.name }}</p>
+              </div>
+            </AccordionTrigger>
             <AccordionContent>{{ item.content }}</AccordionContent>
           </AccordionItem>
         </Accordion>

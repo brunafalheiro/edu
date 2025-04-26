@@ -22,7 +22,8 @@ export default {
   			lavender: {
   				DEFAULT: 'hsl(var(--lavender))',
   				light: 'hsl(var(--lavender-light))',
-  				dark: 'hsl(var(--lavender-dark))'
+  				dark: 'hsl(var(--lavender-dark))',
+  				ultralight: 'hsl(var(--lavender-ultralight))'
   			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
