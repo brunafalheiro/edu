@@ -8,6 +8,7 @@
         :src="courseImagePath" 
         @error="handleImageError"
         class="object-cover w-full h-full"
+        :alt="course.name"
       >
     </div>
 
@@ -18,7 +19,7 @@
         courseStatus === 'completed' ? 'bg-green-dark text-green' : 'bg-lavender-light text-lavender-dark'
       ]"
     >
-      <p class="text-xs font-medium">{{ courseStatus === 'completed' ? 'Finalizado' : 'Em andamento' }}</p>
+      <p class="text-xs font-medium">{{ statusLabel }}</p>
     </div>
 
     <div class="p-4">
@@ -47,63 +48,64 @@
 </template>
 
 <script setup>
-  import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
-  const MINUTES_PER_TOPIC = 10;
-  const MINUTES_IN_HOUR = 60;
+const MINUTES_PER_TOPIC = 10;
+const MINUTES_IN_HOUR = 60;
+const DEFAULT_IMAGE_URL = 'https://i0.wp.com/espaferro.com.br/wp-content/uploads/2024/06/placeholder.png?resize=768%2C512&ssl=1';
 
-  const props = defineProps({
-    course: Object,
-    isOngoing: Boolean,
-    clickFunction: Function,
-  });
+const props = defineProps({
+  course: Object,
+  clickFunction: Function,
+});
 
-  const courseImagePath = ref('');
+const courseImagePath = ref('');
+const progress = ref({});
 
-  const handleImageError = () => {
-    courseImagePath.value = 'https://i0.wp.com/espaferro.com.br/wp-content/uploads/2024/06/placeholder.png?resize=768%2C512&ssl=1';
-  };
+// Computed properties
+const courseStatus = computed(() => {
+  const courseProgress = progress.value[props.course.id];
+  if (!courseProgress) return 'not_started';
+  return courseProgress.completed ? 'completed' : 'ongoing';
+});
 
-  const progress = ref({});
-  const courseStatus = computed(() => {
-    const courseProgress = progress.value[props.course.id];
-    if (!courseProgress) return 'not_started';
-    return courseProgress.completed ? 'completed' : 'ongoing';
-  });
+const statusLabel = computed(() => 
+  courseStatus.value === 'completed' ? 'Finalizado' : 'Em andamento'
+);
 
-  const courseProgress = computed(() => {
-    const courseProgress = progress.value[props.course.id];
-    if (!courseProgress) return 0;
+const courseProgress = computed(() => {
+  const courseProgress = progress.value[props.course.id];
+  if (!courseProgress) return 0;
 
-    const completedContent = courseProgress.completedContent || {};
-    const totalTopics = Object.values(completedContent).reduce((total, topics) => total + topics.length, 0);
-    const completedTopics = Object.values(completedContent).reduce((total, topics) => 
-      total + topics.filter(topic => topic.completed).length, 0);
+  const completedContent = courseProgress.completedContent || {};
+  const totalTopics = Object.values(completedContent).reduce((total, topics) => total + topics.length, 0);
+  const completedTopics = Object.values(completedContent).reduce((total, topics) => 
+    total + topics.filter(topic => topic.completed).length, 0);
 
-    return Math.round((completedTopics / totalTopics) * 100);
-  });
+  return Math.round((completedTopics / totalTopics) * 100);
+});
 
-  const formatDuration = (hours, minutes) => {
-    if (minutes === 0) return `${hours}h`;
-    return `${hours}h ${minutes}min`;
-  };
+const courseDuration = computed(() => {
+  const totalTopics = props.course.classes.reduce((total, cls) => total + cls.topics.length, 0);
+  const totalMinutes = totalTopics * MINUTES_PER_TOPIC;
+  const hours = Math.floor(totalMinutes / MINUTES_IN_HOUR);
+  const minutes = totalMinutes % MINUTES_IN_HOUR;
+  
+  return formatDuration(hours, minutes);
+});
 
-  const courseDuration = computed(() => {
-    const totalTopics = props.course.classes.reduce((total, cls) => total + cls.topics.length, 0);
-    
-    const totalMinutes = totalTopics * MINUTES_PER_TOPIC;
-    const hours = Math.floor(totalMinutes / MINUTES_IN_HOUR);
-    const minutes = totalMinutes % MINUTES_IN_HOUR;
-    
-    return formatDuration(hours, minutes);
-  });
+const formatDuration = (hours, minutes) => {
+  if (minutes === 0) return `${hours}h`;
+  return `${hours}h ${minutes}min`;
+};
 
-  const fetchProgress = async () => {
-    progress.value = (await window.store.get("progress")) || {};
-  };
+const handleImageError = () => { courseImagePath.value = DEFAULT_IMAGE_URL; };
+const fetchProgress = async () => {
+  progress.value = (await window.store.get("progress")) || {};
+};
 
-  onMounted(() => {
-    courseImagePath.value = new URL(`../../assets/images/${props.course.id}.png`, import.meta.url).href;
-    fetchProgress();
-  });
+onMounted(() => {
+  courseImagePath.value = new URL(`../../assets/images/${props.course.id}.png`, import.meta.url).href;
+  fetchProgress();
+});
 </script>
