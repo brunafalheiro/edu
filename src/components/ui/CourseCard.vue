@@ -1,34 +1,43 @@
 <template>
   <div
-    class="rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-lg hover:scale-105"
+    class="rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-xl hover:scale-[1.02] bg-white"
     @click="clickFunction(course.id)"
   >
-    <div class="w-full h-40 bg-gray-100">
-      <img :src="course.image" class="object-cover">
+    <div class="w-full h-48 bg-gray-100 relative">
+      <img :src="course.image" class="object-cover w-full h-full">
+      <div class="absolute inset-0 bg-gray-100"></div>
     </div>
 
     <div
       v-if="courseStatus !== 'not_started'"
       :class="[ 
-        'absolute top-2 right-2 px-3 py-1 text-xs font-bold rounded-full',
-        courseStatus === 'completed' ? 'bg-green-200 text-green-800' : 'bg-orange-200 text-orange-800'
+        'absolute top-3 right-3 px-4 py-1.5 text-xs font-semibold rounded-full shadow-sm',
+        courseStatus === 'completed' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
       ]"
     >
       <p>{{ courseStatus === 'completed' ? 'Completado' : 'Em andamento' }}</p>
     </div>
 
-    <div class="flex justify-between items-center px-4 my-3">
-      <h2 class="font-semibold mr-2">{{ course.name }}</h2>
-      <span v-if="courseStatus !== 'completed'" class="text font-bold text-red-500">{{ courseProgress }}%</span>
-    </div>
-
-    <div class="flex px-4 pb-3">
-      <div class="text-sm text-gray-600 flex items-center mr-4">
-        <i class="pi pi-clock mr-1"></i>
-        <p>{{ courseDuration }}</p>
+    <div class="p-4">
+      <div class="flex justify-between items-start mb-3">
+        <h2 class="font-bold text-lg text-gray-800 mr-2 line-clamp-2">{{ course.name }}</h2>
+        <span 
+          v-if="courseStatus !== 'completed'" 
+          class="flex-shrink-0 ml-2 px-2.5 py-1 bg-red-50 text-red-600 text-sm font-semibold rounded-full"
+        >
+          {{ courseProgress }}%
+        </span>
       </div>
-      <div class="text-sm text-gray-600">
-        <p>{{ course.classes.length }} módulos</p>
+
+      <div class="flex items-center space-x-4 text-sm text-gray-600">
+        <div class="flex items-center">
+          <i class="pi pi-clock mr-1.5 text-gray-500"></i>
+          <p>{{ courseDuration }}</p>
+        </div>
+        <div class="flex items-center">
+          <i class="pi pi-book mr-1.5 text-gray-500"></i>
+          <p>{{ course.classes.length }} módulos</p>
+        </div>
       </div>
     </div>
   </div>
