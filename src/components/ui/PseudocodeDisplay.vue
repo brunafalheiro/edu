@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute right-[-300px] top-0 w-[280px] h-full bg-white border-l border-slate-200 transition-all duration-300 ease-in-out z-10" :class="{ '!right-0': isVisible }">
+  <div class="absolute right-[-300px] top-0 w-[280px] h-full bg-white border-l border-black transition-all duration-300 ease-in-out z-10" :class="{ '!right-0': isVisible }">
     <div class="p-4 h-full overflow-y-auto">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-sm font-medium text-slate-700">Pseudocódigo</h3>

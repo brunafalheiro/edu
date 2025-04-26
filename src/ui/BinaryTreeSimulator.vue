@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full min-h-screen bg-slate-50">
+  <div class="w-full min-h-screen">
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
       <BackButton class="mb-6" text="Simulador de Árvores Binárias" :backFunction="goBack" />
 
-      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl shadow-sm cursor-grab mb-8 relative">
+      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl border border-black cursor-grab mb-8 relative">
         <div v-if="!tree" class="flex flex-col items-center justify-center h-full text-slate-400">
           <i class="pi pi-tree text-4xl mb-2"></i>
           <p class="text-sm">Nenhuma árvore criada. Utilize os controles abaixo para começar.</p>
@@ -24,7 +24,7 @@
         </button>
       </div>
 
-      <div class="bg-white rounded-xl shadow-sm p-6 w-fit mx-auto">
+      <div class="bg-white border border-gray-400 rounded-xl shadow-sm p-6 w-fit mx-auto">
         <div class="flex flex-wrap items-end gap-8">
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Inserir Nó</div>
@@ -37,7 +37,7 @@
                 </NumberFieldContent>
               </NumberField>
               <Button @click="insertNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
-                <i class="pi pi-plus w-4 h-4"></i>
+                <i class="pi pi-plus w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -53,7 +53,7 @@
                 </NumberFieldContent>
               </NumberField>
               <Button @click="removeNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
-                <i class="pi pi-minus w-4 h-4"></i>
+                <i class="pi pi-minus w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -69,13 +69,13 @@
                 </NumberFieldContent>
               </NumberField>
               <Button @click="searchNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
-                <i class="pi pi-search w-4 h-4"></i>
+                <i class="pi pi-search w-4 h-4" />
               </Button>
             </div>
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-medium text-slate-500">Gerar Árvore Aleatória</div>
+            <div class="text-xs font-medium text-slate-500">Gerar árvore aleatória</div>
             <div class="flex items-center gap-2">
               <NumberField v-model="nodeAmount" class="w-24" @keyup.enter="generateRandomTree">
                 <NumberFieldContent>
@@ -91,7 +91,7 @@
           </div>
 
           <Button @click="clearTree" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-colors duration-200 flex items-center justify-center">
-            <i class="pi pi-trash w-4 h-4 mr-2"></i>
+            <i class="pi pi-trash w-4 h-4 mr-2" />
             Limpar
           </Button>
         </div>
