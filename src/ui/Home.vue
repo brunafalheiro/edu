@@ -21,7 +21,7 @@
         <div
           v-for="course in courses"
           :key="course.id"
-          class= "rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer"
+          class="rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-lg hover:scale-105"
           @click="goToCourseInfo(course.id)"
         >
           <div class="w-full h-40 bg-gray-100">
@@ -29,7 +29,7 @@
           </div>
 
           <div
-            :class="[
+            :class="[ 
               'absolute top-2 right-2 px-3 py-1 text-xs font-bold rounded-full',
               ongoingCourses.find(id === course.id) === 'Ongoing' ? 'bg-orange-200 text-orange-800' : 'bg-pink-200 text-pink-800'
             ]"
