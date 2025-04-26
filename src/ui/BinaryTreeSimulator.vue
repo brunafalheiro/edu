@@ -6,7 +6,7 @@
       <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl shadow-sm cursor-grab mb-8">
         <div v-if="!tree" class="flex flex-col items-center justify-center h-full text-slate-400">
           <i class="pi pi-tree text-4xl mb-2"></i>
-          <p class="text-sm">Nenhuma árvore criada. Use os controles abaixo para começar.</p>
+          <p class="text-sm">Nenhuma árvore criada. Utilize os controles abaixo para começar.</p>
         </div>
         <div v-else ref="zoomContainer" class="zoom-wrapper inline-block cursor-grabbing">
           <TreeComponent :tree="tree" />
