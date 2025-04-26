@@ -18,7 +18,7 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Inserir Nó</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeToBeAdded" class="w-24">
+              <NumberField v-model="nodeToBeAdded" class="w-24" @keyup.enter="insertNode">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
@@ -34,7 +34,7 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Remover Nó</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeToBeRemoved" class="w-24">
+              <NumberField v-model="nodeToBeRemoved" class="w-24" @keyup.enter="removeNode">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
@@ -50,7 +50,7 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Buscar Nó</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeToBeSearched" class="w-24">
+              <NumberField v-model="nodeToBeSearched" class="w-24" @keyup.enter="searchNode">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
@@ -66,7 +66,7 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Gerar Árvore Aleatória</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeAmount" class="w-24">
+              <NumberField v-model="nodeAmount" class="w-24" @keyup.enter="generateRandomTree">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
