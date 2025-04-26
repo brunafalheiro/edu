@@ -13,7 +13,7 @@
           <div class="flex items-center mr-2">
             <div
               v-if="isClassCompleted(cls.id)"
-              class="bg-red-500 min-w-12 min-h-12 rounded-full flex items-center justify-center mr-4"
+              class="bg-secondary min-w-12 min-h-12 rounded-full flex items-center justify-center mr-4"
             >
               <i class="pi pi-check text-white text-base"></i>
             </div>
@@ -30,7 +30,7 @@
                 />
                 <!-- Progress circle -->
                 <circle
-                  class="text-red-500 stroke-current transition-all duration-700 ease-in-out"
+                  class="text-secondary stroke-current transition-all duration-700 ease-in-out"
                   stroke-width="3"
                   stroke-linecap="round"
                   cx="18"
@@ -76,9 +76,9 @@
                   :class="[
                     'min-w-7 min-h-7 rounded-full mr-3 relative z-10 flex items-center justify-center transition-all duration-700 ease-in-out',
                     isTopicCompleted(cls.id, topic.id)
-                      ? 'bg-red-500'
+                      ? 'bg-secondary'
                       : isOngoingTopic(cls.id, topic.id)
-                      ? 'bg-red-300'
+                      ? 'bg-tertiary'
                       : 'bg-white border-2 border-gray-300',
                   ]"
                 >
