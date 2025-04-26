@@ -18,40 +18,13 @@
 
       <p class="text-xl font-black mb-4">Cursos</p>
       <div class="flex flex-wrap gap-6 mb-16">
-        <div
+        <CourseCard
           v-for="course in courses"
           :key="course.id"
-          class="rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[360px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-lg hover:scale-105"
-          @click="goToCourseInfo(course.id)"
-        >
-          <div class="w-full h-40 bg-gray-100">
-            <img :src="course.image" class="object-cover">
-          </div>
-
-          <div
-            :class="[ 
-              'absolute top-2 right-2 px-3 py-1 text-xs font-bold rounded-full',
-              ongoingCourses.find(id === course.id) === 'Ongoing' ? 'bg-orange-200 text-orange-800' : 'bg-pink-200 text-pink-800'
-            ]"
-          >
-            <p>Em andamento</p>
-          </div>
-
-          <div class="flex justify-between items-center px-4 my-3">
-            <h2 class="font-semibold mr-2">{{ course.name }}</h2>
-            <span class="text font-bold text-red-500">32%</span>
-          </div>
-
-          <div class="flex px-4 pb-3">
-            <div class="text-sm text-gray-600 flex items-center mr-3">
-              <i class="pi pi-clock mr-1"></i>
-              <p>{{ calculateCourseDuration(course) }}</p>
-            </div>
-            <div class="text-sm text-gray-600">
-              <p>{{ course.classes.length }} módulos</p>
-            </div>
-          </div>
-        </div>
+          :course="course"
+          :isOngoing="ongoingCourses.find(c => c.id === course.id) !== undefined"
+          :clickFunction="goToCourseInfo"
+        />
       </div>
 
       <p class="text-xl font-black mb-6">Ferramentas</p>
@@ -75,6 +48,7 @@
 <script setup>
 import courses from "@/courses.json";
 import SimulatorCard from "@components/ui/SimulatorCard.vue";
+import CourseCard from "@components/ui/CourseCard.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
