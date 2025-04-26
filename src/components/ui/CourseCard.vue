@@ -16,7 +16,7 @@
       v-if="courseStatus !== 'not_started'"
       :class="[ 
         'absolute top-3 right-3 px-4 py-1.5 rounded-full shadow-sm',
-        courseStatus === 'completed' ? 'bg-green-dark text-green' : 'bg-lavender-light text-lavender-dark'
+        courseStatus === 'completed' ? 'bg-green-dark text-green' : 'bg-lavender-ultralight text-lavender'
       ]"
     >
       <p class="text-xs font-medium">{{ statusLabel }}</p>
