@@ -48,12 +48,24 @@
 
           <!-- Single Type Exercise -->
           <div v-else-if="currentExerciseData.type === 'single'">
-            <div v-if="showAnswer" class="mt-6 bg-white p-4 rounded-lg">
-              <div v-for="(item, index) in currentExerciseData.answer" :key="index">
-                <p v-if="item.type === 'text'" class="mb-4">{{ item.value }}</p>
-                <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4" />
+            <Transition
+              enter-active-class="transition duration-300 ease-out"
+              enter-from-class="transform opacity-0 -translate-y-4"
+              enter-to-class="transform opacity-100 translate-y-0"
+              leave-active-class="transition duration-300 ease-in"
+              leave-from-class="transform opacity-100 translate-y-0"
+              leave-to-class="transform opacity-0 -translate-y-4"
+            >
+              <div 
+                v-if="showAnswer" 
+                class="mt-6 bg-white p-4 rounded-lg"
+              >
+                <div v-for="(item, index) in currentExerciseData.answer" :key="index">
+                  <p v-if="item.type === 'text'" class="mb-4">{{ item.value }}</p>
+                  <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4" />
+                </div>
               </div>
-            </div>
+            </Transition>
           </div>
 
           <div class="flex items-center justify-end mt-12">
