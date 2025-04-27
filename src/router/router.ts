@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@ui/Home.vue';
-import CourseInfo from '@/ui/CourseInfo.vue';
-import BinaryTreeSimulator from '@ui/BinaryTreeSimulator.vue';
-import HashTableSimulator from '@ui/HashTableSimulator.vue';
-import Course from '@ui/Course.vue'
+import CourseInfo from '@/ui/course/CourseInfo.vue';
+import BinaryTreeSimulator from '@ui/simulators/BinaryTreeSimulator.vue';
+import HashTableSimulator from '@ui/simulators/HashTableSimulator.vue';
+import Course from '@ui/course/course.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
