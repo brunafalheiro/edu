@@ -67,6 +67,25 @@ class TimeUtils {
     if (!minutes) return `${hours.toString()}h`;
     return `${hours.toString()}h ${minutes.toString()}m`;
   };
+
+  /**
+   * Calculates the total time studied across all courses
+   * @param {Object} progress - Progress object containing completed topics for all courses
+   * @returns {moment.Duration} Total duration object
+   */
+  static calculateTotalTimeStudied = (progress) => {
+    if (!progress) {
+      return moment.duration(0, 'minutes');
+    }
+
+    let totalMinutes = 0;
+    Object.keys(progress).forEach(courseId => {
+      const courseTime = TimeUtils.calculateTimeStudied(courseId, progress);
+      totalMinutes += courseTime.asMinutes();
+    });
+
+    return moment.duration(totalMinutes, 'minutes');
+  };
 }
 
 export { TimeUtils };
