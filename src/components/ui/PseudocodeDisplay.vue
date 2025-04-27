@@ -16,8 +16,8 @@
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto mt-4 mr-4">
-        <pre class="font-mono text-base">
+      <div class="flex-1 overflow-y-auto mt-4">
+        <pre class="font-mono text-base w-fit p-4">
           <code class="language-javascript">
             <div
               v-for="(line, index) in pseudocode" 
