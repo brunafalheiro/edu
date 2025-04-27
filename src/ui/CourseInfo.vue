@@ -10,7 +10,14 @@
       <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">
         Começar
       </Button>
-      <Button v-else @click="goToClass" class="mb-12">Continuar</Button>
+      
+      <div v-else class="flex items-center gap-4 mb-12">
+        <Button @click="goToClass">Continuar</Button>
+        <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
+          <i class="pi pi-clock text-sm" />
+          <p class="text-sm">{{ TimeUtils.calculateRemainingTime(courseId, coursesProgress) }} restantes</p>
+        </div>
+      </div>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
       <div class="p-4 border border-black rounded-lg mb-12">
@@ -47,6 +54,7 @@
   import courses from "@/courses.json";
   import Button from "@components/ui/button/Button.vue";
   import BackButton from "@/components/ui/BackButton.vue";
+  import { TimeUtils } from "@/utils/timeUtils";
   import { ref } from "vue";
   import { useRouter } from "vue-router";
 
