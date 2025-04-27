@@ -54,7 +54,7 @@
     {
       title: "Tabelas Hash",
       description: "Simulador de tabelas hash",
-      path: "hash-tables",
+      path: "hash-table-simulator",
       icon: "pi-table"
     }
   ];
