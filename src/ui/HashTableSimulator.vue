@@ -13,8 +13,3 @@
   const router = useRouter();
   const goBack = () => router.push("/");
 </script>
-
-<style scoped lang="scss">
-</style>
-
-
