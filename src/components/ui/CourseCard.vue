@@ -36,7 +36,7 @@
       <div class="flex items-center space-x-4 text-sm text-gray-600">
         <div class="flex items-center">
           <i class="pi pi-clock mr-1.5 text-gray-500"></i>
-          <p>{{ courseDuration }}</p>
+          <p>{{ totalDuration }}</p>
         </div>
         <div class="flex items-center">
           <i class="pi pi-book mr-1.5 text-gray-500"></i>
@@ -48,21 +48,18 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue';
-
-const MINUTES_PER_TOPIC = 10;
-const MINUTES_IN_HOUR = 60;
-const DEFAULT_IMAGE_URL = 'https://i0.wp.com/espaferro.com.br/wp-content/uploads/2024/06/placeholder.png?resize=768%2C512&ssl=1';
+import { TimeUtils } from '@/utils/timeUtils';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({
   course: Object,
   clickFunction: Function,
 });
 
+const DEFAULT_IMAGE_URL = 'https://i0.wp.com/espaferro.com.br/wp-content/uploads/2024/06/placeholder.png?resize=768%2C512&ssl=1';
 const courseImagePath = ref('');
 const progress = ref({});
 
-// Computed properties
 const courseStatus = computed(() => {
   const courseProgress = progress.value[props.course.id];
   if (!courseProgress) return 'not_started';
@@ -85,19 +82,7 @@ const courseProgress = computed(() => {
   return Math.round((completedTopics / totalTopics) * 100);
 });
 
-const courseDuration = computed(() => {
-  const totalTopics = props.course.classes.reduce((total, cls) => total + cls.topics.length, 0);
-  const totalMinutes = totalTopics * MINUTES_PER_TOPIC;
-  const hours = Math.floor(totalMinutes / MINUTES_IN_HOUR);
-  const minutes = totalMinutes % MINUTES_IN_HOUR;
-  
-  return formatDuration(hours, minutes);
-});
-
-const formatDuration = (hours, minutes) => {
-  if (minutes === 0) return `${hours}h`;
-  return `${hours}h ${minutes}min`;
-};
+const totalDuration = computed(() => TimeUtils.calculateCourseDuration(props.course));
 
 const handleImageError = () => { courseImagePath.value = DEFAULT_IMAGE_URL; };
 const fetchProgress = async () => {
