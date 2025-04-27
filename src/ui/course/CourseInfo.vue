@@ -36,7 +36,7 @@
                 <p class="font-semibold text-gray-800">{{ item.name }}</p>
               </div>
             </AccordionTrigger>
-            <AccordionContent>{{ item.content }}</AccordionContent>
+            <AccordionContent class="pl-11">{{ item.content }}</AccordionContent>
           </AccordionItem>
         </Accordion>
       </div>
