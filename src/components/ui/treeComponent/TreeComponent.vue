@@ -3,7 +3,7 @@
     <li>
       <a
         :class="{ visiting: tree.isBeingVisited, found: tree.found }"
-        class="p-[10px] inline-grid rounded-sm min-w-11 border border-gray-300 transition-all duration-500 ease-in-out cursor-pointer"
+        class="p-[10px] inline-grid rounded-sm min-w-11 border border-gray-400 transition-all duration-500 ease-in-out cursor-pointer"
       >
         {{ tree.value }}
       </a>

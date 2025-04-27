@@ -1,3 +1,5 @@
+@import '../../../assets/index.scss';
+
 .tree {
   li {
     &::before,
@@ -5,16 +7,16 @@
       content: '';
       position: absolute;
       top: 0;
-      width: 51%;
+      width: 51.8%;
       height: 10px;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid hsl(var(--muted-foreground));
     }
 
-    &::before { right: 50%; }
+    &::before { right: 49.4%; }
 
     &::after {
       left: 50%;
-      border-left: 1px solid #ccc;
+      border-left: 1px solid hsl(var(--muted-foreground));
     }
 
     &:only-child {
@@ -31,7 +33,7 @@
     &:first-child::after { border-radius: 5px 0 0 0; }
 
     &:last-child::before {
-      border-right: 1px solid #ccc;
+      border-right: 1px solid #9ca3af;
       border-radius: 0 5px 0 0;
     }
 
@@ -39,31 +41,36 @@
 
     a {
       &.visiting {
-        border: 1px solid #9d0e0e !important;
-        background-color: #fff3f3 !important;
+        border: 1px solid hsl(var(--lavender)) !important;
+        background-color: hsl(var(--lavender-ultralight)) !important;
       }
 
       &.found {
-        border: 1px solid #0e9d0e !important;
-        background-color: #f3fff3 !important;
+        border: 1px solid hsl(var(--green-dark)) !important;
+        background-color: hsl(var(--green) / 0.1) !important;
+
+        &:hover {
+          border: 1px solid hsl(var(--green-dark)) !important;
+          background-color: hsl(var(--green) / 0.25) !important;
+        }
       }
 
       &:hover,
       &:hover + ul li a {
-        background: #d9f3f2 !important;
-        color: #000;
-        border: 1px solid #94a0b4 !important;
+        background: hsl(var(--accent)) !important;
+        color: hsl(var(--foreground));
+        border: 1px solid hsl(var(--foreground)) !important;
       }
 
       &:hover {
         ul,
         +ul li {
-          &::before, &::after { border-color: #94a0b4; }
+          &::before, &::after { border-color: #000000; }
         }
 
         +ul::before,
         +ul ul::before {
-          border-color: #94a0b4;
+          border-color: #000000;
         }
       }
     }
@@ -73,7 +80,7 @@
       position: absolute;
       top: -2px;
       left: 50%;
-      border-left: 1px solid #ccc;
+      border-left: 1px solid #9ca3af;
       height: 22px;
       width: 0;
     }
