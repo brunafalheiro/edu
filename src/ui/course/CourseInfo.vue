@@ -7,17 +7,23 @@
       </div>
       <p class="mb-9">{{ course.description }}</p>
 
-      <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">
+      <Button v-if="!isOngoingCourse && !isCompletedCourse" @click="startCourse" class="mb-12">
         Começar
       </Button>
+
+      <!-- <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">
+        Começar
+      </Button> -->
       
-      <div v-else class="flex items-center gap-4 mb-12">
+      <div v-else-if="isOngoingCourse" class="flex items-center gap-4 mb-12">
         <Button @click="goToClass">Continuar</Button>
         <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
           <i class="pi pi-clock text-sm" />
           <p class="text-sm">{{TimeUtils.formatDuration(TimeUtils.calculateRemainingTime(courseId, coursesProgress))}} restantes</p>
         </div>
       </div>
+
+      <Button v-else @click="viewCourse" class="mb-12">Ver curso</Button>
 
       <p class="text-xl font-black mb-6">Conteúdo</p>
       <div class="p-4 border border-black rounded-lg mb-12">
@@ -82,12 +88,14 @@
   const goBack = () => router.push("/");
 
   const isOngoingCourse = ref(false);
+  const isCompletedCourse = ref(false);
   const coursesProgress = ref({});
 
   const checkCourseStatus = async () => {
     coursesProgress.value = (await window.store.get("progress")) || {};
     const course = coursesProgress.value[courseId];
     isOngoingCourse.value = course ? !course.completed : false;
+    isCompletedCourse.value = course ? course.completed : false;
   };
 
   checkCourseStatus();
@@ -125,5 +133,5 @@
     router.push(`/course/${courseId}/${classId}/${topicId}`);
   };
 
-  const goToExercises = () => router.push(`/exercises/${courseId}`);
+  const viewCourse = () => router.push(`/course/${courseId}/1/1`);
 </script>
