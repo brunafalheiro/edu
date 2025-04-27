@@ -39,10 +39,28 @@
         </div>
 
         <div class="h-px w-full bg-gray-200 mb-6"></div>
-        <div @click="" class="flex items-center cursor-pointer">
-          <i class="pi pi-flag mr-2"></i>
-          <p class="font-semibold text-sm">Reportar problema</p>
-        </div>
+        <Dialog>
+          <DialogTrigger as-child>
+            <div @click="" class="flex items-center cursor-pointer">
+              <i class="pi pi-flag mr-2"></i>
+              <p class="font-semibold text-sm">Reportar problema</p>
+            </div>
+          </DialogTrigger>
+          <DialogContent class="sm:max-w-md">
+            <DialogHeader class="mb-3">
+              <DialogTitle class="mb-1">Algum problema com o conteúdo?</DialogTitle>
+              <DialogDescription>
+                Envie um e-mail para <a href="mailto:brunapf@dcc.ufrj.br" class="underline">brunapf@dcc.ufrj.br</a> reportando o erro.
+              </DialogDescription>
+            </DialogHeader>
+            
+            <DialogFooter >
+              <DialogClose as-child>
+                <Button type="button" variant="secondary" class="font-semibold" v-slot="{ close }" @click="close">Fechar</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <div v-else class="w-full max-w-[860px] h-full p-12 pt-24 flex flex-col items-center justify-center">
         <div class="text-center mb-6">
@@ -81,9 +99,19 @@
   import { ref, watch } from "vue";
   import { useRouter, useRoute } from "vue-router";
   import Sidebar from "@components/ui/Sidebar.vue";
-  import Button from "@components/ui/button/Button.vue";
   import courses from "@/courses.json";
   import BackButton from "@/components/ui/BackButton.vue";
+  import Button from "@components/ui/button/Button.vue";
+  import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from '@/components/ui/dialog'
 
   const router = useRouter();
   const route = useRoute();
