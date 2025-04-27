@@ -44,9 +44,34 @@
           <p class="font-semibold text-sm">Reportar problema</p>
         </div>
       </div>
-      <div v-else>
-        <p>Finalizado</p>
-        <Button @click="goToHome" class="mr-6">Ir para o menu</Button>
+      <div v-else class="w-full max-w-[860px] h-full p-12 pt-24 flex flex-col items-center justify-center">
+        <div class="mb-8">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="pi pi-check-circle text-2xl text-green-500"></i>
+          </div>
+          <h1 class="text-3xl font-black text-gray-800 mb-4">Parabéns!</h1>
+          <p class="text-base text-gray-600 mb-2">Você concluiu o curso</p>
+          <p class="text-2xl font-bold text-gray-800">{{ course.name }}</p>
+        </div>
+        
+        <div class="bg-white rounded-xl border border-black p-8 w-full max-w-md mb-8">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">Resumo do Curso</h2>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <i class="pi pi-book text-gray-500 mr-3"></i>
+              <span class="text-gray-600">{{ classes.length }} módulos completados</span>
+            </div>
+            <div class="flex items-center">
+              <i class="pi pi-list text-gray-500 mr-3"></i>
+              <span class="text-gray-600">{{ classes.reduce((acc, curr) => acc + curr.topics.length, 0) }} tópicos estudados</span>
+            </div>
+          </div>
+        </div>
+
+        <Button @click="goToHome" class="flex items-center">
+          <i class="pi pi-home mr-1"></i>
+          Voltar à home
+        </Button>
       </div>
     </div>
     <Sidebar :classes="classesSkeleton" />
