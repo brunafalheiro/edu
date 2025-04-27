@@ -10,6 +10,10 @@ class TimeUtils {
    * @returns {moment.Duration} Duration object
    */
   static calculateCourseDuration = (courseId, progress) => {
+    if (!progress || !progress[courseId] || !progress[courseId].completedContent) {
+      return moment.duration(0, 'minutes');
+    }
+
     const totalTopics = Object.values(progress[courseId].completedContent)
       .reduce((total, cls) => total + cls.length, 0);
     const totalMinutes = totalTopics * TimeUtils.MINUTES_PER_TOPIC;
@@ -46,6 +50,10 @@ class TimeUtils {
    * @returns {moment.Duration}
    */
   static calculateRemainingTime = (courseId, progress) => {
+    if (!progress || !progress[courseId] || !progress[courseId].completedContent) {
+      return moment.duration(0, 'minutes');
+    }
+
     const totalDuration = TimeUtils.calculateCourseDuration(courseId, progress);
     const studiedDuration = TimeUtils.calculateTimeStudied(courseId, progress);
     
