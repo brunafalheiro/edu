@@ -306,7 +306,7 @@
     ]
   },
   {
-    "id": "stack",
+    "id": "hashTable",
     "name": "Tabelas Hash",
     "description": "Aprenda sobre tabelas hash.",
     "classes": [
