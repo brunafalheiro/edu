@@ -19,6 +19,9 @@
           :course="course"
           :clickFunction="goToCourseInfo"
         />
+        <div v-if="filteredCourses.length === 0" class="w-full h-72 flex items-center justify-center">
+          <p class="text-center text-gray-500">Nenhum curso encontrado.</p>
+        </div>
       </div>
 
       <ToolsSection :tools="TOOLS" @tool-click="redirectTo" />
