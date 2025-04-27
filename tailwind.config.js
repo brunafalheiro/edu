@@ -17,7 +17,8 @@ export default {
   			foreground: 'hsl(var(--foreground))',
   			green: {
   				DEFAULT: 'hsl(var(--green))',
-  				dark: 'hsl(var(--green-dark))'
+  				dark: 'hsl(var(--green-dark))',
+  				medium: 'hsl(var(--green-medium))'
   			},
   			lavender: {
   				DEFAULT: 'hsl(var(--lavender))',

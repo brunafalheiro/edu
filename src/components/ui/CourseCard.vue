@@ -27,7 +27,7 @@
         <h2 class="font-bold text-lg text-gray-800 mr-2 line-clamp-2">{{ course.name }}</h2>
         <span 
           v-if="courseStatus !== 'completed'" 
-          class="flex-shrink-0 ml-2 px-2.5 py-1 bg-red-50 text-red-600 text-sm font-semibold rounded-full"
+          class="flex-shrink-0 ml-2 px-2.5 py-1 bg-green/15 text-green-medium text-sm font-medium rounded-full"
         >
           {{ courseProgress }}%
         </span>
