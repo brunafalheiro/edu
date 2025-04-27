@@ -7,7 +7,7 @@
       :class="[
         'px-4 py-1 rounded-full text-sm transition-colors',
         selectedFilter === filter.value 
-          ? 'bg-white text-black shadow-sm' 
+          ? 'bg-white text-black shadow-sm font-semibold' 
           : 'text-gray-500 hover:text-gray-700'
       ]"
     >
