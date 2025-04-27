@@ -8,24 +8,52 @@
 
       <div class="w-full flex">
         <div class="w-full bg-gray-50 rounded-lg p-4 mr-4">
-          <div class="bg-white p-4 rounded-lg">
+          <div class="bg-white p-4 rounded-lg mb-8">
             <p class="">{{ currentExercise }} Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet Lorem Ipsum dolor sit amet </p>
           </div>
+          
           <div
             v-for="ans in answers"
-            class="flex items-center bg-white p-4 rounded-lg mt-4"
             :key="ans.key"
+            class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300"
+            :class="[
+              !showFeedback && selectedAnswer === ans.key ? 'border-lavender-light bg-lavender-ultralight' : '',
+              showFeedback && ans.correct ? 'border-green bg-green/10' : '',
+              showFeedback && selectedAnswer === ans.key && !ans.correct ? 'border-red bg-red/10' : ''
+            ]"
+            @click="selectAnswer(ans.key)"
           >
-            <div class="w-8 h-8 rounded-lg bg-lavender-ultralight flex items-center justify-center">
+            <div
+              class="w-8 h-8 rounded-lg bg-lavender-ultralight flex items-center justify-center"
+              :class="[
+                showFeedback && ans.correct ? 'bg-green/80' : '',
+                showFeedback && selectedAnswer === ans.key && !ans.correct ? 'bg-red' : ''
+              ]"
+            >
               <p class="text-xs font-bold">{{ ans.key }}</p>
             </div>
 
-            <p class="">{{ ans.text }}</p>
+            <p class="ml-4">{{ ans.text }}</p>
+          </div>
+
+          <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg" :class="isAnswerCorrect ? 'bg-green/10 text-green-dark' : 'bg-red-50 text-red-700'">
+            <p class="text-sm font-semibold">{{ isAnswerCorrect ? 'Resposta correta.' : 'Resposta incorreta.' }}</p>
+            <p v-if="!isAnswerCorrect" class="text-sm">A resposta correta é: {{ getCorrectAnswer }}</p>
           </div>
 
           <div class="flex items-center justify-end mt-12">
-            <Button class="mr-4">Responder</Button>
-            <Button @click="goToExercise(currentExercise + 1)">Proximo</Button>
+            <Button 
+              class="mr-4" 
+              :disabled="!selectedAnswer || showFeedback"
+              @click="checkAnswer"
+            >
+              Responder
+            </Button>
+            <Button 
+              @click="goToExercise(currentExercise + 1)"
+            >
+              Próximo
+            </Button>
           </div>
         </div>
         
@@ -46,7 +74,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import BackButton from '@/components/ui/BackButton.vue';
   import Button from '@components/ui/button/Button.vue';
@@ -54,18 +82,42 @@
   const route = useRoute();
   const router = useRouter();
   const courseId = route.params.courseId;
-  const currentExercise = ref(0);
+  const currentExercise = ref(1);
   const TOTAL_EXERCISES = 45;
+  const selectedAnswer = ref(null);
+  const showFeedback = ref(false);
+  const isAnswerCorrect = ref(false);
+
   const answers = [
-    {'A': { 'text': 'Lorem ipsum dolor sit amet', 'correct': true }},
-    {'B': { 'text': 'Lorem ipsum dolor sit amet', 'correct': false }},
-    {'C': { 'text': 'Lorem ipsum dolor sit amet', 'correct': false }},
-    {'D': { 'text': 'Lorem ipsum dolor sit amet', 'correct': false }},
+    { key: 'A', text: 'Lorem ipsum dolor sit amet', correct: true },
+    { key: 'B', text: 'Lorem ipsum dolor sit amet' },
+    { key: 'C', text: 'Lorem ipsum dolor sit amet' },
+    { key: 'D', text: 'Lorem ipsum dolor sit amet' }
   ]
+
+  const getCorrectAnswer = computed(() => {
+    const correct = answers.find(ans => ans.correct);
+    return correct ? correct.key : '';
+  });
+
+  const selectAnswer = (key) => {
+    if (showFeedback.value) return;
+    selectedAnswer.value = key;
+  };
+
+  const checkAnswer = () => {
+    if (!selectedAnswer.value) return;
+    const selected = answers.find(ans => ans.key === selectedAnswer.value);
+    isAnswerCorrect.value = selected?.correct || false;
+    showFeedback.value = true;
+  };
 
   const goBack = () => router.push("/");
   const goToExercise = (exercise) => {
     if (exercise > TOTAL_EXERCISES) return;
     currentExercise.value = exercise;
+    selectedAnswer.value = null;
+    showFeedback.value = false;
+    isAnswerCorrect.value = false;
   };
 </script>
