@@ -29,18 +29,20 @@ class TimeUtils {
   };
 
   /**
-   * Calculates the time already studied in a course based on completed topics
-   * @param {Object} course - Course object containing classes and topics
+   * Calculates the time already studied in a specific course based on its ID
+   * @param {string} courseId - ID of the course
    * @param {Object} progress - Progress object containing completed topics
    * @returns {string} Formatted duration string
    */
-  static calculateTimeStudied = (course, progress) => {
-    if (!progress || !progress.completedContent) {
+  static calculateTimeStudied = (courseId, progress) => {
+    if (!progress || !progress[courseId] || !progress[courseId].completedContent) {
       return TimeUtils.formatDuration(0, 0);
     }
 
     let completedTopics = 0;
-    Object.values(progress.completedContent).forEach(classContent => {
+    const courseProgress = progress[courseId].completedContent;
+
+    Object.values(courseProgress).forEach(classContent => {
       completedTopics += classContent.filter(topic => topic.completed).length;
     });
 
@@ -53,16 +55,18 @@ class TimeUtils {
 
   /**
    * Calculates the remaining time to complete a course
-   * @param {Object} course - Course object containing classes and topics
+   * @param {string} courseId - ID of the course
    * @param {Object} progress - Progress object containing completed topics
    * @returns {string} Formatted duration string
    */
-  static calculateRemainingTime = (course, progress) => {
-    const totalTopics = course.classes.reduce((total, cls) => total + cls.topics.length, 0);
+  static calculateRemainingTime = (courseId, progress) => {
+    const totalTopics = Object.values(progress[courseId].completedContent)
+      .reduce((total, cls) => total + cls.length, 0);
     let completedTopics = 0;
 
-    if (progress && progress.completedContent) {
-      Object.values(progress.completedContent).forEach(classContent => {
+    if (progress && progress[courseId] && progress[courseId].completedContent) {
+      const courseProgress = progress[courseId].completedContent;
+      Object.values(courseProgress).forEach(classContent => {
         completedTopics += classContent.filter(topic => topic.completed).length;
       });
     }
