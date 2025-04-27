@@ -40,6 +40,17 @@
           </AccordionItem>
         </Accordion>
       </div>
+
+      <div class="w-full max-w-lg rounded-lg bg-gray-100 p-6 flex transform transition duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer">
+        <div class="w-full">
+          <p class="text-xl font-bold mb-2">Pratique ainda mais</p>
+          <p class="text-sm text-gray-600 mb-6">Coloque em prática o que você aprendeu com os exercícios do curso.</p>
+          <Button class="w-fit">Acessar exercícios</Button>
+        </div>
+        <div class="w-full flex items-center justify-end max-w-48">
+          <img src="@/assets/icons/icon-brain-book.svg" class="h-32">
+        </div>
+      </div>
     </div>
   </div>
 </template>
