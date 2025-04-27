@@ -30,8 +30,8 @@
       "type": "single",
       "question": "Monte a árvore binária com os seguintes números: 18, 44, 10, 6",
       "answer": [
-        { "type": "text", "value": "A árvore binária deve ser montada da seguinte forma" },
-        { "type": "image", "value": "@assets/images/binaryTree.png" }
+        { "type": "text", "value": "A árvore binária deve ser montada da seguinte forma:" },
+        { "type": "image", "value": "binaryTree.png" }
       ]
     }
   ]

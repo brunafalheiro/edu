@@ -49,7 +49,7 @@
             <div v-if="showAnswer" class="mt-6 bg-white p-4 rounded-lg">
               <div v-for="(item, index) in currentExerciseData.answer" :key="index">
                 <p v-if="item.type === 'text'" class="mb-4">{{ item.value }}</p>
-                <img v-else-if="item.type === 'image'" :src="item.value" class="max-w-full h-auto mb-4" />
+                <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4" />
               </div>
             </div>
           </div>
@@ -147,5 +147,10 @@
     showFeedback.value = false;
     isAnswerCorrect.value = false;
     showAnswer.value = false;
+  };
+
+  const getImageUrl = (imageName) => {
+    const imageModules = import.meta.glob('@/assets/answers/*.png', { eager: true });
+    return imageModules[`/src/assets/answers/${imageName}`].default;
   };
 </script>
