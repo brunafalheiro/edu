@@ -7,20 +7,20 @@
       "question": "Qual é a raiz da árvore binária?",
       "options": [
         {
-          "id": "1",
+          "id": "A",
           "text": "18"
         },
         {
-          "id": "2",
+          "id": "B",
           "text": "44",
           "correct": true
         },
         {
-          "id": "3",
+          "id": "C",
           "text": "10"
         },
         {
-          "id": "4",
+          "id": "D",
           "text": "6"
         }
       ]

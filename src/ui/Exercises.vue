@@ -20,16 +20,18 @@
               class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300"
               :class="[
                 !showFeedback && selectedAnswer === option.id ? 'border-lavender-light bg-lavender-ultralight' : '',
-                showFeedback && option.correct ? 'border-green bg-green/10' : '',
-                showFeedback && selectedAnswer === option.id && !option.correct ? 'border-red bg-red/10' : ''
+                showFeedback && selectedAnswer === option.id && option.correct ? '!border-green !bg-green/10' : '',
+                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-red-500 !bg-red-100' : '',
+                showFeedback && !isAnswerCorrect && option.correct ? '!border-green !bg-green/10' : ''
               ]"
               @click="selectAnswer(option.id)"
             >
               <div
                 class="w-8 h-8 rounded-lg bg-lavender-ultralight flex items-center justify-center"
                 :class="[
-                  showFeedback && option.correct ? 'bg-green/80' : '',
-                  showFeedback && selectedAnswer === option.id && !option.correct ? 'bg-red' : ''
+                  showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green/80' : '',
+                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-300' : '',
+                  showFeedback && !isAnswerCorrect && option.correct ? '!bg-green/80' : ''
                 ]"
               >
                 <p class="text-xs font-bold">{{ option.id }}</p>
