@@ -4,6 +4,8 @@ import CourseInfo from '@/ui/course/CourseInfo.vue';
 import BinaryTreeSimulator from '@ui/simulators/BinaryTreeSimulator.vue';
 import HashTableSimulator from '@ui/simulators/HashTableSimulator.vue';
 import Course from '@ui/course/course.vue'
+import ExercisesList from '@ui/Exercises/ExercisesList.vue';
+import Exercise from '@ui/Exercises/Exercise.vue';
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -11,6 +13,8 @@ const routes = [
   { path: '/course/:courseId/:classId/:topicId', name: 'course', component: Course },
   { path: '/binary-tree-simulator', name: 'binaryTreeSimulator', component: BinaryTreeSimulator },
   { path: '/hash-table-simulator', name: 'hashTableSimulator', component: HashTableSimulator },
+  { path: '/exercises/:courseId', name: 'exercises', component: ExercisesList },
+  { path: '/exercises/:courseId/:exerciseId', name: 'exercise', component: Exercise },
 ];
 
 const router = createRouter({

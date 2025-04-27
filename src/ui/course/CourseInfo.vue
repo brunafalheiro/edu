@@ -45,7 +45,7 @@
         <div class="w-full">
           <p class="text-xl font-bold mb-2">Pratique ainda mais</p>
           <p class="text-sm text-gray-600 mb-6">Coloque em prática o que você aprendeu com os exercícios do curso.</p>
-          <Button class="w-fit">Acessar exercícios</Button>
+          <Button class="w-fit" @click="goToExercises">Acessar exercícios</Button>
         </div>
         <div class="w-full flex items-center justify-end max-w-48">
           <img src="@/assets/icons/icon-brain-book.svg" class="h-32">
@@ -124,4 +124,6 @@
 
     router.push(`/course/${courseId}/${classId}/${topicId}`);
   };
+
+  const goToExercises = () => router.push(`/exercises/${courseId}`);
 </script>
