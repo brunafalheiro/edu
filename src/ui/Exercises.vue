@@ -13,7 +13,7 @@
           </div>
           
           <!-- Question Type Exercise -->
-          <div v-if="currentExerciseData.type === 'question'">
+          <div v-if="currentExerciseData.type === 'quiz'">
             <div
               v-for="option in currentExerciseData.options"
               :key="option.id"
@@ -56,7 +56,7 @@
 
           <div class="flex items-center justify-end mt-12">
             <Button 
-              v-if="currentExerciseData.type === 'question'"
+              v-if="currentExerciseData.type === 'quiz'"
               class="mr-4" 
               :disabled="!selectedAnswer || showFeedback"
               @click="checkAnswer"
@@ -122,7 +122,7 @@
   });
 
   const getCorrectAnswer = computed(() => {
-    if (currentExerciseData.value.type !== 'question') return '';
+    if (currentExerciseData.value.type !== 'quiz') return '';
     const correct = currentExerciseData.value.options?.find(opt => opt.correct);
     return correct ? correct.id : '';
   });

@@ -3,7 +3,7 @@
   "exercises": [
     {
       "id": "1",
-      "type": "question",
+      "type": "quiz",
       "question": "Qual é a raiz da árvore binária?",
       "options": [
         {
