@@ -82,7 +82,7 @@ const courseProgress = computed(() => {
   return Math.round((completedTopics / totalTopics) * 100);
 });
 
-const totalDuration = computed(() => TimeUtils.calculateCourseDuration(props.course));
+const totalDuration = computed(() => TimeUtils.formatDuration(TimeUtils.calculateCourseDuration(props.course.id, progress.value)));
 
 const handleImageError = () => { courseImagePath.value = DEFAULT_IMAGE_URL; };
 const fetchProgress = async () => {
