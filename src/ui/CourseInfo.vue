@@ -15,7 +15,7 @@
         <Button @click="goToClass">Continuar</Button>
         <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
           <i class="pi pi-clock text-sm" />
-          <p class="text-sm">{{ TimeUtils.calculateRemainingTime(courseId, coursesProgress) }} restantes</p>
+          <p class="text-sm">{{TimeUtils.formatDuration(TimeUtils.calculateRemainingTime(courseId, coursesProgress))}} restantes</p>
         </div>
       </div>
 
@@ -50,11 +50,11 @@
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-  } from "@/components/ui/accordion";
-  import courses from "@/courses.json";
-  import Button from "@components/ui/button/Button.vue";
+    } from "@/components/ui/accordion";
   import BackButton from "@/components/ui/BackButton.vue";
+  import courses from "@/courses.json";
   import { TimeUtils } from "@/utils/timeUtils";
+  import Button from "@components/ui/button/Button.vue";
   import { ref } from "vue";
   import { useRouter } from "vue-router";
 
