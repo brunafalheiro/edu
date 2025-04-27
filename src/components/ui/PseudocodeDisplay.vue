@@ -16,8 +16,8 @@
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto mt-4">
-        <pre class="font-mono text-base w-fit p-4">
+      <div class="flex-1 overflow-y-auto">
+        <pre class="font-mono text-base w-fit pr-4 pb-4">
           <code class="language-javascript">
             <div
               v-for="(line, index) in pseudocode" 
@@ -51,42 +51,66 @@
   const pseudocodeMap = {
     insert: [
       'função inserirNó(árvore, valor)',
+      '  // Caso base: árvore vazia',
       '  se árvore é nula',
       '    retorna novo nó com valor',
+      '  // Caso recursivo: navegar na árvore',
       '  se valor < árvore.valor',
       '    árvore.esquerda = inserirNó(árvore.esquerda, valor)',
-      '  senão se valor > árvore.valor',
-      '    árvore.direita = inserirNó(árvore.direita, valor)',
+      '  senão',
+      '    se valor > árvore.valor',
+      '      árvore.direita = inserirNó(árvore.direita, valor)',
+      '  // Se valor já existe, retorna a árvore sem modificação',
       '  retorna árvore'
     ],
     remove: [
       'função removerNó(árvore, valor)',
+      '  // Caso base: árvore vazia',
       '  se árvore é nula',
       '    retorna nulo',
+      '  // Caso recursivo: navegar na árvore',
       '  se valor < árvore.valor',
       '    árvore.esquerda = removerNó(árvore.esquerda, valor)',
-      '  senão se valor > árvore.valor',
-      '    árvore.direita = removerNó(árvore.direita, valor)',
       '  senão',
-      '    se nó não tem filhos',
-      '      retorna nulo',
-      '    se nó tem apenas um filho',
-      '      retorna o filho',
+      '    se valor > árvore.valor',
+      '      árvore.direita = removerNó(árvore.direita, valor)',
       '    senão',
-      '      encontra menor valor na subárvore direita',
-      '      substitui valor do nó',
-      '      remove o nó com menor valor',
-      '  retorna árvore'
+      '      // Nó encontrado - tratar os três casos',
+      '      // Caso 1: Nó folha',
+      '      se árvore.esquerda é nula e árvore.direita é nula',
+      '        retorna nulo',
+      '      // Caso 2: Nó com um filho',
+      '      senão',
+      '        se árvore.esquerda é nula',
+      '          retorna árvore.direita',
+      '        senão',
+      '          se árvore.direita é nula',
+      '            retorna árvore.esquerda',
+      '          // Caso 3: Nó com dois filhos',
+      '          senão',
+      '            // Encontrar o menor valor na subárvore direita',
+      '            sucessor = encontrarMenor(árvore.direita)',
+      '            // Copiar o valor do sucessor para o nó atual',
+      '            árvore.valor = sucessor.valor',
+      '            // Remover o sucessor',
+      '            árvore.direita = removerNó(árvore.direita, sucessor.valor)',
+      '  retorna árvore',
+      '',
+      'função encontrarMenor(árvore)',
+      '  se árvore.esquerda é nula',
+      '    retorna árvore',
+      '  retorna encontrarMenor(árvore.esquerda)'
     ],
     search: [
       'função buscarNó(árvore, valor)',
-      '  se árvore é nula',
-      '    retorna nulo',
-      '  se valor == árvore.valor',
+      '  // Caso base: árvore vazia ou valor encontrado',
+      '  se árvore é nula ou árvore.valor == valor',
       '    retorna árvore',
+      '  // Caso recursivo: navegar na árvore',
       '  se valor < árvore.valor',
       '    retorna buscarNó(árvore.esquerda, valor)',
-      '  retorna buscarNó(árvore.direita, valor)'
+      '  senão',
+      '    retorna buscarNó(árvore.direita, valor)'
     ]
   };
 
@@ -98,14 +122,22 @@
 
   const highlightLine = (line) => {
     const jsLine = line
+      .replace(/casoContrario/g, 'else')
+      .replace(/é nula/g, '=== null')
       .replace(/função/g, 'function')
       .replace(/se/g, 'if')
-      .replace(/senão/g, 'else')
       .replace(/retorna/g, 'return')
-      .replace(/é nula/g, '=== null')
-      .replace(/==/g, '===');
+      .replace(/==/g, '===')
+      .replace(/senão/g, 'else');
     
-    return hljs.highlight(jsLine, { language: 'javascript' }).value;
+    const highlighted = hljs.highlight(jsLine, { language: 'javascript' }).value;
+    
+    return highlighted
+      .replace(/else/g, 'senão')
+      .replace(/=== null/g, 'é nula')
+      .replace(/function/g, 'função')
+      .replace(/if/g, 'se')
+      .replace(/return/g, 'retorna');
   };
 
   watch(() => props.operation, (newOp) => {
@@ -125,4 +157,5 @@
   :deep(.hljs-string) { color: #032f62; }
   :deep(.hljs-number) { color: #005cc5; }
   :deep(.hljs-operator) { color: #d73a49; }
+  :deep(.hljs-keyword.else) { color: #d73a49; }
 </style> 
