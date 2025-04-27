@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full h-[180px] rounded-lg border border-black relative p-6 mb-12">
+  <div class="w-full h-[180px] rounded-lg border border-black relative p-6 mb-12 position-relative overflow-hidden">
+    <img src="@/assets/images/edu.png" class="absolute h-72 -top-7 -left-4">
     <div class="max-w-md w-full flex absolute right-6 bottom-6">
       <div class="h-24 w-full border border-black rounded-lg flex items-center p-6 mr-4">
         <p class="text-5xl font-black mr-4">{{ completedCourses }}</p>
