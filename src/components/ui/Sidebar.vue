@@ -13,7 +13,7 @@
           <div class="flex items-center mr-2">
             <div
               v-if="isClassCompleted(cls.id)"
-              class="bg-lavender-light min-w-12 min-h-12 rounded-full flex items-center justify-center mr-4"
+              class="bg-lavender-light border border-lavender-dark min-w-12 min-h-12 rounded-full flex items-center justify-center mr-4"
             >
               <i class="pi pi-check text-white text-base"></i>
             </div>
@@ -51,7 +51,7 @@
 
             <div>
               <p class="text-xs text-gray-500 font-medium mb-1">Aula {{ index + 1 }}</p>
-              <p class="item-name">{{ cls.name }}</p>
+              <p class="font-semibold ">{{ cls.name }}</p>
             </div>
           </div>
         </AccordionTrigger>
@@ -76,7 +76,7 @@
                   :class="[
                     'min-w-7 min-h-7 rounded-full mr-3 relative z-10 flex items-center justify-center transition-all duration-700 ease-in-out',
                     isTopicCompleted(cls.id, topic.id)
-                      ? 'bg-lavender-light'
+                      ? 'bg-lavender-light  border border-lavender-dark'
                       : isOngoingTopic(cls.id, topic.id)
                       ? 'bg-lavender-ultralight'
                       : 'bg-white border-2 border-gray-300',
@@ -87,7 +87,7 @@
                     class="pi pi-check text-white text-xs"
                   ></i>
                 </div>
-                <p class="font-semibold">{{ topic.name }}</p>
+                <p class="font-medium">{{ topic.name }}</p>
               </div>
 
               <p class="text-sm text-end min-w-12 text-gray-500">5 min</p>
@@ -168,11 +168,11 @@ onMounted(fetchProgress);
 </script>
 
 <style lang="scss">
-.accordion-item {
-  * {
-    &:hover {
-      text-decoration: none !important;
+  .accordion-item {
+    * {
+      &:hover {
+        text-decoration: none !important;
+      }
     }
   }
-}
 </style>
