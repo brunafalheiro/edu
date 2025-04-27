@@ -1,4 +1,4 @@
-@import '../../../assets/index.scss';
+@use '../../../assets/index.scss' as *;
 
 .tree {
   li {
@@ -33,7 +33,7 @@
     &:first-child::after { border-radius: 5px 0 0 0; }
 
     &:last-child::before {
-      border-right: 1px solid #9ca3af;
+      border-right: 1px solid hsl(var(--muted-foreground));
       border-radius: 0 5px 0 0;
     }
 
@@ -80,7 +80,7 @@
       position: absolute;
       top: -2px;
       left: 50%;
-      border-left: 1px solid #9ca3af;
+      border-left: 1px solid hsl(var(--muted-foreground));
       height: 22px;
       width: 0;
     }

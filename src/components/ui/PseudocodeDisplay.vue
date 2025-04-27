@@ -1,5 +1,8 @@
 <template>
-  <div class="absolute right-[-400px] top-0 w-[380px] h-full bg-white border-l border-black transition-all duration-300 ease-in-out z-10" :class="{ '!right-0': isVisible }">
+  <div 
+    class="absolute top-0 w-[380px] h-full bg-white border-l border-black transition-all duration-300 ease-in-out z-10 cursor-default"
+    :class="isVisible ? 'right-0' : '-right-[400px]'"
+  >
     <div class="h-full flex flex-col">
       <div class="px-4 py-2 border-b border-black bg-white">
         <div class="flex items-center justify-between">
@@ -8,22 +11,24 @@
             @click="$emit('update:isVisible', false)"
             class="p-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-600 transition-colors duration-200"
           >
-            <i class="pi pi-times text-sm"></i>
+            <i class="pi pi-times text-sm" />
           </button>
         </div>
       </div>
 
       <div class="flex-1 overflow-y-auto mt-4 mr-4">
-        <pre class="font-mono text-base"><code class="language-javascript">
-          <div
-            v-for="(line, index) in pseudocode" 
-            :key="index" 
-            class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
-            :style="{ paddingLeft: `${getIndentation(line)}rem` }"
-          >
-            <span class="whitespace-pre text-sm" v-html="highlightLine(line)"></span>
-          </div>
-        </code></pre>
+        <pre class="font-mono text-base">
+          <code class="language-javascript">
+            <div
+              v-for="(line, index) in pseudocode" 
+              class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
+              :key="index" 
+              :style="'padding-left: ' + getIndentation(line) + 'rem'"
+            >
+              <span class="whitespace-pre text-sm" v-html="highlightLine(line)"></span>
+            </div>
+          </code>
+        </pre>
       </div>
     </div>
   </div>

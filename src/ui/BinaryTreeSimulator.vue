@@ -3,24 +3,37 @@
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
       <BackButton class="mb-6" text="Simulador de Árvores Binárias" :backFunction="goBack" />
 
-      <div class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl border border-black cursor-grab mb-8 relative">
-        <div v-if="!tree" class="flex flex-col items-center justify-center h-full text-slate-400">
-          <i class="pi pi-tree text-4xl mb-2"></i>
-          <p class="text-sm">Nenhuma árvore criada. Utilize os controles abaixo para começar.</p>
-        </div>
-        <div v-else ref="zoomContainer" class="zoom-wrapper inline-block cursor-grabbing">
-          <TreeComponent :tree="tree" />
-        </div>
-        <PseudocodeDisplay 
-          v-model:is-visible="showPseudocode"
-          :operation="currentOperation"
-        />
-        <button 
-          @click="showPseudocode = !showPseudocode"
-          class="absolute right-4 top-4 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200"
-        >
-          <i class="pi pi-code text-sm"></i>
-        </button>
+      <div
+        class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl border border-black mb-8 relative"
+        :class="{ 'cursor-grab': panzoomInstance }"
+      >
+          <div
+            v-if="!tree"
+            class="flex flex-col items-center justify-center h-full text-slate-400"
+          >
+            <i class="pi pi-tree text-4xl mb-2"></i>
+            <p class="text-sm">Nenhuma árvore criada. Utilize os controles abaixo para começar.</p>
+          </div>
+          
+          <div
+            v-else ref="zoomContainer"
+            class="zoom-wrapper inline-block"
+            :class="{ 'cursor-grabbing': isPanning }"
+          >
+            <TreeComponent :tree="tree" />
+          </div>
+          
+          <PseudocodeDisplay 
+            v-model:is-visible="showPseudocode"
+            :operation="currentOperation"
+          />
+          
+          <button 
+            @click="showPseudocode = !showPseudocode"
+            class="absolute right-4 top-4 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200"
+          >
+            <i class="pi pi-code text-sm"></i>
+          </button>
       </div>
 
       <div class="bg-white border border-gray-400 rounded-xl shadow-sm p-6 w-fit mx-auto">
@@ -168,6 +181,7 @@
 
   const zoomContainer = ref(null);
   const panzoomInstance = ref(null);
+  const isPanning = ref(false);
 
   const initPanzoom = () => {
     if (panzoomInstance.value) { panzoomInstance.value.dispose(); }
@@ -179,6 +193,14 @@
         zoomDoubleClickSpeed: 1,
         minZoom: 0.2,
         maxZoom: 2,
+      });
+
+      panzoomInstance.value.on('panstart', () => {
+        isPanning.value = true;
+      });
+
+      panzoomInstance.value.on('panend', () => {
+        isPanning.value = false;
       });
     }
   };
