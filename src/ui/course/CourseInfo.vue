@@ -11,10 +11,6 @@
         Começar
       </Button>
 
-      <!-- <Button v-if="!isOngoingCourse" @click="startCourse" class="mb-12">
-        Começar
-      </Button> -->
-      
       <div v-else-if="isOngoingCourse" class="flex items-center gap-4 mb-12">
         <Button @click="goToClass">Continuar</Button>
         <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">

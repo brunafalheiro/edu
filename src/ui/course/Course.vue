@@ -167,27 +167,52 @@
     const { courseId } = route.params;
     router.push(`/course/${courseId}/info`);
   }
+
+  const updateProgress = async (progress) => await window.store.set("progress", progress);
+  const navigateToTopic = (courseId, classId, topicId) => {
+    router.push(`/course/${courseId}/${classId}/${topicId}`);
+  };
+
+  const getNextTopicInfo = (currentClassIndex, currentTopicIndex, isLastTopicFromClass) => {
+    return {
+      classId: isLastTopicFromClass ? currentClassIndex + 1 : currentClassIndex,
+      topicId: isLastTopicFromClass ? 1 : currentTopicIndex + 1
+    };
+  };
+
   const goToNextTopic = async () => {
     const { courseId, classId, topicId } = route.params;
     const progress = (await window.store.get("progress")) || {};
     const courseProgress = progress[courseId] || {};
+    const completedContent = courseProgress.completedContent || {};
 
     const currentClassIndex = parseInt(classId);
     const currentTopicIndex = parseInt(topicId);
-
-    const isLastTopicFromClass =
-      currentTopicIndex === topicsFromClass.value.length;
+    const isLastTopicFromClass = currentTopicIndex === topicsFromClass.value.length;
     const isLastClassFromCourse = currentClassIndex === classes.value.length;
     const isLastTopicFromCourse = isLastClassFromCourse && isLastTopicFromClass;
-
-    const completedContent = courseProgress.completedContent || {};
     const courseCompleted = isCourseCompleted(completedContent);
+
+    // Mark current topic as completed
     completedContent[classId][currentTopicIndex - 1].completed = true;
 
-    if (courseCompleted) {
+    if (courseCompleted && isLastTopicFromCourse) {
       isFinishedCourse.value = true;
       courseProgress.completed = true;
-      await window.store.set("progress", progress);
+      await updateProgress(progress);
+      return;
+    }
+
+    if (courseCompleted) {
+      const { classId: nextClassId, topicId: nextTopicId } = getNextTopicInfo(
+        currentClassIndex,
+        currentTopicIndex,
+        isLastTopicFromClass
+      );
+      courseProgress.currentClass = nextClassId;
+      courseProgress.currentTopic = nextTopicId;
+      await updateProgress(progress);
+      navigateToTopic(courseId, nextClassId, nextTopicId);
       return;
     }
 
@@ -196,26 +221,21 @@
       if (next) {
         courseProgress.currentClass = next.firstIncompleteClass;
         courseProgress.currentTopic = next.firstIncompleteTopic;
-        await window.store.set("progress", progress);
-        router.push(
-          `/course/${courseId}/${next.firstIncompleteClass}/${next.firstIncompleteTopic}`
-        );
+        await updateProgress(progress);
+        navigateToTopic(courseId, next.firstIncompleteClass, next.firstIncompleteTopic);
       }
-
-      await window.store.set("progress", progress);
       return;
     }
 
-    const nextClassId = isLastTopicFromClass
-      ? currentClassIndex + 1
-      : currentClassIndex;
-    const nextTopicId = isLastTopicFromClass ? 1 : currentTopicIndex + 1;
-
+    const { classId: nextClassId, topicId: nextTopicId } = getNextTopicInfo(
+      currentClassIndex,
+      currentTopicIndex,
+      isLastTopicFromClass
+    );
     courseProgress.currentClass = nextClassId;
     courseProgress.currentTopic = nextTopicId;
-
-    await window.store.set("progress", progress);
-    router.push(`/course/${courseId}/${nextClassId}/${nextTopicId}`);
+    await updateProgress(progress);
+    navigateToTopic(courseId, nextClassId, nextTopicId);
   };
 
   const loadCourseData = () => {
