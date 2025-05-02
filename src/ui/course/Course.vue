@@ -124,8 +124,6 @@
   const currentClassName = ref(null);
   const isFinishedCourse = ref(false);
   const isTopicCompleted = ref(false);
-  const { courseId, classId, topicId } = route.params;
-  console.log(courseId, classId, topicId)
 
   const isCourseCompleted = (completedContent) => {
     return Object.values(completedContent).every((topics) =>
@@ -134,6 +132,7 @@
   };
 
   const updateTopicStatus = async () => {
+    const { courseId, classId, topicId } = route.params;
     const progress = await window.store.get("progress");
     const completedContent = progress?.[courseId]?.completedContent || {};
     const topics = completedContent[classId];
@@ -166,6 +165,7 @@
   const goToHome = () => router.push("/");
   const goToCourseInfo = () => router.push(`/course/${courseId}/info`);
   const goToNextTopic = async () => {
+    const { courseId, classId, topicId } = route.params;
     const progress = (await window.store.get("progress")) || {};
     const courseProgress = progress[courseId] || {};
 
@@ -216,6 +216,7 @@
   };
 
   const loadCourseData = () => {
+    const { courseId, classId, topicId } = route.params;
     const selectedCourse = courses.find((c) => c.id === courseId);
     if (!selectedCourse) return;
 
