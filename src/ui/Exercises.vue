@@ -17,7 +17,7 @@
             <div
               v-for="option in currentExerciseData.options"
               :key="option.id"
-              class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300"
+              class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-lavender/5"
               :class="[
                 !showFeedback && selectedAnswer === option.id ? 'border-lavender-light bg-lavender-ultralight' : '',
                 showFeedback && selectedAnswer === option.id && option.correct ? '!border-green !bg-green/10' : '',
