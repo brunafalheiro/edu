@@ -130,4 +130,5 @@
   };
 
   const viewCourse = () => router.push(`/course/${courseId}/1/1`);
+  const goToExercises = () => router.push(`/exercises/${courseId}`);
 </script>
