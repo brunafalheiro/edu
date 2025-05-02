@@ -163,7 +163,10 @@
   };
 
   const goToHome = () => router.push("/");
-  const goToCourseInfo = () => router.push(`/course/${courseId}/info`);
+  const goToCourseInfo = () => {
+    const { courseId } = route.params;
+    router.push(`/course/${courseId}/info`);
+  }
   const goToNextTopic = async () => {
     const { courseId, classId, topicId } = route.params;
     const progress = (await window.store.get("progress")) || {};
