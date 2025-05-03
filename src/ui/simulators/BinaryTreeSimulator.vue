@@ -72,7 +72,7 @@
       </div>
 
       <div class="bg-white border border-black shadow-[6px_6px_0_0_#000] rounded-xl p-6 w-fit mx-auto">
-        <div class="flex flex-wrap items-end gap-8">
+        <div class="flex flex-wrap items-end gap-6">
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Inserir Nó</div>
             <div class="flex items-center gap-2">
@@ -138,7 +138,7 @@
           </div>
 
           <Button @click="clearTree" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-colors duration-200 flex items-center justify-center">
-            <i class="pi pi-trash w-4 h-4 mr-2" />
+            <i class="pi pi-trash w-4 h-4 mr-1" />
             Limpar
           </Button>
         </div>

@@ -103,14 +103,14 @@
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Função Hash</div>
               <select v-model="hashFunction" 
-                class="w-48 h-9 rounded-lg border border-slate-300 px-3 text-sm"
+                class="w-36 h-9 rounded-lg border border-slate-300 px-3 text-sm"
                 :class="{ 
                   'ring-1 ring-red-500': showValidation && !hashFunction,
                   'opacity-50 cursor-not-allowed': !!hashTable
                 }"
                 :disabled="!!hashTable"
               >
-                <option value="" disabled>Selecione uma função</option>
+                <option value="" disabled>Selecionar</option>
                 <option value="division">Método da Divisão</option>
                 <option value="folding">Método da Dobra</option>
                 <option value="multiplication">Método da Multiplicação</option>
@@ -120,14 +120,14 @@
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Método de Colisão</div>
               <select v-model="collisionMethod" 
-                class="w-48 h-9 rounded-lg border border-slate-300 px-3 text-sm"
+                class="w-36 h-9 rounded-lg border border-slate-300 px-3 text-sm"
                 :disabled="!!hashTable"
                 :class="{ 
                   'opacity-50 cursor-not-allowed': !!hashTable,
                   'ring-1 ring-red-500': showValidation && !collisionMethod
                 }"
               >
-                <option value="" disabled>Selecione um método</option>
+                <option value="" disabled>Selecionar</option>
                 <option value="none">Sem Colisão</option>
                 <option value="chaining">Encadeamento</option>
                 <option value="open-linear">Endereçamento Aberto (Linear)</option>
@@ -147,7 +147,7 @@
         </div>
 
         <div class="bg-white border border-black shadow-[6px_6px_0_0_#000] rounded-xl p-6 w-fit mb-8 min-w-fit">
-          <div class="flex flex-wrap items-end gap-8">
+          <div class="flex flex-wrap items-end gap-6">
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Inserir Valor</div>
               <div class="flex items-center gap-2">
@@ -187,7 +187,7 @@
             </div>
 
             <Button @click="clearTable" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600">
-              <i class="pi pi-trash w-4 h-4 mr-2" />
+              <i class="pi pi-trash w-4 h-4 mr-1" />
               Limpar
             </Button>
           </div>
