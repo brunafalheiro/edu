@@ -12,8 +12,7 @@
       </Button>
 
       <div v-else-if="isOngoingCourse" class="flex items-center gap-4 mb-12">
-        <Button @click="goToClass">Continuar</Button>
-        <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
+        <div class="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-full cursor-default">
           <i class="pi pi-clock text-sm" />
           <p class="text-sm">{{TimeUtils.formatDuration(TimeUtils.calculateRemainingTime(courseId, coursesProgress))}} restantes</p>
         </div>
@@ -21,7 +20,10 @@
 
       <Button v-else @click="viewCourse" class="mb-12">Ver curso</Button>
 
-      <p class="text-xl font-black mb-6">Conteúdo</p>
+      <div class="flex justify-between items-center mb-4">
+        <p class="text-xl font-black">Conteúdo</p>
+        <Button @click="goToClass">Continuar</Button>
+      </div>
       <div class="p-4 border border-black rounded-lg mb-12">
         <Accordion type="single" class="w-full" collapsible>
           <AccordionItem
