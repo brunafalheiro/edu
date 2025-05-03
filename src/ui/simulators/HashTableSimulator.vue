@@ -56,7 +56,6 @@
                 }"
                 :disabled="!!hashTable"
                 @keyup.enter="initializeTable"
-                min="0"
               >
                 <NumberFieldContent>
                   <NumberFieldDecrement />
@@ -119,7 +118,7 @@
                 <NumberField v-model="valueToInsert" 
                   class="w-24" 
                   @keyup.enter="insertValue"
-                  min="0"
+                  :min=0
                 >
                   <NumberFieldContent>
                     <NumberFieldDecrement />

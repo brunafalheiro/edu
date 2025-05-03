@@ -1,5 +1,6 @@
 <template>
   <div class="w-full min-h-screen">
+    <Toaster richColors position="top-right" />
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
       <BackButton class="mb-6" text="Simulador de Árvores Binárias" :backFunction="goBack" />
 
@@ -57,14 +58,14 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Remover Nó</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeToBeRemoved" class="w-24" @keyup.enter="removeNode">
+              <NumberField v-model="nodeToBeRemoved" class="w-24" @keyup.enter="removeNode" :disabled="!tree">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
                   <NumberFieldIncrement />
                 </NumberFieldContent>
               </NumberField>
-              <Button @click="removeNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+              <Button @click="removeNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center" :disabled="!tree">
                 <i class="pi pi-minus w-4 h-4" />
               </Button>
             </div>
@@ -73,14 +74,14 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Buscar Nó</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeToBeSearched" class="w-24" @keyup.enter="searchNode">
+              <NumberField v-model="nodeToBeSearched" class="w-24" @keyup.enter="searchNode" :disabled="!tree">
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
                   <NumberFieldIncrement />
                 </NumberFieldContent>
               </NumberField>
-              <Button @click="searchNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+              <Button @click="searchNode" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center" :disabled="!tree">
                 <i class="pi pi-search w-4 h-4" />
               </Button>
             </div>
@@ -89,7 +90,7 @@
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Gerar árvore aleatória</div>
             <div class="flex items-center gap-2">
-              <NumberField v-model="nodeAmount" class="w-24" @keyup.enter="generateRandomTree">
+              <NumberField v-model="nodeAmount" class="w-24" @keyup.enter="generateRandomTree" :min=0 :max=100>
                 <NumberFieldContent>
                   <NumberFieldDecrement />
                   <NumberFieldInput />
@@ -122,6 +123,7 @@
   import BackButton from "@/components/ui/BackButton.vue";
   import PseudocodeDisplay from "@/components/ui/PseudocodeDisplay.vue";
   import panzoom from "panzoom";
+  import { Toaster, toast } from 'vue-sonner';
   import {
     NumberField,
     NumberFieldContent,
@@ -160,11 +162,30 @@
   const searchNode = async () => {
     if (!tree.value) return;
     currentOperation.value = 'search';
-    await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
+    const found = await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
+    if (found) return;
+    toast.error('Nó não encontrado na árvore', {
+      duration: 3000,
+      style: {
+        background: '#fef2f2',
+        color: '#dc2626',
+        border: '1px solid #fecaca',
+      },
+    });
   };
 
   const generateRandomTree = async () => {
-    if (nodeAmount.value < 1 || nodeAmount.value > 100) return;
+    if (nodeAmount.value < 1) {
+      toast.error('A árvore deve ter pelo menos 1 nó', {
+        duration: 3000,
+        style: {
+          background: '#fef2f2',
+          color: '#dc2626',
+          border: '1px solid #fecaca',
+        },
+      });
+      return;
+    }
     tree.value = await TreeFunctions.generateRandomTree(nodeAmount.value);
   };
 
