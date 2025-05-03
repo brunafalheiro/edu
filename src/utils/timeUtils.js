@@ -65,7 +65,7 @@ class TimeUtils {
     const minutes = duration.minutes();
     if (!hours) return `${minutes.toString()}m`;
     if (!minutes) return `${hours.toString()}h`;
-    return `${hours.toString()}h ${minutes.toString()}m`;
+    return `${hours.toString()}h ${minutes.toString()}`;
   };
 
   /**
