@@ -7,10 +7,8 @@
       </div>
 
       <div class="w-full flex">
-        <div class="w-full bg-gray-50 rounded-lg p-4 mr-4">
-          <div class="bg-white p-4 rounded-lg mb-8">
-            <p>{{ currentExerciseData.question }}</p>
-          </div>
+        <div class="w-full bg-gray-50 rounded-lg p-6 mr-4">
+          <p class="mt-2 mb-8">{{ currentExerciseData.question }}</p>
           
           <!-- Question Type Exercise -->
           <div v-if="currentExerciseData.type === 'quiz'">
@@ -19,7 +17,7 @@
               :key="option.id"
               class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-lavender/5"
               :class="[
-                !showFeedback && selectedAnswer === option.id ? 'border-lavender-light bg-lavender-ultralight' : '',
+                !showFeedback && selectedAnswer === option.id ? 'border-lavender-light bg-lavender/5' : '',
                 showFeedback && selectedAnswer === option.id && option.correct ? '!border-green !bg-green/10' : '',
                 showFeedback && selectedAnswer === option.id && !option.correct ? '!border-red-500 !bg-red-100' : '',
                 showFeedback && !isAnswerCorrect && option.correct ? '!border-green !bg-green/10' : ''
@@ -90,24 +88,32 @@
           </div>
         </div>
         
-        <div class="w-full max-w-96 h-fit bg-gray-50 rounded-lg p-4 flex flex-wrap gap-2">
+        <div class="w-full max-w-96 h-fit bg-gray-50 rounded-lg p-4 px-6 flex flex-wrap gap-4">
           <div
             v-for="index in totalExercises"
             :key="index"
             class="bg-white border border-gray-600 flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300 relative"
             :class="{ 
               'border-lavender bg-lavender-ultralight': currentExercise === index,
-              'border-green bg-green/10': isExerciseCompleted(index) && isExerciseCorrect(index),
-              'border-red-500 bg-red-100': isExerciseCompleted(index) && !isExerciseCorrect(index)
+              'border-green-medium bg-green/30 hover:bg-green/60': isExerciseCompleted(index) && isExerciseCorrect(index),
+              'border-red-500 bg-red-100 hover:bg-red-200': isExerciseCompleted(index) && !isExerciseCorrect(index)
             }"
             @click="goToExercise(index)"
           >
             <p class="text-center text-xs font-bold">{{ index }}</p>
-            <i 
+            <div
               v-if="isExerciseCompleted(index)"
-              class="pi absolute -top-1 -right-1 text-xs"
-              :class="isExerciseCorrect(index) ? 'pi-check-circle text-green' : 'pi-times-circle text-red-500'"
-            ></i>
+              class="absolute -top-2 -right-2 rounded-full p-1 w-5 h-5 flex items-center justify-center"
+              :class="{
+                'bg-green border border-green-medium': isExerciseCompleted(index) && isExerciseCorrect(index),
+                'bg-red-100 border border-red-500': isExerciseCompleted(index) && !isExerciseCorrect(index)
+              }"
+            >
+              <i
+                class="pi text-[9px]"
+                :class="isExerciseCorrect(index) ? 'pi-check' : 'pi-times text-red-500'"
+              ></i>
+            </div>
           </div>
         </div>
       </div>
@@ -193,7 +199,7 @@
     }
   };
 
-  const goBack = () => router.push("/");
+  const goBack = () => router.push(`/course/${courseId}/info`);
   const goToExercise = (exercise) => {
     if (exercise > totalExercises.value) return;
     currentExercise.value = exercise;
