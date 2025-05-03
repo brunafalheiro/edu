@@ -73,20 +73,18 @@
               v-if="currentExerciseData.type === 'quiz'"
               class="mr-4" 
               :disabled="!selectedAnswer || showFeedback"
-              @click="checkAnswer"
+              @click="handleExercise"
             >
               Responder
             </Button>
             <Button 
               v-else-if="currentExerciseData.type === 'single'"
               class="mr-4"
-              @click="showAnswer = !showAnswer"
+              @click="handleExercise"
             >
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
-            <Button 
-              @click="goToExercise(currentExercise + 1)"
-            >
+            <Button @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
           </div>
@@ -96,11 +94,20 @@
           <div
             v-for="index in totalExercises"
             :key="index"
-            class="bg-white border border-gray-600 flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300"
-            :class="{ 'border-lavender bg-lavender-ultralight': currentExercise === index }"
+            class="bg-white border border-gray-600 flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300 relative"
+            :class="{ 
+              'border-lavender bg-lavender-ultralight': currentExercise === index,
+              'border-green bg-green/10': isExerciseCompleted(index) && isExerciseCorrect(index),
+              'border-red-500 bg-red-100': isExerciseCompleted(index) && !isExerciseCorrect(index)
+            }"
             @click="goToExercise(index)"
           >
             <p class="text-center text-xs font-bold">{{ index }}</p>
+            <i 
+              v-if="isExerciseCompleted(index)"
+              class="pi absolute -top-1 -right-1 text-xs"
+              :class="isExerciseCorrect(index) ? 'pi-check-circle text-green' : 'pi-times-circle text-red-500'"
+            ></i>
           </div>
         </div>
       </div>
@@ -109,7 +116,7 @@
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import BackButton from '@/components/ui/BackButton.vue';
   import Button from '@components/ui/button/Button.vue';
@@ -123,6 +130,7 @@
   const showFeedback = ref(false);
   const isAnswerCorrect = ref(false);
   const showAnswer = ref(false);
+  const exerciseProgress = ref({});
 
   const courseExercises = computed(() => {
     const course = exercises.find(c => c.id === courseId);
@@ -141,16 +149,48 @@
     return correct ? correct.id : '';
   });
 
+  const isExerciseCompleted = (index) => {
+    return exerciseProgress.value[index]?.completed || false;
+  };
+
+  const isExerciseCorrect = (index) => {
+    return exerciseProgress.value[index]?.correct || false;
+  };
+
   const selectAnswer = (key) => {
     if (showFeedback.value) return;
     selectedAnswer.value = key;
   };
 
-  const checkAnswer = () => {
-    if (!selectedAnswer.value) return;
-    const selected = currentExerciseData.value.options?.find(opt => opt.id === selectedAnswer.value);
-    isAnswerCorrect.value = selected?.correct || false;
-    showFeedback.value = true;
+  const updateExerciseProgress = async (isCorrect, answer = null) => {
+    const progress = (await window.store.get("exerciseProgress")) || {};
+    if (!progress[courseId]) progress[courseId] = {};
+
+    progress[courseId][currentExercise.value] = {
+      completed: true,
+      correct: isCorrect,
+      ...(answer && { answer })
+    };
+
+    await window.store.set("exerciseProgress", progress);
+    exerciseProgress.value = progress[courseId];
+  };
+
+  const handleExercise = async () => {
+    if (currentExerciseData.value.type === 'quiz') {
+      if (!selectedAnswer.value) return;
+      const selected = currentExerciseData.value.options?.find(opt => opt.id === selectedAnswer.value);
+      isAnswerCorrect.value = selected?.correct || false;
+      showFeedback.value = true;
+
+      await updateExerciseProgress(isAnswerCorrect.value, selectedAnswer.value);
+      return;
+    } 
+
+    showAnswer.value = !showAnswer.value;
+    if (showAnswer.value) {
+      await updateExerciseProgress(true);
+    }
   };
 
   const goBack = () => router.push("/");
@@ -167,4 +207,9 @@
     const imageModules = import.meta.glob('@/assets/answers/*.png', { eager: true });
     return imageModules[`/src/assets/answers/${imageName}`].default;
   };
+
+  onMounted(async () => {
+    const progress = (await window.store.get("exerciseProgress")) || {};
+    exerciseProgress.value = progress[courseId] || {};
+  });
 </script>
