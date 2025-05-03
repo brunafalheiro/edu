@@ -70,7 +70,7 @@
           <div class="flex items-center justify-end mt-12">
             <Button 
               v-if="currentExerciseData.type === 'quiz'"
-              class="mr-4 border border-black hover:bg-gray-100" 
+              class="mr-4 hover:bg-gray-100" 
               :disabled="!selectedAnswer || showFeedback"
               @click="handleExercise"
             >
@@ -78,12 +78,12 @@
             </Button>
             <Button 
               v-else-if="currentExerciseData.type === 'single'"
-              class="mr-4 border border-black hover:bg-gray-100"
+              class="mr-4 hover:bg-gray-100"
               @click="handleExercise"
             >
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
-            <Button class="border border-black hover:bg-gray-100" @click="goToExercise(currentExercise + 1)">
+            <Button class="hover:bg-gray-100" @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
           </div>
