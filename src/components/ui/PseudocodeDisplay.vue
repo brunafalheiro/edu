@@ -1,161 +1,134 @@
 <template>
-  <div 
-    class="absolute top-0 w-[380px] h-full bg-white border-l border-black transition-all duration-300 ease-in-out z-10 cursor-default"
-    :class="isVisible ? 'right-0' : '-right-[400px]'"
+  <div
+    v-if="isVisible"
+    class="pseudocode-display absolute right-0 bottom-0 h-full bg-white border border-left-black p-4 max-w-md"
   >
-    <div class="h-full flex flex-col">
-      <div class="px-4 py-2 border-b border-black bg-white">
-        <div class="flex items-center justify-between">
-          <h3 class="text-sm font-semibold text-slate-800">Pseudocódigo</h3>
-          <button 
-            @click="$emit('update:isVisible', false)"
-            class="p-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-600 transition-colors duration-200"
-          >
-            <i class="pi pi-times text-sm" />
-          </button>
-        </div>
-      </div>
-
-      <div class="flex-1 overflow-y-auto">
-        <pre class="font-mono text-base w-fit pr-4 pb-4">
-          <code class="language-javascript">
-            <div
-              v-for="(line, index) in pseudocode" 
-              class="min-h-[1.8rem] flex items-center hover:bg-slate-50 cursor-default"
-              :key="index" 
-              :style="'padding-left: ' + getIndentation(line) + 'rem'"
-            >
-              <span class="whitespace-pre text-sm" v-html="highlightLine(line)"></span>
-            </div>
-          </code>
-        </pre>
-      </div>
-    </div>
+    <div class="text-sm font-medium text-slate-700 mb-2">Pseudocódigo</div>
+    <pre class="text-xs font-mono text-slate-600 whitespace-pre-wrap">{{ pseudocode }}</pre>
   </div>
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue';
-  import hljs from 'highlight.js/lib/core';
-  import javascript from 'highlight.js/lib/languages/javascript';
-  import 'highlight.js/styles/github.css';
+import { computed } from 'vue';
 
-  hljs.registerLanguage('javascript', javascript);
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    required: true
+  },
+  operation: {
+    type: String,
+    default: ''
+  },
+  method: {
+    type: String,
+    default: 'division'
+  }
+});
 
-  const props = defineProps({
-    isVisible: Boolean,
-    operation: String
-  });
+const pseudocode = computed(() => {
+  if (!props.operation) return '';
 
-  const pseudocode = ref([]);
-  const pseudocodeMap = {
-    insert: [
-      'função inserirNó(árvore, valor)',
-      '  // Caso base: árvore vazia',
-      '  se árvore é nula',
-      '    retorna novo nó com valor',
-      '  // Caso recursivo: navegar na árvore',
-      '  se valor < árvore.valor',
-      '    árvore.esquerda = inserirNó(árvore.esquerda, valor)',
-      '  senão',
-      '    se valor > árvore.valor',
-      '      árvore.direita = inserirNó(árvore.direita, valor)',
-      '  // Se valor já existe, retorna a árvore sem modificação',
-      '  retorna árvore'
-    ],
-    remove: [
-      'função removerNó(árvore, valor)',
-      '  // Caso base: árvore vazia',
-      '  se árvore é nula',
-      '    retorna nulo',
-      '  // Caso recursivo: navegar na árvore',
-      '  se valor < árvore.valor',
-      '    árvore.esquerda = removerNó(árvore.esquerda, valor)',
-      '  senão',
-      '    se valor > árvore.valor',
-      '      árvore.direita = removerNó(árvore.direita, valor)',
-      '    senão',
-      '      // Nó encontrado - tratar os três casos',
-      '      // Caso 1: Nó folha',
-      '      se árvore.esquerda é nula e árvore.direita é nula',
-      '        retorna nulo',
-      '      // Caso 2: Nó com um filho',
-      '      senão',
-      '        se árvore.esquerda é nula',
-      '          retorna árvore.direita',
-      '        senão',
-      '          se árvore.direita é nula',
-      '            retorna árvore.esquerda',
-      '          // Caso 3: Nó com dois filhos',
-      '          senão',
-      '            // Encontrar o menor valor na subárvore direita',
-      '            sucessor = encontrarMenor(árvore.direita)',
-      '            // Copiar o valor do sucessor para o nó atual',
-      '            árvore.valor = sucessor.valor',
-      '            // Remover o sucessor',
-      '            árvore.direita = removerNó(árvore.direita, sucessor.valor)',
-      '  retorna árvore',
-      '',
-      'função encontrarMenor(árvore)',
-      '  se árvore.esquerda é nula',
-      '    retorna árvore',
-      '  retorna encontrarMenor(árvore.esquerda)'
-    ],
-    search: [
-      'função buscarNó(árvore, valor)',
-      '  // Caso base: árvore vazia ou valor encontrado',
-      '  se árvore é nula ou árvore.valor == valor',
-      '    retorna árvore',
-      '  // Caso recursivo: navegar na árvore',
-      '  se valor < árvore.valor',
-      '    retorna buscarNó(árvore.esquerda, valor)',
-      '  senão',
-      '    retorna buscarNó(árvore.direita, valor)'
-    ]
+  const methodPseudocode = {
+    division: `
+function divisionHash(key, tableSize):
+    return key % tableSize
+`,
+    multiplication: `
+function multiplicationHash(key, tableSize):
+    A = 0.6180339887  # Golden ratio
+    return floor(tableSize * ((key * A) % 1))
+`,
+    midSquare: `
+function midSquareHash(key, tableSize):
+    squared = key * key
+    mid = floor(length(squared) / 2)
+    midDigits = substring(squared, mid-1, mid+1)
+    return parseInt(midDigits) % tableSize
+`,
+    folding: `
+function foldingHash(key, tableSize):
+    keyStr = toString(key)
+    sum = 0
+    for i = 0 to length(keyStr) step 2:
+        part = substring(keyStr, i, i+2)
+        sum += parseInt(part)
+    return sum % tableSize
+`,
+    cryptographic: `
+function cryptographicHash(key, tableSize):
+    hash = 0
+    keyStr = toString(key)
+    for i = 0 to length(keyStr):
+        char = charCodeAt(keyStr, i)
+        hash = ((hash << 5) - hash) + char
+        hash = hash & hash
+    return abs(hash) % tableSize
+`,
+    universal: `
+function universalHash(key, a, b, p, tableSize):
+    return ((a * key + b) % p) % tableSize
+`,
+    perfect: `
+function perfectHash(keys, tableSize):
+    uniqueHashes = new Set()
+    hashTable = new Array(tableSize)
+    for key in keys:
+        hash = cryptographicHash(key)
+        while uniqueHashes.has(hash):
+            hash = (hash + 1) % tableSize
+        uniqueHashes.add(hash)
+        hashTable[hash] = key
+    return hashTable
+`
   };
 
-  const getIndentation = (line) => {
-    const baseIndent = 1;
-    const spaces = line.match(/^\s*/)[0].length;
-    return baseIndent + (spaces * 0.5);
+  const operationPseudocode = {
+    insert: `
+function insert(key, value, method):
+    hash = ${props.method}Hash(key, tableSize)
+    newNode = new Node(key, value)
+    if hashTable[hash] is null:
+        hashTable[hash] = newNode
+    else:
+        current = hashTable[hash]
+        while current.next is not null:
+            current = current.next
+        current.next = newNode
+`,
+    remove: `
+function remove(key, method):
+    hash = ${props.method}Hash(key, tableSize)
+    current = hashTable[hash]
+    prev = null
+    while current is not null:
+        if current.key == key:
+            if prev is null:
+                hashTable[hash] = current.next
+            else:
+                prev.next = current.next
+            return
+        prev = current
+        current = current.next
+`,
+    search: `
+function search(key, method):
+    hash = ${props.method}Hash(key, tableSize)
+    current = hashTable[hash]
+    while current is not null:
+        if current.key == key:
+            return current
+        current = current.next
+    return null
+`
   };
 
-  const highlightLine = (line) => {
-    const jsLine = line
-      .replace(/casoContrario/g, 'else')
-      .replace(/é nula/g, '=== null')
-      .replace(/função/g, 'function')
-      .replace(/se/g, 'if')
-      .replace(/retorna/g, 'return')
-      .replace(/==/g, '===')
-      .replace(/senão/g, 'else');
-    
-    const highlighted = hljs.highlight(jsLine, { language: 'javascript' }).value;
-    
-    return highlighted
-      .replace(/else/g, 'senão')
-      .replace(/=== null/g, 'é nula')
-      .replace(/function/g, 'função')
-      .replace(/if/g, 'se')
-      .replace(/return/g, 'retorna');
-  };
-
-  watch(() => props.operation, (newOp) => {
-    pseudocode.value = pseudocodeMap[newOp] || [];
-  });
+  return methodPseudocode[props.method] + '\n' + operationPseudocode[props.operation];
+});
 </script>
 
 <style scoped>
-  .whitespace-pre { white-space: pre; }
-
-  :deep(.hljs) {
-    background: transparent;
-    padding: 0;
-  }
-
-  :deep(.hljs-keyword) { color: #d73a49; }
-  :deep(.hljs-string) { color: #032f62; }
-  :deep(.hljs-number) { color: #005cc5; }
-  :deep(.hljs-operator) { color: #d73a49; }
-  :deep(.hljs-keyword.else) { color: #d73a49; }
+.pseudocode-display {
+  z-index: 50;
+}
 </style> 
