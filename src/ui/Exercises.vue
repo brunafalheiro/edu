@@ -3,43 +3,44 @@
     <div class="w-full max-w-6xl p-12 pt-24">
       <div class="flex items-center mb-4">
         <BackButton :backFunction="goBack"/>
-        <p class="text-2xl font-black">Exercícios {{ courseId }}</p>
+        <p class="text-2xl font-black tracking-tight">Exercícios {{ courseId }}</p>
       </div>
 
       <div class="w-full flex">
-        <div class="w-full bg-gray-50 rounded-lg p-6 mr-4">
-          <p class="mt-2 mb-8">{{ currentExerciseData.question }}</p>
+        <div class="w-full bg-gray-50 border-2 border-black rounded-lg p-6 mr-4">
+          <p class="mt-2 mb-8 text-lg font-medium text-gray-800">{{ currentExerciseData.question }}</p>
           
           <!-- Question Type Exercise -->
           <div v-if="currentExerciseData.type === 'quiz'">
             <div
               v-for="option in currentExerciseData.options"
               :key="option.id"
-              class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-lavender/5"
+              class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-gray-100"
               :class="[
-                !showFeedback && selectedAnswer === option.id ? 'border-lavender-light bg-lavender/5' : '',
-                showFeedback && selectedAnswer === option.id && option.correct ? '!border-green !bg-green/10' : '',
-                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-red-500 !bg-red-100' : '',
-                showFeedback && !isAnswerCorrect && option.correct ? '!border-green !bg-green/10' : ''
+                !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender/10 hover:bg-lavender/15' : 'border-black',
+                showFeedback && selectedAnswer === option.id && option.correct ? '!border-green-500 !bg-green-50' : '',
+                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-red-400 !bg-red-50' : '',
+                showFeedback && !isAnswerCorrect && option.correct ? '!border-green-500 !bg-green-50' : ''
               ]"
               @click="selectAnswer(option.id)"
             >
               <div
-                class="w-8 h-8 rounded-lg bg-lavender-ultralight flex items-center justify-center"
+                class="w-8 h-8 rounded-lg border flex items-center justify-center"
                 :class="[
-                  showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green/80' : '',
-                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-300' : '',
-                  showFeedback && !isAnswerCorrect && option.correct ? '!bg-green/80' : ''
+                  !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender-ultralight' : 'border-black',
+                  showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-500 !border-green-500 text-white' : '',
+                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400 !border-red-400 text-white' : '',
+                  showFeedback && !isAnswerCorrect && option.correct ? '!bg-green-500 !border-green-500 text-white' : ''
                 ]"
               >
-                <p class="text-xs font-bold">{{ option.id }}</p>
+                <p class="text-xs font-medium">{{ option.id }}</p>
               </div>
 
-              <p class="ml-4">{{ option.text }}</p>
+              <p class="ml-4 text-gray-700">{{ option.text }}</p>
             </div>
 
-            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg" :class="isAnswerCorrect ? 'bg-green/10 text-green-dark' : 'bg-red-50 text-red-700'">
-              <p class="text-sm font-semibold">{{ isAnswerCorrect ? 'Resposta correta.' : 'Resposta incorreta.' }}</p>
+            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg border" :class="isAnswerCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'">
+              <p class="text-sm font-medium">{{ isAnswerCorrect ? 'Resposta correta.' : 'Resposta incorreta.' }}</p>
               <p v-if="!isAnswerCorrect" class="text-sm">A resposta correta é: {{ getCorrectAnswer }}</p>
             </div>
           </div>
@@ -56,11 +57,11 @@
             >
               <div 
                 v-if="showAnswer" 
-                class="mt-6 bg-white p-4 rounded-lg"
+                class="mt-6 bg-white border border-black p-4 rounded-lg"
               >
                 <div v-for="(item, index) in currentExerciseData.answer" :key="index">
-                  <p v-if="item.type === 'text'" class="mb-4">{{ item.value }}</p>
-                  <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4" />
+                  <p v-if="item.type === 'text'" class="mb-4 text-gray-700">{{ item.value }}</p>
+                  <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4 border border-black" />
                 </div>
               </div>
             </Transition>
@@ -69,7 +70,7 @@
           <div class="flex items-center justify-end mt-12">
             <Button 
               v-if="currentExerciseData.type === 'quiz'"
-              class="mr-4" 
+              class="mr-4 border border-black hover:bg-gray-100" 
               :disabled="!selectedAnswer || showFeedback"
               @click="handleExercise"
             >
@@ -77,41 +78,42 @@
             </Button>
             <Button 
               v-else-if="currentExerciseData.type === 'single'"
-              class="mr-4"
+              class="mr-4 border border-black hover:bg-gray-100"
               @click="handleExercise"
             >
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
-            <Button @click="goToExercise(currentExercise + 1)">
+            <Button class="border border-black hover:bg-gray-100" @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
           </div>
         </div>
         
-        <div class="w-full max-w-96 h-fit bg-gray-50 rounded-lg p-4 px-6 flex flex-wrap gap-4">
+        <div class="w-full max-w-96 h-fit bg-gray-50 border-2 border-black rounded-lg p-4 px-6 flex flex-wrap gap-4">
           <div
             v-for="index in totalExercises"
             :key="index"
-            class="bg-white border border-gray-600 flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300 relative"
+            class="bg-white border flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300 relative"
             :class="{ 
-              'border-lavender bg-lavender-ultralight': currentExercise === index,
-              'border-green-medium bg-green/30 hover:bg-green/60': isExerciseCompleted(index) && isExerciseCorrect(index),
-              'border-red-500 bg-red-100 hover:bg-red-200': isExerciseCompleted(index) && !isExerciseCorrect(index)
+              'border-gray-800 bg-gray-100': currentExercise === index,
+              'border-green-500 bg-green-50 hover:bg-green-100': isExerciseCompleted(index) && isExerciseCorrect(index),
+              'border-red-400 bg-red-50 hover:bg-red-100': isExerciseCompleted(index) && !isExerciseCorrect(index),
+              'border-black': currentExercise !== index && !isExerciseCompleted(index)
             }"
             @click="goToExercise(index)"
           >
-            <p class="text-center text-xs font-bold">{{ index }}</p>
+            <p class="text-center text-xs font-medium">{{ index }}</p>
             <div
               v-if="isExerciseCompleted(index)"
-              class="absolute -top-2 -right-2 rounded-full p-1 w-5 h-5 flex items-center justify-center"
+              class="absolute -top-2 -right-2 rounded-full p-1 w-5 h-5 flex items-center justify-center border"
               :class="{
-                'bg-green border border-green-medium': isExerciseCompleted(index) && isExerciseCorrect(index),
-                'bg-red-100 border border-red-500': isExerciseCompleted(index) && !isExerciseCorrect(index)
+                'bg-green-500 border-green-500': isExerciseCompleted(index) && isExerciseCorrect(index),
+                'bg-red-400 border-red-400': isExerciseCompleted(index) && !isExerciseCorrect(index)
               }"
             >
               <i
-                class="pi text-[9px]"
-                :class="isExerciseCorrect(index) ? 'pi-check' : 'pi-times text-red-500'"
+                class="pi text-[9px] text-white"
+                :class="isExerciseCorrect(index) ? 'pi-check' : 'pi-times'"
               ></i>
             </div>
           </div>
