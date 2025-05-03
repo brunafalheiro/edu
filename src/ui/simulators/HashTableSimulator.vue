@@ -1,5 +1,6 @@
 <template>
   <div class="w-full min-h-screen">
+    <Toaster richColors position="top-right" />
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
       <BackButton class="mb-6" text="Simulador de Hash Tables" :backFunction="goBack" />
 
@@ -55,6 +56,7 @@
                 }"
                 :disabled="!!hashTable"
                 @keyup.enter="initializeTable"
+                min="0"
               >
                 <NumberFieldContent>
                   <NumberFieldDecrement />
@@ -114,7 +116,11 @@
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Inserir Valor</div>
               <div class="flex items-center gap-2">
-                <NumberField v-model="valueToInsert" class="w-24" @keyup.enter="insertValue">
+                <NumberField v-model="valueToInsert" 
+                  class="w-24" 
+                  @keyup.enter="insertValue"
+                  min="0"
+                >
                   <NumberFieldContent>
                     <NumberFieldDecrement />
                     <NumberFieldInput />
@@ -130,7 +136,10 @@
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Buscar Valor</div>
               <div class="flex items-center gap-2">
-                <NumberField v-model="valueToSearch" class="w-24" @keyup.enter="searchValue">
+                <NumberField v-model="valueToSearch" 
+                  class="w-24" 
+                  @keyup.enter="searchValue"
+                >
                   <NumberFieldContent>
                     <NumberFieldDecrement />
                     <NumberFieldInput />
@@ -167,6 +176,7 @@
   import { ref, computed } from "vue";
   import { useRouter } from "vue-router";
   import { HashTableFunctions } from "@/tools/hashTableFunctions";
+  import { Toaster, toast } from 'vue-sonner';
 
   const router = useRouter();
   const goBack = () => router.push("/");
@@ -198,7 +208,28 @@
 
   const validateInputs = () => {
     showValidation.value = true;
-    return newTableSize.value && newTableSize.value > 0 && hashFunction.value && collisionMethod.value;
+    const errors = [];
+
+    if (!newTableSize.value || newTableSize.value < 1) {
+      errors.push('O tamanho da tabela deve ser maior que zero');
+    }
+    else if (!hashFunction.value) errors.push('Selecione uma função hash');
+    else if (!collisionMethod.value) errors.push('Selecione um método de colisão');
+
+    if (errors.length > 0) {
+      toast.error('Erro ao criar tabela', {
+        description: errors.join('\n'),
+        duration: 3000,
+        style: {
+          background: '#fef2f2',
+          color: '#dc2626',
+          border: '1px solid #fecaca',
+        },
+      });
+      return false;
+    }
+
+    return true;
   };
 
   const initializeTable = () => {
