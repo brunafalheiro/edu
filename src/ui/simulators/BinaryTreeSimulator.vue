@@ -36,7 +36,7 @@
           </button>
       </div>
 
-      <div class="bg-white border border-black shadow-[6px_6px_0_0_#000] rounded-xl p-6 w-fit mx-auto">
+      <div class="bg-white border border-gray-400 rounded-xl shadow-sm p-6 w-fit mx-auto">
         <div class="flex flex-wrap items-end gap-8">
           <div class="flex flex-col gap-1">
             <div class="text-xs font-medium text-slate-500">Inserir Nó</div>
