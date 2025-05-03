@@ -17,20 +17,20 @@
               :key="option.id"
               class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-gray-100"
               :class="[
-                !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender/10 hover:bg-lavender/15' : 'border-black',
-                showFeedback && selectedAnswer === option.id && option.correct ? '!border-green-500 !bg-green-50' : '',
-                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-red-400 !bg-red-50' : '',
-                showFeedback && !isAnswerCorrect && option.correct ? '!border-green-500 !bg-green-50' : ''
+                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/10 hover:bg-lavender/15' : 'border-black',
+                showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-50' : '',
+                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-black !bg-red-50' : '',
+                showFeedback && !isAnswerCorrect && option.correct ? '!border-black !bg-green-50' : ''
               ]"
               @click="selectAnswer(option.id)"
             >
               <div
-                class="w-8 h-8 rounded-lg border flex items-center justify-center"
+                class="w-8 h-8 rounded-lg border border-black flex items-center justify-center"
                 :class="[
-                  !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender-ultralight' : 'border-black bg-lavender-ultralight',
-                  showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-500 !border-green-500 text-white' : '',
-                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400 !border-red-400 text-white' : '',
-                  showFeedback && !isAnswerCorrect && option.correct ? '!bg-green-500 !border-green-500 text-white' : ''
+                  !showFeedback && selectedAnswer === option.id ? ' bg-lavender-ultralight' : 'bg-lavender-ultralight',
+                  showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-500 text-white' : '',
+                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400  text-white' : '',
+                  showFeedback && !isAnswerCorrect && option.correct ? '!bg-green-500 text-white' : ''
                 ]"
               >
                 <p class="text-xs font-medium">{{ option.id }}</p>
@@ -39,7 +39,7 @@
               <p class="ml-4 text-gray-700">{{ option.text }}</p>
             </div>
 
-            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg border" :class="isAnswerCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'">
+            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg border" :class="isAnswerCorrect ? 'border-green-dark bg-green-50 text-green-dark' : 'border-red-400 bg-red-50 text-red-700'">
               <p class="text-sm font-medium">{{ isAnswerCorrect ? 'Resposta correta.' : 'Resposta incorreta.' }}</p>
               <p v-if="!isAnswerCorrect" class="text-sm">A resposta correta é: {{ getCorrectAnswer }}</p>
             </div>
