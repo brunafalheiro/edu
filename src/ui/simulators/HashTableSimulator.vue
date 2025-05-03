@@ -154,6 +154,7 @@
                 <NumberField v-model="valueToInsert" 
                   class="w-24" 
                   @keyup.enter="insertValue"
+                  :disabled="!hashTable"
                 >
                   <NumberFieldContent>
                     <NumberFieldDecrement />
@@ -161,7 +162,7 @@
                     <NumberFieldIncrement />
                   </NumberFieldContent>
                 </NumberField>
-                <Button @click="insertValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
+                <Button @click="insertValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600" :disabled="!hashTable">
                   <i class="pi pi-plus w-4 h-4" />
                 </Button>
               </div>
@@ -173,6 +174,7 @@
                 <NumberField v-model="valueToSearch" 
                   class="w-24" 
                   @keyup.enter="searchValue"
+                  :disabled="!hashTable"
                 >
                   <NumberFieldContent>
                     <NumberFieldDecrement />
@@ -180,13 +182,13 @@
                     <NumberFieldIncrement />
                   </NumberFieldContent>
                 </NumberField>
-                <Button @click="searchValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
+                <Button @click="searchValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600" :disabled="!hashTable">
                   <i class="pi pi-search w-4 h-4" />
                 </Button>
               </div>
             </div>
 
-            <Button @click="clearTable" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600">
+            <Button @click="clearTable" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600" :disabled="!hashTable">
               <i class="pi pi-trash w-4 h-4 mr-1" />
               Limpar
             </Button>
