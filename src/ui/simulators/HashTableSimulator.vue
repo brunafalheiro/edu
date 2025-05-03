@@ -2,10 +2,43 @@
   <div class="w-full min-h-screen">
     <Toaster richColors position="top-right" />
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
-      <BackButton class="mb-6" text="Simulador de Hash Tables" :backFunction="goBack" />
+      <div class="w-full flex items-center mb-4">
+        <BackButton text="Simulador de Hash Tables" class="mr-4" :backFunction="goBack" />
+        
+        <Dialog>
+          <DialogTrigger as-child>
+            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors duration-200 cursor-pointer">
+              <i class="pi pi-info-circle text-gray-600 text-sm" />
+            </div>
+          </DialogTrigger>
+          <DialogContent class="sm:max-w-md">
+            <DialogHeader class="mb-3">
+              <DialogTitle class="text-xl my-3">Como usar o Simulador de Hash Tables</DialogTitle>
+              <DialogDescription>
+                <div class="space-y-4">
+                  <p>Este simulador permite visualizar o funcionamento de diferentes implementações de tabelas hash:</p>
+                  <ul class="list-disc pl-4 space-y-2">
+                    <li>Defina o tamanho da tabela e escolha uma função hash</li>
+                    <li>Selecione um método de tratamento de colisões</li>
+                    <li>Insira valores para ver como eles são distribuídos na tabela</li>
+                    <li>Use a busca para encontrar valores específicos</li>
+                  </ul>
+                  <p>O fator de carga é calculado automaticamente e exibido acima da tabela.</p>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+            
+            <DialogFooter>
+              <DialogClose as-child>
+                <Button type="button" class="font-semibold">Fechar</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
 
-      <div v-if="loadFactor" class="text-sm text-slate-600 mb-1 text-end">
-        Fator de Carga: {{ loadFactor.toFixed(2) }}
+      <div class="h-6 mb-1">
+        <p v-if="loadFactor" class="text-sm text-gray-600 text-end">Fator de Carga: {{ loadFactor.toFixed(2) }}</p>
       </div>
       <div class="bg-white border border-black shadow-[6px_6px_0_0_#000] rounded-xl w-full mx-auto" style="height: calc(100% - 120px)">
         <div v-if="!hashTable" class="flex flex-col items-center justify-center h-full text-gray-400">
@@ -19,14 +52,16 @@
               gridAutoRows: 'minmax(80px, auto)'
             }">
               <div v-for="(slot, index) in hashTable" :key="index" 
-                  class="border border-slate-300 rounded-lg p-4 text-center min-h-[80px] flex flex-col justify-center relative"
+                  class="border border-black rounded-lg p-4 pt-2 pr-2 text-center min-h-[80px] flex flex-col relative"
                   :class="{ 
                     'bg-lavender-50': collisionMethod === 'open' ? slot !== null : slot?.length > 0,
                     'ring-1 ring-lavender': isSearchedValue && (collisionMethod === 'open' ? slot === valueToSearch : slot.includes(valueToSearch))
                   }">
-                <div class="text-xs text-slate-500 mb-1 whitespace-nowrap">Índice {{ index }}</div>
+                <div class="flex items-center justify-end">
+                  <div class="text-xs text-gray-400 mb-2 whitespace-nowrap px-2 border border-gray-400 rounded-lg w-fit h-fit">index {{ index }}</div>
+                </div>
                 <div v-if="collisionMethod === 'open' || collisionMethod === 'none'" class="font-medium">
-                  {{ slot !== null ? slot : '-' }}
+                  {{ slot !== null ? slot : '' }}
                 </div>
                 <div v-else class="font-medium">
                   <div v-if="slot.length === 0">-</div>
@@ -85,12 +120,13 @@
             <div class="flex flex-col gap-1">
               <div class="text-xs font-medium text-slate-500">Método de Colisão</div>
               <select v-model="collisionMethod" 
-                      class="w-48 h-9 rounded-lg border border-slate-300 px-3 text-sm"
-                      :disabled="!!hashTable"
-                      :class="{ 
-                        'opacity-50 cursor-not-allowed': !!hashTable,
-                        'ring-1 ring-red-500': showValidation && !collisionMethod
-                      }">
+                class="w-48 h-9 rounded-lg border border-slate-300 px-3 text-sm"
+                :disabled="!!hashTable"
+                :class="{ 
+                  'opacity-50 cursor-not-allowed': !!hashTable,
+                  'ring-1 ring-red-500': showValidation && !collisionMethod
+                }"
+              >
                 <option value="" disabled>Selecione um método</option>
                 <option value="none">Sem Colisão</option>
                 <option value="chaining">Encadeamento</option>
@@ -125,7 +161,7 @@
                     <NumberFieldIncrement />
                   </NumberFieldContent>
                 </NumberField>
-                <Button @click="insertValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <Button @click="insertValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
                   <i class="pi pi-plus w-4 h-4" />
                 </Button>
               </div>
@@ -144,13 +180,13 @@
                     <NumberFieldIncrement />
                   </NumberFieldContent>
                 </NumberField>
-                <Button @click="searchValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200 flex items-center justify-center">
+                <Button @click="searchValue" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
                   <i class="pi pi-search w-4 h-4" />
                 </Button>
               </div>
             </div>
 
-            <Button @click="clearTable" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-colors duration-200 flex items-center justify-center">
+            <Button @click="clearTable" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600">
               <i class="pi pi-trash w-4 h-4 mr-2" />
               Limpar
             </Button>
@@ -175,6 +211,16 @@
   import { useRouter } from "vue-router";
   import { HashTableFunctions } from "@/tools/hashTableFunctions";
   import { Toaster, toast } from 'vue-sonner';
+  import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose,
+  } from "@/components/ui/dialog";
 
   const router = useRouter();
   const goBack = () => router.push("/");

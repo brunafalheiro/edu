@@ -2,7 +2,41 @@
   <div class="w-full min-h-screen">
     <Toaster richColors position="top-right" />
     <div class="w-full p-6 pt-20 mx-auto" style="height: calc(100vh - 120px)">
-      <BackButton class="mb-6" text="Simulador de Árvores Binárias" :backFunction="goBack" />
+      <div class="w-full flex items-center mb-6">
+        <BackButton text="Simulador de Árvores Binárias" class="mr-4" :backFunction="goBack" />
+        
+        <Dialog>
+          <DialogTrigger as-child>
+            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors duration-200 cursor-pointer">
+              <i class="pi pi-info-circle text-gray-600 text-sm" />
+            </div>
+          </DialogTrigger>
+          <DialogContent class="sm:max-w-md">
+            <DialogHeader class="mb-3">
+              <DialogTitle class="text-xl my-3">Como usar o Simulador de Árvores Binárias</DialogTitle>
+              <DialogDescription>
+                <div class="space-y-4">
+                  <p>Este simulador permite visualizar o funcionamento de árvores binárias de busca:</p>
+                  <ul class="list-disc pl-4 space-y-2">
+                    <li>Insira nós individualmente para construir sua árvore</li>
+                    <li>Remova nós específicos da árvore</li>
+                    <li>Busque nós para verificar sua existência</li>
+                    <li>Gere uma árvore aleatória com a quantidade de nós desejada</li>
+                    <li>Use o zoom e arraste para navegar pela árvore</li>
+                    <li>Visualize o pseudocódigo das operações clicando no ícone de código</li>
+                  </ul>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+            
+            <DialogFooter>
+              <DialogClose as-child>
+                <Button type="button" class="font-semibold">Fechar</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
 
       <div
         class="tree viewer-container overflow-auto text-center flex justify-center w-full bg-white rounded-xl border border-black mb-8 relative"
@@ -131,6 +165,16 @@
     NumberFieldIncrement,
     NumberFieldInput,
   } from "@/components/ui/number-field";
+  import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose,
+  } from "@/components/ui/dialog";
 
   const tree = ref(null);
   const nodeToBeAdded = ref(null);
