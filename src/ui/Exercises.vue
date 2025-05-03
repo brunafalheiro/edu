@@ -27,7 +27,7 @@
               <div
                 class="w-8 h-8 rounded-lg border flex items-center justify-center"
                 :class="[
-                  !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender-ultralight' : 'border-black',
+                  !showFeedback && selectedAnswer === option.id ? 'border-gray-800 bg-lavender-ultralight' : 'border-black bg-lavender-ultralight',
                   showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-500 !border-green-500 text-white' : '',
                   showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400 !border-red-400 text-white' : '',
                   showFeedback && !isAnswerCorrect && option.correct ? '!bg-green-500 !border-green-500 text-white' : ''
@@ -72,17 +72,21 @@
               v-if="currentExerciseData.type === 'quiz'"
               class="mr-4 hover:bg-gray-100" 
               :disabled="!selectedAnswer || showFeedback"
+              variant="outline"
               @click="handleExercise"
             >
               Responder
             </Button>
+            
             <Button 
               v-else-if="currentExerciseData.type === 'single'"
+              variant="outline"
               class="mr-4 hover:bg-gray-100"
               @click="handleExercise"
             >
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
+
             <Button class="hover:bg-gray-100" @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
