@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border border-black rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[336px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-xl hover:scale-[1.02] bg-white"
+    class="border border-black shadow-[4px_4px_0_0_#000] rounded-xl overflow-hidden relative w-full min-w-[280px] max-w-[336px] flex-grow cursor-pointer transform transition duration-300 hover:shadow-[6px_6px_0_0_#000] hover:scale-[1.02] bg-white"
     @click="clickFunction(course.id)"
   >
     <div class="w-full h-48">

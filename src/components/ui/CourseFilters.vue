@@ -1,5 +1,5 @@
 <template>
-  <div class="w-fit flex bg-gray-100 rounded-full p-1 mb-4">
+  <div class="w-fit flex bg-gray-100 rounded-full p-1 mb-4 border border-gray-300">
     <button 
       v-for="filter in filters" 
       :key="filter.value"
@@ -7,7 +7,7 @@
       :class="[
         'px-4 py-1 rounded-full text-sm transition-colors',
         selectedFilter === filter.value 
-          ? 'bg-white text-black shadow-sm font-semibold' 
+          ? 'bg-white text-black shadow-sm font-semibold border border-gray-500' 
           : 'text-gray-500 hover:text-gray-700'
       ]"
     >
