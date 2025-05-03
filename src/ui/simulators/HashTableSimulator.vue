@@ -118,7 +118,6 @@
                 <NumberField v-model="valueToInsert" 
                   class="w-24" 
                   @keyup.enter="insertValue"
-                  :min=0
                 >
                   <NumberFieldContent>
                     <NumberFieldDecrement />
@@ -240,6 +239,21 @@
 
   const insertValue = () => {
     if (!hashTable.value || valueToInsert.value === null) return;
+    
+    const index = HashTableFunctions.hash(valueToInsert.value, hashTable.value.length, hashFunction.value);
+    if (getCollisionType() === 'none' && hashTable.value[index] !== null) {
+      toast.error('Colisão detectada', {
+        description: 'Não é possível inserir o valor pois já existe um elemento na posição calculada.',
+        duration: 3000,
+        style: {
+          background: '#fef2f2',
+          color: '#dc2626',
+          border: '1px solid #fecaca',
+        },
+      });
+      return;
+    }
+
     HashTableFunctions.insert(
       hashTable.value, 
       valueToInsert.value, 
