@@ -15,12 +15,13 @@
             <div
               v-for="option in currentExerciseData.options"
               :key="option.id"
-              class="flex items-center border bg-white p-3 rounded-lg mt-3 cursor-pointer transition-all duration-300 hover:bg-gray-100"
+              class="flex items-center border bg-white p-3 rounded-lg mt-3 transition-all duration-300 hover:bg-gray-100"
               :class="[
-                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/10 hover:bg-lavender/15' : 'border-black',
-                showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-50' : '',
-                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-black !bg-red-50' : '',
-                showFeedback && !isAnswerCorrect && option.correct ? '!border-black !bg-green-50' : ''
+                showFeedback ? 'cursor-default' : 'cursor-pointer',
+                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/20 hover:bg-lavender/0 border-black' : 'border-black',
+                showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-100' : '',
+                showFeedback && selectedAnswer === option.id && !option.correct ? '!border-black !bg-red-100' : '',
+                showFeedback && !isAnswerCorrect && option.correct ? '!border-black !bg-green-100' : ''
               ]"
               @click="selectAnswer(option.id)"
             >
@@ -39,7 +40,7 @@
               <p class="ml-4 text-gray-700">{{ option.text }}</p>
             </div>
 
-            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg border" :class="isAnswerCorrect ? 'border-green-dark bg-green-50 text-green-dark' : 'border-red-400 bg-red-50 text-red-700'">
+            <div v-if="showFeedback" class="mt-6 py-3 px-4 rounded-lg border" :class="isAnswerCorrect ? 'border-green-dark bg-green-100 text-green-dark' : 'border-red-400 bg-red-100 text-red-700'">
               <p class="text-sm font-medium">{{ isAnswerCorrect ? 'Resposta correta.' : 'Resposta incorreta.' }}</p>
               <p v-if="!isAnswerCorrect" class="text-sm">A resposta correta é: {{ getCorrectAnswer }}</p>
             </div>
@@ -87,7 +88,7 @@
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
 
-            <Button class="hover:bg-gray-100" @click="goToExercise(currentExercise + 1)">
+            <Button @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
           </div>
