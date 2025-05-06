@@ -9,7 +9,7 @@
           <h3 class="text-sm font-semibold text-slate-800">Pseudocódigo</h3>
           <button 
             @click="$emit('update:isVisible', false)"
-            class="p-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-600 transition-colors duration-200"
+            class="p-1.5 w-8 h-8 border flex items-center justify-center border-black rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200"
           >
             <i class="pi pi-times text-sm" />
           </button>

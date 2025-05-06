@@ -54,7 +54,7 @@
               <div v-for="(slot, index) in hashTable" :key="index" 
                   class="border border-black rounded-lg p-4 pt-2 pr-2 text-center min-h-[80px] flex flex-col relative"
                   :class="{ 
-                    'bg-lavender-50': collisionMethod === 'open' ? slot !== null : slot?.length > 0,
+                    'bg-lavender-50': collisionMethod === 'open' ? slot !== null : (slot && slot.length > 0),
                     'ring-1 ring-lavender': isSearchedValue && (collisionMethod === 'open' ? slot === valueToSearch : slot.includes(valueToSearch))
                   }">
                 <div class="flex items-center justify-end">
@@ -63,8 +63,8 @@
                 <div v-if="collisionMethod === 'open' || collisionMethod === 'none'" class="font-medium">
                   {{ slot !== null ? slot : '' }}
                 </div>
-                <div v-else class="font-medium">
-                  <div v-if="slot.length === 0">-</div>
+                <div v-else-if="collisionMethod === 'chaining'" class="font-medium">
+                  <div v-if="!slot || slot.length === 0">-</div>
                   <div v-else class="flex flex-col gap-1">
                     <div v-for="(value, i) in slot" :key="i" 
                          :class="{ 'text-lavender-600': isSearchedValue && value === valueToSearch }">
@@ -244,7 +244,8 @@
 
   const getCollisionType = () => {
     if (collisionMethod.value === 'none') return 'none';
-    return collisionMethod.value.startsWith('open') ? 'open' : 'chaining';
+    if (collisionMethod.value === 'chaining') return 'chaining';
+    return 'open';
   };
 
   const getProbingMethod = () => {

@@ -44,9 +44,9 @@
       >
           <div
             v-if="!tree"
-            class="flex flex-col items-center justify-center h-full text-slate-400"
+            class="flex flex-col items-center justify-center h-full text-gray-400"
           >
-            <i class="pi pi-tree text-4xl mb-2"></i>
+            <i class="pi pi-sitemap text-4xl mb-2"></i>
             <p class="text-sm">Nenhuma árvore criada. Utilize os controles abaixo para começar.</p>
           </div>
           
@@ -65,7 +65,7 @@
           
           <button 
             @click="showPseudocode = !showPseudocode"
-            class="absolute right-4 top-4 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors duration-200"
+            class="w-10 h-10 absolute right-4 top-4 p-2 rounded-lg border border-black bg-gray-100 hover:bg-gray-200 text-black transition-all duration-200"
           >
             <i class="pi pi-code text-sm"></i>
           </button>
