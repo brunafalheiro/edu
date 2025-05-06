@@ -185,12 +185,28 @@
   const showPseudocode = ref(false);
   const currentOperation = ref('');
 
+  const toastStyle = {
+    duration: 3000,
+    style: {
+      background: '#fef2f2',
+      color: '#dc2626',
+      border: '1px solid #fecaca',
+      boxShadow: 'none'
+    }
+  };
+
   const insertNode = async () => {
     if (!nodeToBeAdded.value) return;
     currentOperation.value = 'insert';
     
     if (!tree.value) {
       TreeFunctions.createTree({ treeStore: tree, rootValue: nodeToBeAdded.value });
+      return;
+    }
+
+    const found = await TreeFunctions.searchNode(tree.value, nodeToBeAdded.value);
+    if (found) {
+      toast.error('Nó já existe na árvore', toastStyle);
       return;
     }
 
@@ -208,26 +224,12 @@
     currentOperation.value = 'search';
     const found = await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
     if (found) return;
-    toast.error('Nó não encontrado na árvore', {
-      duration: 3000,
-      style: {
-        background: '#fef2f2',
-        color: '#dc2626',
-        border: '1px solid #fecaca',
-      },
-    });
+    toast.error('Nó não encontrado na árvore', toastStyle);
   };
 
   const generateRandomTree = async () => {
     if (nodeAmount.value < 1) {
-      toast.error('A árvore deve ter pelo menos 1 nó', {
-        duration: 3000,
-        style: {
-          background: '#fef2f2',
-          color: '#dc2626',
-          border: '1px solid #fecaca',
-        },
-      });
+      toast.error('A árvore deve ter pelo menos 1 nó', toastStyle);
       return;
     }
     tree.value = await TreeFunctions.generateRandomTree(nodeAmount.value);
