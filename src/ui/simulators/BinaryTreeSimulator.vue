@@ -207,7 +207,7 @@
     const found = await TreeFunctions.searchNode(tree.value, nodeToBeAdded.value);
     TreeFunctions.resetFoundFlag(tree.value);
     if (found) {
-      toast.error('Nó já existe na árvore', toastStyle);
+      toast.error('Nó já existe na árvore.', toastStyle);
       return;
     }
 
@@ -217,6 +217,14 @@
   const removeNode = async () => {
     if (!tree.value) return;
     currentOperation.value = 'remove';
+    
+    const found = await TreeFunctions.searchNode(tree.value, nodeToBeRemoved.value);
+    TreeFunctions.resetFoundFlag(tree.value);
+    if (!found) {
+      toast.error('Nó não encontrado na árvore.', toastStyle);
+      return;
+    }
+
     await TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
   };
 
@@ -225,12 +233,12 @@
     currentOperation.value = 'search';
     const found = await TreeFunctions.searchNode(tree.value, nodeToBeSearched.value);
     if (found) return;
-    toast.error('Nó não encontrado na árvore', toastStyle);
+    toast.error('Nó não encontrado na árvore.', toastStyle);
   };
 
   const generateRandomTree = async () => {
     if (nodeAmount.value < 1) {
-      toast.error('A árvore deve ter pelo menos 1 nó', toastStyle);
+      toast.error('A árvore deve ter pelo menos 1 nó.', toastStyle);
       return;
     }
     tree.value = await TreeFunctions.generateRandomTree(nodeAmount.value);
