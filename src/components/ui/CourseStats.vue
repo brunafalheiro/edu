@@ -1,18 +1,20 @@
 <template>
-  <div class="w-full min-h-[220px] flex items-end justify-end bg-lavender-ultralight/40 p-6 relative overflow-hidden">
-    <img src="@/assets/images/edu.png" class="absolute h-72 -top-7 -left-4 object-contain">
-    <div class="w-full flex flex-wrap justify-end gap-4">
-      <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
-        <p class="text-4xl min-w-fit font-black w-full mr-4">{{ completedCourses }}</p>
-        <p class="text-sm font-medium">Cursos finalizados</p>
-      </div>
-      <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
-        <p class="text-4xl min-w-fit font-black w-full mr-4">{{ ongoingCourses }}</p>
-        <p class="text-sm font-medium">Cursos em andamento</p>
-      </div>
-      <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
-        <p class="text-3xl min-w-fit font-black w-full mr-4">{{ totalTimeStudied }}</p>
-        <p class="text-sm font-medium">Tempo estudado</p>
+  <div class="w-full min-h-[220px] flex items-end justify-center bg-lavender-ultralight/40 p-8 overflow-hidden">
+    <div class="w-full flex items-end justify-end max-w-6xl relative">
+      <img src="@/assets/images/edu.png" class="absolute h-72 -bottom-28 left-0 object-contain">
+      <div class="w-full flex flex-wrap justify-end gap-4 z-10">
+        <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
+          <p class="text-4xl min-w-fit font-black w-full mr-4">{{ completedCourses }}</p>
+          <p class="text-sm font-medium">Cursos finalizados</p>
+        </div>
+        <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
+          <p class="text-4xl min-w-fit font-black w-full mr-4">{{ ongoingCourses }}</p>
+          <p class="text-sm font-medium">Cursos em andamento</p>
+        </div>
+        <div class="h-24 w-full max-w-[200px] bg-white border border-black rounded-lg flex items-center justify-between p-6 shadow-[6px_6px_0_0_#000] cursor-default transition-transform duration-200 hover:scale-105 hover:shadow-[8px_8px_0_0_#000]">
+          <p class="text-3xl min-w-fit font-black w-full mr-4">{{ totalTimeStudied }}</p>
+          <p class="text-sm font-medium">Tempo estudado</p>
+        </div>
       </div>
     </div>
   </div>
