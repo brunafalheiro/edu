@@ -98,10 +98,12 @@ class HashTableFunctions {
     const initialIndex = this.hash(value, table.length, hashMethod);
     let index = initialIndex;
     let attempt = 0;
+    let visited = new Set();
 
-    while (table[index] !== null) {
+    while (table[index] !== null && !visited.has(index)) {
       if (table[index] === value) return true;
       
+      visited.add(index);
       attempt++;
       switch (probingMethod) {
         case 'linear':
@@ -136,6 +138,12 @@ class HashTableFunctions {
       return totalElements / table.length;
     }
     
+    if (collisionMethod === 'none') {
+      const filledSlots = table.filter(slot => slot !== null).length;
+      return filledSlots / table.length;
+    }
+    
+    // Open addressing
     const filledSlots = table.filter(slot => slot !== null).length;
     return filledSlots / table.length;
   }

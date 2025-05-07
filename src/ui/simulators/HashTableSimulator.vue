@@ -54,13 +54,13 @@
               <div v-for="(slot, index) in hashTable" :key="index" 
                   class="border border-black rounded-lg p-4 pt-2 pr-2 text-center min-h-[80px] flex flex-col relative"
                   :class="{ 
-                    'bg-lavender-50': collisionMethod === 'open' ? slot !== null : (slot && slot.length > 0),
-                    'ring-1 ring-lavender': isSearchedValue && (collisionMethod === 'open' ? slot === valueToSearch : slot.includes(valueToSearch))
+                    'bg-lavender-50': collisionMethod.startsWith('open') ? slot !== null : (slot && slot.length > 0),
+                    'ring-1 ring-lavender': isSearchedValue && (collisionMethod.startsWith('open') ? slot === valueToSearch : slot.includes(valueToSearch))
                   }">
                 <div class="flex items-center justify-end">
                   <div class="text-xs text-gray-400 mb-2 whitespace-nowrap px-2 border border-gray-400 rounded-lg w-fit h-fit">index {{ index }}</div>
                 </div>
-                <div v-if="collisionMethod === 'open' || collisionMethod === 'none'" class="font-medium">
+                <div v-if="collisionMethod.startsWith('open') || collisionMethod === 'none'" class="font-medium">
                   {{ slot !== null ? slot : '' }}
                 </div>
                 <div v-else-if="collisionMethod === 'chaining'" class="font-medium">
@@ -237,6 +237,13 @@
   const isSearchedValue = ref(false);
   const showValidation = ref(false);
 
+  const toastStyle = {
+    background: '#fef2f2',
+    color: '#dc2626',
+    border: '1px solid #fecaca',
+    boxShadow: 'none',
+  };
+
   const loadFactor = computed(() => {
     if (!hashTable.value) return 0;
     return HashTableFunctions.getLoadFactor(hashTable.value, getCollisionType());
@@ -267,11 +274,7 @@
       toast.error('Erro ao criar tabela', {
         description: errors.join('\n'),
         duration: 3000,
-        style: {
-          background: '#fef2f2',
-          color: '#dc2626',
-          border: '1px solid #fecaca',
-        },
+        style: toastStyle,
       });
       return false;
     }
@@ -294,11 +297,7 @@
       toast.error('Colisão detectada', {
         description: 'Não é possível inserir o valor pois já existe um elemento na posição calculada.',
         duration: 3000,
-        style: {
-          background: '#fef2f2',
-          color: '#dc2626',
-          border: '1px solid #fecaca',
-        },
+        toastStyle,
       });
       return;
     }
@@ -322,6 +321,14 @@
       getCollisionType(),
       getProbingMethod()
     );
+    
+    if (!found) {
+      toast.error('Valor não encontrado', {
+        description: 'O valor buscado não está presente na tabela hash.',
+        duration: 3000,
+        toastStyle,
+      });
+    }
     
     setTimeout(() => { isSearchedValue.value = false; }, 1000);
     return found;
