@@ -2,8 +2,7 @@
   <div class="w-full flex justify-center">
     <div class="w-full max-w-5xl p-12 pt-24">
       <div class="flex items-center mb-4">
-        <BackButton :backFunction="goBack"/>
-        <p class="text-2xl font-black">{{ course.name }}</p>
+        <BackButton :backFunction="goBack" :text="course.name"/>
       </div>
       <p class="mb-9">{{ course.description }}</p>
 

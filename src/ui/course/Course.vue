@@ -9,8 +9,7 @@
         class="w-full max-w-[860px] h-full p-12 pt-24"
       >
         <div class="flex items-center mb-2">
-          <BackButton :backFunction="goToCourseInfo" />
-          <p class="text-2xl font-black">{{ currentTopic.name }}</p>
+          <BackButton :backFunction="goToCourseInfo" :text="currentTopic.name"/>
         </div>
         <p class="text-sm text-gray-500 mb-10 ml-2">
           {{ course.name }}: {{ currentClassName }}
