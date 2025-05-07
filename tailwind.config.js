@@ -5,7 +5,7 @@ export default {
   theme: {
   	extend: {
 		fontFamily: {
-		sans: ['Syne', 'sans-serif'],
+		sans: ['Figtree', 'sans-serif'],
 		},
   		borderRadius: {
   			lg: 'var(--radius)',
