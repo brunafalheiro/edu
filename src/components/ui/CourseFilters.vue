@@ -1,14 +1,14 @@
 <template>
-  <div class="w-fit flex bg-gray-100 rounded-full p-1 mb-4 border border-gray-300">
+  <div class="w-fit flex bg-white rounded-none mb-4 gap-2 border-black">
     <button 
       v-for="filter in filters" 
       :key="filter.value"
       @click="$emit('filter-change', filter.value)"
       :class="[
-        'px-4 py-1 rounded-full text-sm transition-colors',
+        'px-6 py-2 text-sm transition-all duration-200 border-2 border-black rounded-full',
         selectedFilter === filter.value 
-          ? 'bg-white text-black shadow-sm font-semibold border border-gray-500' 
-          : 'text-gray-500 hover:text-gray-700'
+          ? 'bg-yellow-400 text-black font-semibold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] -translate-x-[2px] -translate-y-[2px]' 
+          : 'border-white !px-2 ml-2 hover:font-semibold'
       ]"
     >
       {{ filter.label }}

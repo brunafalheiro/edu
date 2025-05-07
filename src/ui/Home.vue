@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full flex justify-center">
-    <div class="w-full max-w-6xl p-12 pt-24">
-      <CourseStats 
-        :completed-courses="completedCoursesAmount"
-        :ongoing-courses="ongoingCoursesAmount"
-      />
+  <CourseStats 
+    :completed-courses="completedCoursesAmount"
+    :ongoing-courses="ongoingCoursesAmount"
+  />
 
+  <div class="w-full flex justify-center">
+    <div class="w-full max-w-6xl p-12 pt-0 mt-12">
       <CourseFilters
         :filters="FILTERS"
         :selected-filter="selectedFilter"
