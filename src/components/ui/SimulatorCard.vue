@@ -12,7 +12,7 @@
           <p class="font-semibold text-gray-800 group-hover:text-primary transition-colors duration-200">
             {{ props.title }}
           </p>
-          <p v-if="props.description" class="text-sm text-gray-500 mt-0.5 line-clamp-1">
+          <p v-if="props.description" class="text-gray-500 line-clamp-1">
             {{ props.description }}
           </p>
         </div>
