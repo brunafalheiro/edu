@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full min-h-[220px] flex items-end justify-center bg-lavender-ultralight/40 p-8 overflow-hidden">
+  <div class="w-full min-h-[220px] flex items-end justify-center bg-lavender-light/80 p-8 overflow-hidden">
     <div class="w-full flex items-end justify-end max-w-6xl relative">
       <img src="@/assets/images/edu.png" class="absolute h-72 -bottom-28 left-0 object-contain">
       <div class="w-full flex flex-wrap justify-end gap-4 z-10">

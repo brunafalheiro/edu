@@ -15,11 +15,11 @@
     <div
       v-if="courseStatus !== 'not_started'"
       :class="[ 
-        'absolute top-3 right-3 px-4 py-1.5 rounded-full shadow-sm',
-        courseStatus === 'completed' ? 'bg-green-dark text-green' : 'bg-lavender-ultralight text-lavender'
+        'absolute top-3 right-3 px-4 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0_0_#000] font-bold',
+        courseStatus === 'completed' ? 'bg-green/50' : 'bg-lavender-ultralight'
       ]"
     >
-      <p class="text-xs font-medium">{{ statusLabel }}</p>
+      <p class="text-xs">{{ statusLabel }}</p>
     </div>
 
     <div class="p-4">
@@ -27,7 +27,7 @@
         <h2 class="font-bold text-lg text-gray-800 mr-2 line-clamp-2">{{ course.name }}</h2>
         <span 
           v-if="courseStatus !== 'completed'" 
-          class="flex-shrink-0 ml-2 px-2.5 py-1 bg-green/15 text-green-medium text-sm font-medium rounded-full"
+          class="flex-shrink-0 ml-2 px-3 py-0.5 border-2 border-black text-black text-sm font-semibold rounded-lg shadow-[2px_2px_0_0_#000]"
         >
           {{ courseProgress }}%
         </span>
