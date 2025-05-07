@@ -4,7 +4,7 @@ import App from './App.vue';
 import router from './router/router';
 import './demos/ipc';
 import '@/assets/index.scss';
-import '@fontsource/asap';
+import '@fontsource/syne';
 
 const app = createApp(App);
 app.use(router);
