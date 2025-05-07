@@ -205,6 +205,7 @@
     }
 
     const found = await TreeFunctions.searchNode(tree.value, nodeToBeAdded.value);
+    TreeFunctions.resetFoundFlag(tree.value);
     if (found) {
       toast.error('Nó já existe na árvore', toastStyle);
       return;
