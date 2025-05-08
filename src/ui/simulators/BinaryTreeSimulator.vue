@@ -204,14 +204,11 @@
       return;
     }
 
-    const found = await TreeFunctions.searchNode(tree.value, nodeToBeAdded.value);
-    TreeFunctions.resetFoundFlag(tree.value);
-    if (found) {
+    const result = await TreeFunctions.insertNode(tree.value, nodeToBeAdded.value, true);
+    if (result === null) {
       toast.error('Nó já existe na árvore.', toastStyle);
       return;
     }
-
-    await TreeFunctions.insertNode(tree.value, nodeToBeAdded.value, true);
   };
 
   const removeNode = async () => {
@@ -225,7 +222,7 @@
       return;
     }
 
-    await TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value);
+    await TreeFunctions.removeNode(tree.value, nodeToBeRemoved.value, false);
   };
 
   const searchNode = async () => {

@@ -24,6 +24,7 @@ class TreeFunctions {
       tree.isBeingVisited = false;
     }
     
+    if (value === tree.value) return null;    
     if (value < tree.value) {
       tree.left = await TreeFunctions.insertNode(tree.left, value, animate);
       return tree;
@@ -59,10 +60,6 @@ class TreeFunctions {
     if (!tree) {
       return null;
     }
-
-    tree.isBeingVisited = true;
-    await new Promise(resolve => setTimeout(resolve, 500));
-    tree.isBeingVisited = false;
 
     if (value < tree.value) {
       tree.left = await TreeFunctions.removeNode(tree.left, value);
