@@ -34,22 +34,22 @@ class HashTableFunctions {
   }
 
   static insert(table, value, hashMethod = 'division', collisionMethod = 'open', probingMethod = 'linear') {
-    if (!table || value === null) return table;
+    if (!table || value === null) return false;
     
     if (collisionMethod === 'none') {
       const index = this.hash(value, table.length, hashMethod);
       if (table[index] !== null) {
         console.warn('Collision detected in no-collision mode');
-        return table;
+        return false;
       }
       table[index] = value;
-      return table;
+      return true;
     }
     
     if (collisionMethod === 'chaining') {
       const index = this.hash(value, table.length, hashMethod);
       table[index].push(value);
-      return table;
+      return true;
     }
 
     // Open addressing
@@ -73,12 +73,12 @@ class HashTableFunctions {
       
       if (attempt >= table.length) {
         console.warn('Table is full');
-        return table;
+        return false;
       }
     }
 
     table[index] = value;
-    return table;
+    return true;
   }
 
   static search(table, value, hashMethod = 'division', collisionMethod = 'open', probingMethod = 'linear') {
@@ -100,8 +100,9 @@ class HashTableFunctions {
     let attempt = 0;
     let visited = new Set();
 
-    while (table[index] !== null && !visited.has(index)) {
+    while (!visited.has(index)) {
       if (table[index] === value) return true;
+      if (table[index] === null) return false;
       
       visited.add(index);
       attempt++;
