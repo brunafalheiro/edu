@@ -7,6 +7,7 @@
       <p class="mb-9">{{ course.description }}</p>
 
       <div class="flex justify-between items-center mb-4">
+        <!-- <Button @click="startCourse">Começar</Button> -->
         <p class="text-xl font-black">Conteúdo</p>
         <div v-if="isOngoingCourse" class="flex items-center gap-4">
           <div class="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-full cursor-default">
