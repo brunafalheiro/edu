@@ -125,6 +125,14 @@
   const isTopicCompleted = ref(false);
 
   const isCourseCompleted = (completedContent) => {
+    // Check if all classes exist in completedContent
+    const allClassesExist = classes.value.every((classItem) => 
+      completedContent[classItem.id] !== undefined
+    );
+    
+    if (!allClassesExist) return false;
+
+    // Check if all topics in each class are completed
     return Object.values(completedContent).every((topics) =>
       topics.every((topic) => topic.completed)
     );
@@ -193,6 +201,12 @@
     const courseCompleted = isCourseCompleted(completedContent);
 
     // Mark current topic as completed
+    if (!completedContent[classId]) {
+      completedContent[classId] = [];
+    }
+    if (!completedContent[classId][currentTopicIndex - 1]) {
+      completedContent[classId][currentTopicIndex - 1] = { completed: false };
+    }
     completedContent[classId][currentTopicIndex - 1].completed = true;
 
     if (courseCompleted && isLastTopicFromCourse) {
@@ -237,7 +251,7 @@
     navigateToTopic(courseId, nextClassId, nextTopicId);
   };
 
-  const loadCourseData = () => {
+  const loadCourseData = async () => {
     const { courseId, classId, topicId } = route.params;
     const selectedCourse = courses.find((c) => c.id === courseId);
     if (!selectedCourse) return;
@@ -257,6 +271,21 @@
       name,
       topics: topics.map(({ id, name }) => ({ id, name })),
     }));
+
+    // Check if course is completed when loading
+    const progress = await window.store.get("progress");
+    const courseProgress = progress?.[courseId] || {};
+    const completedContent = courseProgress.completedContent || {};
+    
+    const currentClassIndex = parseInt(classId);
+    const currentTopicIndex = parseInt(topicId);
+    const isLastTopicFromClass = currentTopicIndex === topicsFromClass.value.length;
+    const isLastClassFromCourse = currentClassIndex === classes.value.length;
+    const isLastTopicFromCourse = isLastClassFromCourse && isLastTopicFromClass;
+    
+    isFinishedCourse.value = isCourseCompleted(completedContent) && 
+                            courseProgress.completed && 
+                            isLastTopicFromCourse;
   };
 
   watch(
