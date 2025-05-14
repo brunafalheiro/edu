@@ -302,13 +302,20 @@
       return;
     }
 
-    HashTableFunctions.insert(
+    const success = HashTableFunctions.insert(
       hashTable.value, 
       valueToInsert.value, 
       hashFunction.value, 
       getCollisionType(),
       getProbingMethod()
     );
+
+    if (!success) {
+      toast('Tabela cheia', {
+        description: 'Não é possível inserir mais valores pois a tabela está cheia.',
+        duration: 3000,
+      });
+    }
   };
 
   const searchValue = () => {
