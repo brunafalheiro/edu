@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@ui/Home.vue';
+import Home from '@ui/home/Home.vue';
 import CourseInfo from '@/ui/course/CourseInfo.vue';
 import BinaryTreeSimulator from '@ui/simulators/BinaryTreeSimulator.vue';
 import HashTableSimulator from '@ui/simulators/HashTableSimulator.vue';

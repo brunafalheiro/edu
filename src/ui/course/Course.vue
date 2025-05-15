@@ -9,13 +9,13 @@
         class="w-full max-w-[860px] h-full p-12 pt-24"
       >
         <div class="flex items-center mb-2">
-          <BackButton :backFunction="goToCourseInfo" :text="currentTopic.name"/>
+          <BackButton :backFunction="goToCourseInfo" :text="currentTopic?.name"/>
         </div>
         <p class="text-sm text-gray-500 mb-10 ml-2">
-          {{ course.name }}: {{ currentClassName }}
+          {{ course?.name }}: {{ currentClassName }}
         </p>
         <div class="mb-10" style="min-height: calc(100vh - 482px)">
-          <div v-for="content in currentTopic.content" class="mb-6">
+          <div v-for="content in currentTopicContent" class="mb-6">
             <p v-if="content.type === 'text'" class="text-justify">
               {{ content.value }}
             </p>
@@ -67,7 +67,7 @@
             <i class="pi pi-check-circle text-2xl text-green-500"></i>
           </div>
           <h1 class="text-3xl font-black text-gray-800 mb-2">Parabéns!</h1>
-          <p class="text-xl text-gray-800 mb-2">Você concluiu o curso {{ course.name }}</p>
+          <p class="text-xl text-gray-800 mb-2">Você concluiu o curso {{ course?.name }}</p>
         </div>
         
         <div class="bg-white rounded-xl border border-black p-8 w-full max-w-md mb-8">
@@ -79,7 +79,7 @@
             </div>
             <div class="flex items-center">
               <i class="pi pi-list text-gray-500 mr-3"></i>
-              <span class="text-gray-600">{{ classes.reduce((acc, curr) => acc + curr.topics.length, 0) }} tópicos estudados</span>
+              <span class="text-gray-600">{{ totalTopics }} tópicos estudados</span>
             </div>
           </div>
         </div>
@@ -94,11 +94,10 @@
   </div>
 </template>
 
-<script setup>
-  import { ref, watch } from "vue";
+<script setup lang="ts">
+  import { ref, watch, computed, onMounted } from "vue";
   import { useRouter, useRoute } from "vue-router";
   import Sidebar from "@components/ui/Sidebar.vue";
-  import courses from "@/courses.json";
   import BackButton from "@/components/ui/BackButton.vue";
   import Button from "@components/ui/button/Button.vue";
   import {
@@ -110,21 +109,27 @@
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from '@/components/ui/dialog'
+  } from '@/components/ui/dialog';
+  import { Course, Class, Topic, TopicContent } from "@/database/types";
 
   const router = useRouter();
   const route = useRoute();
 
-  const course = ref(null);
-  const classes = ref([]);
-  const classesSkeleton = ref([]);
-  const topicsFromClass = ref([]);
-  const currentTopic = ref(null);
-  const currentClassName = ref(null);
+  const course = ref<Course | undefined>();
+  const classes = ref<Class[]>([]);
+  const classesSkeleton = ref<{ id: string; name: string; topics: { id: string; name: string }[] }[]>([]);
+  const topicsFromClass = ref<Topic[]>([]);
+  const currentTopic = ref<Topic | undefined>();
+  const currentTopicContent = ref<TopicContent[]>([]);
+  const currentClassName = ref<string>('');
   const isFinishedCourse = ref(false);
   const isTopicCompleted = ref(false);
 
-  const isCourseCompleted = (completedContent) => {
+  const totalTopics = computed(() => {
+    return classes.value.reduce((acc, curr) => acc + topicsFromClass.value.length, 0);
+  });
+
+  const isCourseCompleted = (completedContent: Record<string, { topicId: string; completed: boolean }[]>) => {
     // Check if all classes exist in completedContent
     const allClassesExist = classes.value.every((classItem) => 
       completedContent[classItem.id] !== undefined
@@ -149,7 +154,7 @@
     isTopicCompleted.value = topic ? topic.completed : false;
   };
 
-  const getFirstIncomplete = (completedContent) => {
+  const getFirstIncomplete = (completedContent: Record<string, { topicId: string; completed: boolean }[]>) => {
     const sortedClassIds = Object.keys(completedContent).sort(
       (a, b) => Number(a) - Number(b)
     );
@@ -175,12 +180,12 @@
     router.push(`/course/${courseId}/info`);
   }
 
-  const updateProgress = async (progress) => await window.store.set("progress", progress);
-  const navigateToTopic = (courseId, classId, topicId) => {
+  const updateProgress = async (progress: any) => await window.store.set("progress", progress);
+  const navigateToTopic = (courseId: string, classId: number, topicId: number) => {
     router.push(`/course/${courseId}/${classId}/${topicId}`);
   };
 
-  const getNextTopicInfo = (currentClassIndex, currentTopicIndex, isLastTopicFromClass) => {
+  const getNextTopicInfo = (currentClassIndex: number, currentTopicIndex: number, isLastTopicFromClass: boolean) => {
     return {
       classId: isLastTopicFromClass ? currentClassIndex + 1 : currentClassIndex,
       topicId: isLastTopicFromClass ? 1 : currentTopicIndex + 1
@@ -193,8 +198,8 @@
     const courseProgress = progress[courseId] || {};
     const completedContent = courseProgress.completedContent || {};
 
-    const currentClassIndex = parseInt(classId);
-    const currentTopicIndex = parseInt(topicId);
+    const currentClassIndex = parseInt(classId as string);
+    const currentTopicIndex = parseInt(topicId as string);
     const isLastTopicFromClass = currentTopicIndex === topicsFromClass.value.length;
     const isLastClassFromCourse = currentClassIndex === classes.value.length;
     const isLastTopicFromCourse = isLastClassFromCourse && isLastTopicFromClass;
@@ -225,7 +230,7 @@
       courseProgress.currentClass = nextClassId;
       courseProgress.currentTopic = nextTopicId;
       await updateProgress(progress);
-      navigateToTopic(courseId, nextClassId, nextTopicId);
+      navigateToTopic(courseId as string, nextClassId, nextTopicId);
       return;
     }
 
@@ -235,7 +240,7 @@
         courseProgress.currentClass = next.firstIncompleteClass;
         courseProgress.currentTopic = next.firstIncompleteTopic;
         await updateProgress(progress);
-        navigateToTopic(courseId, next.firstIncompleteClass, next.firstIncompleteTopic);
+        navigateToTopic(courseId as string, next.firstIncompleteClass, next.firstIncompleteTopic);
       }
       return;
     }
@@ -248,54 +253,61 @@
     courseProgress.currentClass = nextClassId;
     courseProgress.currentTopic = nextTopicId;
     await updateProgress(progress);
-    navigateToTopic(courseId, nextClassId, nextTopicId);
+    navigateToTopic(courseId as string, nextClassId, nextTopicId);
   };
 
   const loadCourseData = async () => {
     const { courseId, classId, topicId } = route.params;
-    const selectedCourse = courses.find((c) => c.id === courseId);
-    if (!selectedCourse) return;
-
-    course.value = selectedCourse;
-    classes.value = selectedCourse.classes;
-
-    const selectedClass = classes.value.find((c) => c.id === classId);
-    topicsFromClass.value = selectedClass?.topics || [];
-    currentClassName.value = selectedClass?.name || null;
-
-    currentTopic.value =
-      topicsFromClass.value.find((t) => t.id === topicId) || null;
-
-    classesSkeleton.value = classes.value.map(({ id, name, topics }) => ({
-      id,
-      name,
-      topics: topics.map(({ id, name }) => ({ id, name })),
+    
+    // Carrega o curso
+    course.value = await window.database.getCourseById(courseId as string);
+    
+    // Carrega as classes
+    classes.value = await window.database.getClassesByCourseId(courseId as string);
+    
+    // Atualiza o skeleton da sidebar
+    classesSkeleton.value = await Promise.all(classes.value.map(async (classItem) => {
+      const topics = await window.database.getTopicsByClassId(classItem.id);
+      return {
+        id: classItem.id,
+        name: classItem.name,
+        topics: topics.map(topic => ({
+          id: topic.id,
+          name: topic.name
+        }))
+      };
     }));
 
-    // Check if course is completed when loading
-    const progress = await window.store.get("progress");
-    const courseProgress = progress?.[courseId] || {};
-    const completedContent = courseProgress.completedContent || {};
+    // Carrega os tópicos da classe atual
+    topicsFromClass.value = await window.database.getTopicsByClassId(classId as string);
     
-    const currentClassIndex = parseInt(classId);
-    const currentTopicIndex = parseInt(topicId);
-    const isLastTopicFromClass = currentTopicIndex === topicsFromClass.value.length;
-    const isLastClassFromCourse = currentClassIndex === classes.value.length;
-    const isLastTopicFromCourse = isLastClassFromCourse && isLastTopicFromClass;
+    // Carrega o tópico atual
+    currentTopic.value = topicsFromClass.value[parseInt(topicId as string) - 1];
     
-    isFinishedCourse.value = isCourseCompleted(completedContent) && 
-                            courseProgress.completed && 
-                            isLastTopicFromCourse;
+    // Carrega o conteúdo do tópico atual
+    if (currentTopic.value) {
+      currentTopicContent.value = await window.database.getTopicContent(currentTopic.value.id);
+    }
+
+    // Atualiza o nome da classe atual
+    const currentClass = classes.value.find(c => c.id === classId);
+    if (currentClass) {
+      currentClassName.value = currentClass.name;
+    }
+
+    // Atualiza o status do tópico
+    await updateTopicStatus();
   };
 
+  onMounted(() => {
+    loadCourseData();
+  });
+
+  // Observa mudanças nos parâmetros da rota
   watch(
     () => route.params,
-    async () => {
+    () => {
       loadCourseData();
-      await updateTopicStatus();
-    },
-    { deep: true }
+    }
   );
-
-  loadCourseData();
 </script>

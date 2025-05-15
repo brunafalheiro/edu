@@ -149,7 +149,7 @@
 
 <script setup>
   import { useRouter } from "vue-router";
-  import { TreeFunctions } from "@tools/treeFunctions.js";
+  import { TreeFunctions } from "@tools/binaryTree.js";
   import { ref, watch, onMounted } from "vue";
   import { Shuffle } from 'lucide-vue-next';
   import Button from "@components/ui/button/Button.vue";

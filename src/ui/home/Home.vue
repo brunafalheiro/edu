@@ -33,10 +33,10 @@
   import { ref, computed, onMounted } from "vue";
   import { useRouter } from "vue-router";
   import courses from "@/courses.json";
-  import CourseCard from "@/components/ui/CourseCard.vue";
-  import CourseStats from "@/components/ui/CourseStats.vue";
-  import CourseFilters from "@/components/ui/CourseFilters.vue";
-  import ToolsSection from "@/components/ui/ToolsSection.vue";
+  import CourseCard from "@ui/home/CourseCard.vue";
+  import CourseStats from "@ui/home/CourseStats.vue";
+  import CourseFilters from "@ui/home/CourseFilters.vue";
+  import ToolsSection from "@ui/home/ToolsSection.vue";
 
   const FILTERS = [
     { label: 'Todos os cursos', value: 'all' },
