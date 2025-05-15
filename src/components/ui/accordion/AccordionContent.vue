@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils/utils'
+import { cn } from '@utils/utils'
 import { AccordionContent, type AccordionContentProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 

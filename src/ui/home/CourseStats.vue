@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-  import { TimeUtils } from "@/lib/utils/timeUtils";
+  import { TimeUtils } from "@utils/timeUtils";
   import { ref } from "vue";
 
   defineProps({
