@@ -22,4 +22,3 @@ const delegatedProps = computed(() => {
     </div>
   </AccordionContent>
 </template>
-@/lib/utils/utils/utils

@@ -62,7 +62,7 @@
     AccordionTrigger,
     } from "@/components/ui/accordion";
   import BackButton from "@/components/ui/BackButton.vue";
-  import courses from "@/courses.json";
+  import courses from "@database/courses.json";
   import { TimeUtils } from "@/lib/utils/timeUtils";
   import Button from "@components/ui/button/Button.vue";
   import { ref } from "vue";

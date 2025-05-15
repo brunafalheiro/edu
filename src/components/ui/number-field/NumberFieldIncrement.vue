@@ -23,4 +23,3 @@ const forwarded = useForwardProps(delegatedProps)
     </slot>
   </NumberFieldIncrement>
 </template>
-@/lib/utils/utils/utils

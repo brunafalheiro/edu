@@ -32,7 +32,7 @@
 <script setup>
   import { ref, computed, onMounted } from "vue";
   import { useRouter } from "vue-router";
-  import courses from "@/courses.json";
+  import courses from "@database/courses.json";
   import CourseCard from "@ui/home/CourseCard.vue";
   import CourseStats from "@ui/home/CourseStats.vue";
   import CourseFilters from "@ui/home/CourseFilters.vue";

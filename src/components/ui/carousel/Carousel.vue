@@ -50,4 +50,3 @@ function onKeyDown(event: KeyboardEvent) {
     <slot :can-scroll-next :can-scroll-prev :carousel-api :carousel-ref :orientation :scroll-next :scroll-prev />
   </div>
 </template>
-@/lib/utils/utils/utils

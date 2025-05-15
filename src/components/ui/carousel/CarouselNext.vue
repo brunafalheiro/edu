@@ -29,4 +29,3 @@ const { orientation, canScrollNext, scrollNext } = useCarousel()
     </slot>
   </Button>
 </template>
-@/lib/utils/utils/utils

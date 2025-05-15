@@ -19,11 +19,12 @@ export default defineConfig(({ command }) => {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         '@components': path.resolve(__dirname, 'src/components'),
-        '@utils': path.resolve(__dirname, 'src/utils'),
+        '@utils': path.resolve(__dirname, 'src/lib/utils'),
+        '@tools': path.resolve(__dirname, 'src/lib/tools'),
         '@ui': path.resolve(__dirname, 'src/ui'),
         '@router': path.resolve(__dirname, 'src/router'),
-        '@tools': path.resolve(__dirname, 'src/tools'),
         '@public': path.resolve(__dirname, 'public'),
+        '@database': path.resolve(__dirname, 'database'),
       },
     },
     css: {

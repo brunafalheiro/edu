@@ -21,4 +21,3 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     <slot />
   </NumberFieldRoot>
 </template>
-@/lib/utils/utils/utils

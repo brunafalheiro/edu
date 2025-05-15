@@ -36,4 +36,3 @@ const delegatedProps = computed(() => {
     >{{ props.label }}</span>
   </Separator>
 </template>
-@/lib/utils/utils/utils

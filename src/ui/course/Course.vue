@@ -98,7 +98,7 @@
   import { ref, watch } from "vue";
   import { useRouter, useRoute } from "vue-router";
   import Sidebar from "@components/ui/Sidebar.vue";
-  import courses from "@/courses.json";
+  import courses from "@database/courses.json";
   import BackButton from "@/components/ui/BackButton.vue";
   import Button from "@components/ui/button/Button.vue";
   import {

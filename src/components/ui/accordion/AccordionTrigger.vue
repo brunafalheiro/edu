@@ -37,4 +37,3 @@ const delegatedProps = computed(() => {
     </AccordionTrigger>
   </AccordionHeader>
 </template>
-@/lib/utils/utils/utils

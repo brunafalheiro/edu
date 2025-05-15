@@ -17,7 +17,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "database/courses.json", "database/exercises.json"],
   "references": [
     { "path": "./tsconfig.node.json" }
   ]

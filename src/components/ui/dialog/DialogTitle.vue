@@ -27,4 +27,3 @@ const forwardedProps = useForwardProps(delegatedProps)
     <slot />
   </DialogTitle>
 </template>
-@/lib/utils/utils/utils

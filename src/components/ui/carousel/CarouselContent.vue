@@ -27,4 +27,3 @@ const { carouselRef, orientation } = useCarousel()
     </div>
   </div>
 </template>
-@/lib/utils/utils/utils

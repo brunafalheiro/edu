@@ -22,4 +22,3 @@ const forwardedProps = useForwardProps(delegatedProps)
     <slot />
   </DialogDescription>
 </template>
-@/lib/utils/utils/utils

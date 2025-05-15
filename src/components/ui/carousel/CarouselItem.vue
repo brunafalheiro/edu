@@ -21,4 +21,3 @@ const { orientation } = useCarousel()
     <slot />
   </div>
 </template>
-@/lib/utils/utils/utils

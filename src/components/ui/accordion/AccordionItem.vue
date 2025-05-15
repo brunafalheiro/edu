@@ -22,4 +22,3 @@ const forwardedProps = useForwardProps(delegatedProps)
     <slot />
   </AccordionItem>
 </template>
-@/lib/utils/utils/utils

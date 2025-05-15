@@ -132,7 +132,7 @@
   import { useRoute, useRouter } from 'vue-router';
   import BackButton from '@/components/ui/BackButton.vue';
   import Button from '@components/ui/button/Button.vue';
-  import exercises from '@/exercises.json';
+  import exercises from '@database/exercises.json';
 
   const route = useRoute();
   const router = useRouter();
