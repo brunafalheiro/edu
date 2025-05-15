@@ -90,7 +90,7 @@ const fetchProgress = async () => {
 };
 
 onMounted(() => {
-  courseImagePath.value = new URL(`../../assets/images/${props.course.id}.png`, import.meta.url).href;
+  courseImagePath.value = `/images/${props.course.id}.png`;
   fetchProgress();
 });
 </script>

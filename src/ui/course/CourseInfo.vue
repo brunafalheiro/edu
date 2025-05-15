@@ -47,7 +47,7 @@
           <Button class="w-fit" @click="goToExercises">Acessar exercícios</Button>
         </div>
         <div class="w-full flex items-center justify-end max-w-48">
-          <img src="@/assets/icons/icon-brain-book.svg" class="h-32">
+          <img src="/icons/icon-brain-book.svg" class="h-32">
         </div>
       </div>
     </div>

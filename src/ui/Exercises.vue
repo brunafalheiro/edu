@@ -216,8 +216,8 @@
   };
 
   const getImageUrl = (imageName) => {
-    const imageModules = import.meta.glob('@/assets/answers/*.png', { eager: true });
-    return imageModules[`/src/assets/answers/${imageName}`].default;
+    const imageModules = import.meta.glob('@/public/answers/*.png', { eager: true });
+    return imageModules[`public/answers/${imageName}`].default;
   };
 
   onMounted(async () => {

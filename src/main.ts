@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { nextTick } from 'vue';
 import App from './App.vue';
 import router from './router/router';
-import '@/assets/index.scss';
+import '@/index.scss';
 import '@fontsource/figtree';
 
 const app = createApp(App);
