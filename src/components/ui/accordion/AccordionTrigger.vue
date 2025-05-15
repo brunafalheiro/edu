@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { ChevronDown } from 'lucide-vue-next'
 import {
   AccordionHeader,
@@ -37,3 +37,4 @@ const delegatedProps = computed(() => {
     </AccordionTrigger>
   </AccordionHeader>
 </template>
+@/lib/utils/utils/utils

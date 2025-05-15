@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { DialogTitle, type DialogTitleProps, useForwardProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -27,3 +27,4 @@ const forwardedProps = useForwardProps(delegatedProps)
     <slot />
   </DialogTitle>
 </template>
+@/lib/utils/utils/utils

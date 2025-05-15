@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'reka-ui'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { NumberFieldRoot, useForwardPropsEmits } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -21,3 +21,4 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     <slot />
   </NumberFieldRoot>
 </template>
+@/lib/utils/utils/utils

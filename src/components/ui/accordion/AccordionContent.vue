@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { AccordionContent, type AccordionContentProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -22,3 +22,4 @@ const delegatedProps = computed(() => {
     </div>
   </AccordionContent>
 </template>
+@/lib/utils/utils/utils

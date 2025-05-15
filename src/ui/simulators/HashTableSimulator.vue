@@ -211,7 +211,7 @@
   import Button from "@components/ui/button/Button.vue";
   import { ref, computed } from "vue";
   import { useRouter } from "vue-router";
-  import { HashTableFunctions } from "@/tools/hashTable";
+  import { HashTableFunctions } from "@/lib/tools/hashTable";
   import { Toaster, toast } from 'vue-sonner';
   import {
     Dialog,
@@ -357,4 +357,4 @@
   .bg-lavender-50 { background-color: #f5f3ff; }
   .ring-lavender-300 { --tw-ring-color: #c4b5fd; }
 </style>
-@/tools/hashTable
+@/tools/hashTable@/lib/tools/hashTable

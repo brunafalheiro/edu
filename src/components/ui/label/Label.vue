@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { Label, type LabelProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -25,3 +25,4 @@ const delegatedProps = computed(() => {
     <slot />
   </Label>
 </template>
+@/lib/utils/utils/utils

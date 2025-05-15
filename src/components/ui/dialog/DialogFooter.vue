@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 
 const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 </script>
@@ -17,3 +17,4 @@ const props = defineProps<{ class?: HTMLAttributes['class'] }>()
     <slot />
   </div>
 </template>
+@/lib/utils/utils/utils
