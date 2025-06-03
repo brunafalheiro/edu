@@ -299,9 +299,10 @@
         duration: 3000,
         toastStyle,
       });
+      valueToInsert.value = null;
       return;
     }
-
+    
     const success = HashTableFunctions.insert(
       hashTable.value, 
       valueToInsert.value, 
@@ -309,13 +310,14 @@
       getCollisionType(),
       getProbingMethod()
     );
-
+    
     if (!success) {
       toast('Tabela cheia', {
         description: 'Não é possível inserir mais valores pois a tabela está cheia.',
         duration: 3000,
       });
     }
+    valueToInsert.value = null;
   };
 
   const searchValue = () => {
@@ -338,6 +340,7 @@
     }
     
     setTimeout(() => { isSearchedValue.value = false; }, 1000);
+    valueToSearch.value = null;
     return found;
   };
 
