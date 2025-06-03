@@ -14,10 +14,10 @@
             <div
               v-for="option in currentExerciseData.options"
               :key="option.id"
-              class="flex items-center border bg-white p-3 rounded-lg mt-3 transition-all duration-300 hover:bg-gray-100"
+              class="flex items-center border bg-white p-3 rounded-lg mt-3 transition-all duration-300"
               :class="[
                 showFeedback ? 'cursor-default' : 'cursor-pointer',
-                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/20 hover:bg-lavender/0 border-black' : 'border-black',
+                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/15 border-black' : 'border-black hover:bg-lavender-ultralight/30',
                 showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-100' : '',
                 showFeedback && selectedAnswer === option.id && !option.correct ? '!border-black !bg-red-100' : '',
                 showFeedback && !isAnswerCorrect && option.correct ? '!border-black !bg-green-100' : ''
@@ -27,9 +27,9 @@
               <div
                 class="w-8 h-8 rounded-lg border border-black flex items-center justify-center"
                 :class="[
-                  !showFeedback && selectedAnswer === option.id ? ' bg-lavender-ultralight' : 'bg-lavender-ultralight',
+                  !showFeedback && selectedAnswer === option.id ? 'bg-lavender/40 border-black' : 'bg-lavender-ultralight',
                   showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-500 text-white' : '',
-                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400  text-white' : '',
+                  showFeedback && selectedAnswer === option.id && !option.correct ? '!bg-red-400 text-white' : '',
                   showFeedback && !isAnswerCorrect && option.correct ? '!bg-green-500 text-white' : ''
                 ]"
               >
