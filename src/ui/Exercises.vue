@@ -61,7 +61,11 @@
               >
                 <div v-for="(item, index) in currentExerciseData.answer" :key="index">
                   <p v-if="item.type === 'text'" class="mb-4 text-gray-700">{{ item.value }}</p>
-                  <img v-else-if="item.type === 'image'" :src="getImageUrl(item.value)" class="max-w-full h-auto mb-4 border border-black" />
+                  <img 
+                    v-else-if="item.type === 'image'" 
+                    :src="getImageUrl(item.value)" 
+                    class="max-w-full h-auto mb-4 border border-black"
+                  />
                 </div>
               </div>
             </Transition>
@@ -216,8 +220,7 @@
   };
 
   const getImageUrl = (imageName) => {
-    const imageModules = import.meta.glob('@/public/answers/*.png', { eager: true });
-    return imageModules[`public/answers/${imageName}`].default;
+    return `/answers/${imageName}`;
   };
 
   onMounted(async () => {
