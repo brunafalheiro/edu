@@ -17,7 +17,7 @@
               class="flex items-center border bg-white p-3 rounded-lg mt-3 transition-all duration-300"
               :class="[
                 showFeedback ? 'cursor-default' : 'cursor-pointer',
-                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/15 border-black' : 'border-black hover:bg-lavender-ultralight/30',
+                !showFeedback && selectedAnswer === option.id ? 'bg-lavender/20 border-black' : 'border-black hover:bg-lavender-ultralight/30',
                 showFeedback && selectedAnswer === option.id && option.correct ? '!bg-green-100' : '',
                 showFeedback && selectedAnswer === option.id && !option.correct ? '!border-black !bg-red-100' : '',
                 showFeedback && !isAnswerCorrect && option.correct ? '!border-black !bg-green-100' : ''
