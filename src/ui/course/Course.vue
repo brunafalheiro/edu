@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex justify-between">
     <div
-      class="min-h-screen flex flex-col items-center"
+      class="min-h-screen flex flex-col items-center course-content"
       style="width: calc(100% - 320px)"
     >
       <div
@@ -16,14 +16,14 @@
         </p>
         <div class="mb-10" style="min-height: calc(100vh - 482px)">
           <div v-for="content in currentTopic.content" class="mb-6">
-            <p v-if="content.type === 'text'" class="text-justify">
-              {{ content.value }}
-            </p>
-            <img
-              v-if="content.type === 'image'"
-              :src="content.value"
-              class="mx-auto"
-            />
+            <p v-if="content.type === 'text'" class="text-justify" v-html="content.value"></p>
+            <div v-if="content.type === 'image'" class="flex justify-center">
+              <img
+                :src="`/${content.value}`"
+                class="mx-auto max-w-full h-auto my-10"
+                :alt="currentTopic.name"
+              />
+            </div>
           </div>
         </div>
 
@@ -299,3 +299,15 @@
 
   loadCourseData();
 </script>
+
+<style scoped>
+.course-content :deep(ul) {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.course-content :deep(li) {
+  margin-bottom: 0.5rem;
+}
+</style>
