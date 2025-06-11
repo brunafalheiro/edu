@@ -27,7 +27,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_1_1.png"
+                "value": "courses/binaryTree_1_1_1.png"
               },
               {
                 "type": "text",
@@ -35,7 +35,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_1_2.png"
+                "value": "courses/binaryTree_1_1_2.png"
               },
               {
                 "type": "text",
@@ -95,7 +95,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_3_1.png"
+                "value": "courses/binaryTree_1_3_1.png"
               },
               {
                 "type": "text",
@@ -107,7 +107,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_3_2.png"
+                "value": "courses/binaryTree_1_3_2.png"
               },
               {
                 "type": "text",
@@ -119,7 +119,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_3_3.png"
+                "value": "courses/binaryTree_1_3_3.png"
               },
               {
                 "type": "text",
@@ -131,7 +131,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_3_4.png"
+                "value": "courses/binaryTree_1_3_4.png"
               },
               {
                 "type": "text",
@@ -143,7 +143,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_1_3_5.png"
+                "value": "courses/binaryTree_1_3_5.png"
               }
             ]
           },
@@ -293,7 +293,7 @@
               },
               {
                 "type": "image",
-                "value": "public/courses/binaryTree_2_2_1.png"
+                "value": "courses/binaryTree_2_2_1.png"
               },
               {
                 "type": "text",
@@ -306,6 +306,263 @@
               {
                 "type": "text",
                 "value": "No próximo tópico, exploraremos essas operações de busca, inserção e remoção em Árvores Binárias de Busca de forma mais aprofundada."
+              }
+            ]
+          }, {
+            "id": "3",
+            "name": "Operações em BSTs",
+            "content": [
+              {
+                "type": "text",
+                "value": "Para cada uma das operações abaixo, vamos utilizar a estrutura base da árvore em Java:"
+              },
+              {
+                "type": "text",
+                "value": "<code>class Node {\n    int valor;\n    Node esquerdo, direito;\n\n    Node(int valor) {\n        this.valor = valor;\n        this.esquerdo = null;\n        this.direito = null;\n    }\n}</code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Busca:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A operação de busca tem como objetivo localizar um determinado valor na árvore, comparando o valor procurado com o conteúdo do nó atual e decidindo se deve continuar pela subárvore à esquerda (caso o valor buscado seja menor) ou pela direita (caso seja maior), de forma recursiva."
+              },
+              {
+                "type": "text",
+                "value": "<code>public Node buscar(Node raiz, int valor) {\n    if (raiz == null || raiz.valor == valor)\n        return raiz;\n\n    if (chave < raiz.valor)\n        return buscar(raiz.esquerdo, valor);\n    else\n        return buscar(raiz.direito, valor);\n}</code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Inserção:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A operação de inserção consiste em adicionar um novo nó respeitando a propriedade de ordenação da árvore. O algoritmo é semelhante ao da busca: percorre-se a árvore até encontrar um local nulo onde o novo valor possa ser inserido. Na regra geral das BSTs, valores repetidos não devem ser inseridos."
+              },
+              {
+                "type": "text",
+                "value": "<code>public Node inserir(Node raiz, int valor) {\n    if (raiz == null) {\n        return new Node(valor);\n    }\n\n    if (chave < raiz.valor)\n        raiz.esquerdo = inserir(raiz.esquerdo, valor);\n    else if (chave > raiz.valor)\n        raiz.direito = inserir(raiz.direito, valor);\n\n    return raiz;\n}</code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Remoção:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A remoção é a operação mais complexa em uma BST, pois exige que a propriedade da árvore seja mantida após a exclusão de um nó. Existem três casos a considerar:<ul><li><strong>Caso 1 – Nó folha:</strong> Se o nó a ser removido não tem filhos, basta eliminá-lo.</li><li><strong>Caso 2 – Nó com um filho:</strong> O filho substitui diretamente o nó removido, conectando-se ao seu pai.</li><li><strong>Caso 3 – Nó com dois filhos:</strong> Substitui-se o nó pelo seu sucessor (menor elemento da subárvore direita) ou antecessor (maior elemento da subárvore esquerda). Após a substituição, remove-se o nó duplicado que foi copiado.</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "<code>public Node remover(Node raiz, int valor) {\n    if (raiz == null)\n        return null;\n\n    if (valor < raiz.valor) {\n        raiz.esquerdo = remover(raiz.esquerdo, valor);\n    } else if (chave > raiz.valor) {\n        raiz.direito = remover(raiz.direito, valor);\n    } else {\n        // Caso 1: Sem filhos\n        if (raiz.esquerdo == null && raiz.direito == null)\n            return null;\n\n        // Caso 2: Um filho\n        if (raiz.esquerdo == null)\n            return raiz.direito;\n        if (raiz.direito == null)\n            return raiz.esquerdo;\n\n        // Caso 3: Dois filhos\n        Node sucessor = encontrarMinimo(raiz.direito);\n        raiz.valor = sucessor.valor;\n        raiz.direito = remover(raiz.direito, sucessor.valor);\n    }\n\n    return raiz;\n}\n\nprivate Node encontrarMinimo(Node node) {\n    while (node.esquerdo != null)\n        node = node.esquerdo;\n    return node;\n}</code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Complexidade das Operações:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "De maneira geral, a complexidade das operações é proporcional à altura da árvore:<ul><li><strong>Melhor caso (árvore balanceada):</strong> O(log n)</li><li><strong>Pior caso:</strong> O(n)</li></ul>"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "Percursos em Árvores Binárias",
+        "description": "...",
+        "topics": [
+          {
+            "id": "1",
+            "name": "Introdução aos Percursos em Árvores Binárias",
+            "content": [
+              {
+                "type": "text",
+                "value": "Imagine que você recebeu a missão de organizar a árvore genealógica de uma família. No topo dessa estrutura está o bisavô, ele é o início de tudo, a raiz da árvore. A partir dele, descendem filhos, netos e bisnetos, cada um ocupando sua posição em uma hierarquia familiar. Essa árvore é representada de forma visual, com cada pessoa ocupando um nó, e cada ligação entre pai e filho representada por uma aresta. Como em uma árvore binária, cada pessoa pode ter até dois filhos."
+              },
+              {
+                "type": "text",
+                "value": "Agora, imagine que você precisa listar o nome de todos os membros da família. A pergunta que surge é: <em>Qual a melhor forma de visitar todas as pessoas dessa árvore, sem esquecer ninguém e seguindo uma ordem lógica?</em>"
+              },
+
+              {
+                "type": "text",
+                "value": "Você pode começar pelo bisavô e visitar seus descendentes diretos primeiro... ou talvez prefira visitar os membros mais à esquerda da árvore antes dos outros... ou ainda, deixar para visitar cada pai apenas depois de visitar todos os seus filhos."
+              },
+              {
+                "type": "text",
+                "value": "Perceba que existem várias formas de percorrer essa estrutura, e cada uma dessas formas pode servir a um objetivo diferente: entender a ordem de nascimento, agrupar gerações, ou até calcular a profundidade da árvore genealógica. Essa situação nos leva a um conceito fundamental no estudo de árvores binárias: os percursos. Eles são estratégias que definem a ordem em que os nós da árvore serão visitados. Em outras palavras, são caminhos que seguimos para garantir que todos os elementos sejam explorados corretamente, de acordo com o propósito da operação."
+              },
+              {
+                "type": "text",
+                "value": "Existem diversos tipos de percurso, e cada um deles serve a propósitos diferentes. As três formas mais clássicas, e que veremos em detalhes mais adiante, são chamadas de <strong>pré-ordem (pre-order)</strong>, <strong>em ordem (in-order)</strong> e <strong>pós-ordem (post-order)</strong>. Elas são baseadas em uma abordagem recursiva, onde a visita a um nó é feita em um ponto diferente em relação às visitas aos seus filhos. Além delas, há também o <strong>percurso por nível (level-order)</strong>, que segue uma lógica mais próxima de uma fila."
+              },
+              {
+                "type": "text",
+                "value": "Nos próximos tópicos, veremos cada tipo de percurso em detalhe e aprender como e quando aplicar cada um."
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "name": "Percurso Pré-Ordem (Pre-Order)",
+            "content": [
+              {
+                "type": "text",
+                "value": "Dentre os percursos mais utilizados, o <strong>percurso pré-ordem (pre-order)</strong> é um dos mais intuitivos e serve como base para várias aplicações práticas, como a cópia de uma árvore ou a geração de expressões prefixadas."
+              },
+              {
+                "type": "text",
+                "value": "O percurso em pré-ordem segue a seguinte lógica:"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Visita o nó atual (raiz).</li><li>Percorre recursivamente a subárvore esquerda.</li><li>Percorre recursivamente a subárvore direita.</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "Ou seja, visitamos o nó antes de seus filhos, por isso o nome “pré”-ordem. Essa estratégia é útil, por exemplo, quando queremos salvar a estrutura de uma árvore para reconstruí-la mais tarde, pois a raiz de cada subárvore é processada antes de seus descendentes."
+              },
+              {
+                "type": "text",
+                "value": "Vamos ilustrar com um exemplo simples:"
+              },
+              {
+                "type": "image",
+                "value": "courses/binaryTree_3_2_1.png"
+              },
+              {
+                "type": "text",
+                "value": "Aplicando o percurso pré-ordem nessa árvore, temos a seguinte sequência de visita:"
+              },
+              {
+                "type": "text",
+                "value": "<strong>A → B → D → E → C → F</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Observe que o nó raiz A é visitado primeiro, depois percorremos completamente a subárvore da esquerda (B, D, E), e por fim, a subárvore da direita (C, F)."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Pseudocódigo do percurso pré-ordem:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "<code>função preOrdem(nó):<br>&nbsp;&nbsp;&nbsp;&nbsp;se nó != nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visitar(nó.valor)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preOrdem(nó.esquerda)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preOrdem(nó.direita)</code>"
+              },
+              {
+                "type": "text",
+                "value": "Nesse código, a função visitar() representa qualquer ação que você deseje executar no momento da visita ao nó, como imprimir o valor, calcular uma soma, etc."
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "name": "Percurso Em Ordem (In-Order)",
+            "content": [
+              {
+                "type": "text",
+                "value": "O percurso em ordem, também conhecido pelo termo em inglês <em>in-order traversal</em>, é uma das formas mais importantes de percorrer uma árvore binária, especialmente quando estamos trabalhando com árvores binárias de busca (BSTs). Isso porque, ao aplicarmos esse percurso em uma BST, obtemos os elementos em ordem crescente, o que é extremamente útil para visualização ordenada dos dados."
+              },
+              {
+                "type": "text",
+                "value": "De forma geral, o percurso em ordem segue a seguinte sequência recursiva:"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Visitar a subárvore esquerda;</li><li>Visitar onó atual;</li><li>Visitar a subárvore direita.</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "Essa abordagem é natural se pensarmos que queremos processar os menores valores (à esquerda), depois o valor central, e por fim os maiores (à direita)."
+              },
+              {
+                "type": "text",
+                "value": "Considere a seguinte árvore binária de busca:"
+              },
+              {
+                "type": "image",
+                "value": "courses/binaryTree_3_3_1.png"
+              },
+              {
+                "type": "text",
+                "value": "Se aplicarmos o percurso em ordem, os nós serão visitados na seguinte sequência:"
+              },
+              {
+                "type": "text",
+                "value": "<strong>10 → 20 → 30 → 40 → 50 → 60 → 70</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Observe que o resultado é uma lista de valores ordenados crescentemente, graças à estrutura da árvore binária de busca e à lógica do <em>in-order traversal</em>."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Pseudocódigo para percurso em ordem:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "<code>função emOrdem(nó):<br>&nbsp;&nbsp;&nbsp;&nbsp;se nó ≠ nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emOrdem(nó.esquerda)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visitar(nó.valor)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emOrdem(nó.direita)</code>"
+              },
+              {
+                "type": "text",
+                "value": "A função visitar() representa qualquer operação que se deseja realizar com o valor do nó."
+              }
+            ]
+          },
+          {
+            "id": "4",
+            "name": "Percurso Pós-Ordem (Post-Order)",
+            "content": [
+              {
+                "type": "text",
+                "value": "O percurso em pós-ordem é um dos três percursos profundos clássicos utilizados em árvores binárias, ao lado do pré-ordem e em ordem. Ele é especialmente útil em situações em que desejamos processar todos os descendentes de um nó antes de processar o próprio nó. Isso é particularmente importante em algoritmos de remoção de nós, liberação de memória ou avaliação de expressões."
+              },
+              {
+                "type": "text",
+                "value": "A ordem de visitação dos nós no pós-ordem é a seguinte:"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Visita à subárvore esquerda;</li><li>Visita à subárvore direita;</li><li>Visita ao nó atual (raiz).</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "Essa ordem contrasta com o pré-ordem (onde o nó atual é visitado primeiro) e o em ordem (onde o nó é visitado entre as subárvores). Em termos simples, no pós-ordem o nó “espera” todos os seus filhos serem visitados antes de ser processado."
+              },
+              {
+                "type": "text",
+                "value": "Considere a seguinte árvore binária:"
+              },
+              {
+                "type": "image",
+                "value": "courses/binaryTree_3_2_1.png"
+              },
+              {
+                "type": "text",
+                "value": "Aplicando o percurso pós-ordem, a ordem de visita será:"
+              },
+              {
+                "type": "text",
+                "value": "<ol><li>Subárvore esquerda de A → B<ul><li>Subárvore esquerda de B → D → (visita D)</li><li>Subárvore direita de B → E → (visita E)</li><li>Visita B</li></ul></li><li>Subárvore direita de A → C<ul><li>Subárvore direita de C → F → (visita F)</li><li>Visita C</li></ul></li><li>Visita A</li></ol>"
+              },
+              {
+                "type": "text",
+                "value": "Resultado do percurso pós-ordem: <strong>D, E, B, F, C, A</strong>."
+              },
+              {
+                "type": "text",
+                "value": "Observe como todos os filhos de um nó são visitados antes dele mesmo, o que faz sentido em contextos como eliminação de nós em ordem segura."
+              },
+              {
+                "type": "text",
+                "value": "Pseudocódigo do percurso pós-ordem:"
+              },
+              {
+                "type": "text",
+                "value": "<code>função posOrdem(nó):<br>&nbsp;&nbsp;&nbsp;&nbsp;se nó ≠ nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posOrdem(nó.esquerda)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posOrdem(nó.direita)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visitar(nó.valor)</code>"
               }
             ]
           }
