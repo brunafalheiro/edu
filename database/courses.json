@@ -6,299 +6,307 @@
     "classes": [
       {
         "id": "1",
-        "name": "Introdução às Árvores Binárias",
-        "description": "Entenda o conceito de árvores binárias, sua estrutura e aplicações.",
+        "name": "Fundamentos de Árvores",
+        "description": "...",
         "topics": [
           {
             "id": "1",
-            "name": "O que são árvores binárias",
+            "name": "O que são estruturas de dados hierárquicas",
             "content": [
               {
                 "type": "text",
-                "value": "Texto de introdução a arvores binarias"
+                "value": "Antes de estudarmos árvores binárias, precisamos compreender um conceito fundamental: estruturas de dados hierárquicas. Elas se diferenciam de estruturas lineares como listas e filas por representarem relações de \"pai e filho\" entre os elementos."
+              },
+              {
+                "type": "text",
+                "value": "Uma estrutura de dados hierárquica é uma forma de organizar os dados em níveis, de modo que alguns elementos são \"superiores\" ou \"mais gerais\" do que outros. Isso é diferente das estruturas lineares, onde os elementos estão organizados em sequência (como uma fila ou lista encadeada). Dessa forma, uma hierarquia pode ser representada por uma coleção de nós conectados por ligações direcionais, onde um nó pode ter vários filhos, mas apenas um pai, formando uma estrutura em forma de árvore invertida."
+              },
+              {
+                "type": "text",
+                "value": "Pense em uma lista de tarefas como uma estrutura linear: cada tarefa vem depois da anterior."
               },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "public/courses/binaryTree_1_1_1.png"
               },
-              { "type": "text", "value": "Texto do topico 1 aula 1" }
+              {
+                "type": "text",
+                "value": "Agora pense em uma organização de empresa: um diretor pode ter vários gerentes abaixo dele, e cada gerente tem sua própria equipe. Isso é uma estrutura hierárquica."
+              },
+              {
+                "type": "image",
+                "value": "public/courses/binaryTree_1_1_2.png"
+              },
+              {
+                "type": "text",
+                "value": "Utilizar esse tipo de estrutura é ideal quando os dados têm relações de dependência ou inclusão, como:"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Representar sistemas de arquivos,</li><li>Modelar expressões matemáticas compostas,</li><li>Criar árvores de decisão para jogos ou IA,</li><li>Construir índices de busca em banco de dados.</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "No próximo tópico, vamos aprender o que é uma árvore, uma das formas mais comuns e poderosas de estrutura de dados hierárquica. como ela se organiza e por que ela é tão importante no mundo da computação."
+              }
             ]
           },
           {
             "id": "2",
-            "name": "aula 2",
+            "name": "Definição de árvore",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "Agora que você entende o que são estruturas hierárquicas, vamos estudar um dos modelos mais clássicos e úteis desse tipo de estrutura: a árvore. Presente em inúmeras aplicações na computação, a árvore é uma estrutura fundamental para organizar, pesquisar e manipular dados."
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
+              {
+                "type": "text",
+                "value": "<b>Definição de árvore:</b>"
+              },
+              {
+                "type": "text",
+                "value": "Uma árvore é uma estrutura de dados não linear, composta por arestas que seguem uma organização hierárquica.  Formalmente, definimos uma árvore T como um conjunto finito de zero ou mais nós tal que:"
+              },
+              {
+                "type": "text",
+                "value": "Se o número de nós for igual a zero, temos uma árvore vazia, ou <br> Se o número de nós for maior que 0"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>existe um nó especialmente denominado raiz de T</li><li>os nós restantes formam m ≥ 0 conjuntos disjuntos p1, p2 … pm, cada um desses conjuntos é uma árvore em si, chamada subárvore da raiz de T, ou simplesmente subárvore.</li></ul>"
+              }
             ]
           },
           {
             "id": "3",
-            "name": "aula 3",
+            "name": "Representação gráfica de uma árvore",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              {
+                "type": "text",
+                "value": "Há várias formas de representar árvores em estruturas de dados, e a escolha ideal depende do tipo de árvore e das operações que se deseja realizar.  Neste tópico, vamos conhecer algumas das formas mais comuns dessas representações, com base em diagramas e técnicas utilizadas na literatura clássica da computação."
+              },
+              {
+                "type": "text",
+                "value": "<b>Hierárquica:</b>"
+              },
+              {
+                "type": "text",
+                "value": "É a forma mais comum de representar uma árvore, inspirada na aparência natural das árvores invertidas, onde a raíz fica no topo e os filhos são desenhados abaixo do pai, de forma ramificada."
+              },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "public/courses/binaryTree_1_3_1.png"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
+              {
+                "type": "text",
+                "value": "<b>Diagrama de Venn:</b>"
+              },
+              {
+                "type": "text",
+                "value": "Um círculo representa cada nodo e seus nodos descendentes são inseridos dentro do círculo de seus pais."
+              },
+              {
+                "type": "image",
+                "value": "public/courses/binaryTree_1_3_2.png"
+              },
+              {
+                "type": "text",
+                "value": "<b>Diagrama de Barras:</b>"
+              },
+              {
+                "type": "text",
+                "value": "Linhas são usadas para mostrar a hierarquia dos nós. A raiz possui a linha de maior tamanho e os nós irmãos possuem linhas de tamanhos iguais. Esse método é bastante utilizado na criação de índices de livros  e sua indentação é similar a usada em linguagens de programação."
+              },
+              {
+                "type": "image",
+                "value": "public/courses/binaryTree_1_3_3.png"
+              },
+              {
+                "type": "text",
+                "value": "<b>Numeração pos níveis:</b>"
+              },
+              {
+                "type": "text",
+                "value": "O nó raiz recebe o número um e todos os nodos seguintes recebem uma numeração sequencial, sempre antecedidos pela numeração de seus nó pai. É uma representação fácil para identificar a profundidade de cada nó."
+              },
+              {
+                "type": "image",
+                "value": "public/courses/binaryTree_1_3_4.png"
+              },
+              {
+                "type": "text",
+                "value": "<b>Representação por Aninhamento:</b>"
+              },
+              {
+                "type": "text",
+                "value": "Essa representação conts com sucessão de parênteses reproduz as relações entre os nós, aninhando um nó filho ao seu pai."
+              },
+              {
+                "type": "image",
+                "value": "public/courses/binaryTree_1_3_5.png"
+              }
             ]
           },
           {
             "id": "4",
-            "name": "aula 4",
+            "name": "Componentes e Propriedades de Árvores",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "<strong>Nó:</strong>"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "5",
-            "name": "aula 5",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "O nó é a unidade básica de uma árvore. Ele pode armazenar informações (como números, letras, dados de um registro etc.) e pode se conectar a outros nós por meio de arestas. Um nó pode ter:<ul><li>Nenhum filho (nesse caso, é chamado de folha);</li><li>Um ou mais filhos (dependendo do tipo de árvore).</li></ul>"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "6",
-            "name": "aula 6",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "<strong>Aresta:</strong>"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
+              {
+                "type": "text",
+                "value": "A aresta é a ligação entre dois nós, indicando uma relação de pai e filho. Elas são direcionais: vão do pai para o filho."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Raiz:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A raiz é o primeiro nó da árvore, o ponto de partida da hierarquia. É o único nó que não possui pai. A raiz é o nó que está no nível mais alto da estrutura, e a partir dela todos os outros nós podem ser alcançados."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Nó pai e nó filho:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Quando um nó está diretamente acima de outro na hierarquia, ele é chamado de pai, e o nó abaixo é seu filho. Cada nó (com exceção da raiz) possui exatamente um pai, mas pode ter vários filhos."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Folha:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Um nó folha é um nó que não possui filhos, pois está no \"fim\" da estrutura."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Irmãos:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Nós irmãos são aqueles que compartilham o mesmo pai. Eles estão no mesmo nível hierárquico, lado a lado na estrutura."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Grau:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "O grau de um nó é definido como o número de filhos diretos que ele possui. Já o grau da árvore é o maior grau encontrado entre todos os seus nós."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Profundidade:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A profundidade de um nó é a distância (em número de arestas) entre ele e a raiz. A raiz tem profundidade 0, seus filhos têm profundidade 1, e assim por diante."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Altura:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "A altura de um nó é a maior distância entre ele e uma folha abaixo. A altura da árvore é a altura de sua raiz, ou seja, o número máximo de níveis que ela possui."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Árvore balanceada:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Uma árvore se configura balanceada quando a altura das subárvores de qualquer nó não difere em mais do que uma unidade (ou está dentro de um limite definido), garantindo que a árvore permaneça aproximadamente equilibrada."
+              }
+            ]     
           }
         ]
-      },
-      {
+      }, {
         "id": "2",
-        "name": "Percursos em Árvores Binárias",
-        "description": "Aprenda sobre os tipos de percursos: pré-ordem, em-ordem e pós-ordem.",
+        "name": "Árvores Binárias",
+        "description": "...",
         "topics": [
           {
             "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
+            "name": "Definição de Árvore Binária",
+            "content": [{
+              "type": "text",
+              "value": "Agora que você já entende o que é uma árvore, é hora de conhecer uma de suas variações mais importantes e amplamente utilizadas na computação: a árvore binária. Uma árvore binária é uma estrutura de dados hierárquica na qual cada nó pode ter no máximo dois filhos. Esses filhos são nomeados com base em sua posição:  esquerdo e direito."
+            },
+            {
+              "type": "text",
+              "value": "A definição estrutural de uma árvore binária pode ser expressa através da seguinte forma recursiva:"
+            },
+            {
+              "type": "text",
+              "value": "<ul><li>Uma árvore vazia (sem nós)</li><li>Ou composta por um nó raiz, que armazena um valor e aponta para duas outras árvores binárias (sua subárvore esquerda e sua subárvore direita).</li></ul>"
+            },
+            {
+              "type": "text",
+              "value": "Essa característica recursiva torna naturais as implementações de operações como inserção, busca, remoção e percursos, muitas vezes utilizando chamadas recursivas para navegar pelas subestruturas da árvore."
+            },
+            {
+              "type": "text",
+              "value": "Do ponto de vista da teoria dos grafos, a árvore binária é definida como um grafo acíclico, conexo e dirigido, onde cada nó possui grau máximo igual a 2. Isso significa que só pode haver um caminho único entre quaisquer dois nós distintos, e os ramos da árvore (arestas) são direcionados do nó pai para seus filhos. Cada ramo é representado por uma ligação direcionada e sem peso, reforçando a estrutura hierárquica da árvore."
+            },
+            {
+              "type": "text",
+              "value": "No próximo tópico, vamos explorar em mais detalhes os termos fundamentais que descrevem uma árvore binária: raiz, filhos, folhas, altura, profundidade e grau."
+            }
+          ]
+          }, {
             "id": "2",
-            "name": "aula 2",
+            "name": "Árvore Binária de Busca (BST)",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              {
+                "type": "text",
+                "value": "<strong>Árvore Binária de Busca:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Uma das estruturas mais importantes e amplamente utilizadas na computação é a <strong>Árvore Binária de Busca</strong>, também conhecida pela sigla <strong>BST</strong> (<em>Binary Search Tree</em>). Essa estrutura segue uma regra fundamental de ordenação: para cada nó N, todos os valores na subárvore esquerda de N são menores do que o valor armazenado em N, e todos os valores na subárvore direita de N são maiores."
+              },
+              {
+                "type": "text",
+                "value": "Essa regra é o que permite que a BST seja eficiente em operações de busca, inserção e remoção. Ao procurar um valor, por exemplo, podemos compará-lo com o valor do nó atual e decidir rapidamente se devemos ir para a subárvore esquerda (valores menores) ou direita (valores maiores), descartando metade dos dados a cada passo, de maneira semelhante à busca binária em vetores ordenados."
+              },
+              {
+                "type": "text",
+                "value": "<strong>Exemplo:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Visualize a seguinte árvore binária de busca:"
+              },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "public/courses/binaryTree_2_2_1.png"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "3",
-        "name": "Operações Básicas em Árvores Binárias",
-        "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "Observe que:<ul><li>Todos os valores à esquerda de 8 são menores que 8;</li><li>Todos os valores à direita de 8 são maiores que 8;</li><li>Isso vale recursivamente para todos os nós da árvore.</li></ul>"
               },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "A eficiência da BST depende do seu balanceamento. Em casos ótimos, quando a árvore está balanceada, uma busca por um nó ocorre em tempo O(log n). Já nos piores casos, quando a árvore se torna muito inclinada, a complexidade das operações pode ser O(n)."
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "4",
-        "name": "Árvores Binárias de Busca (BST)",
-        "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "5",
-        "name": "Balanceamento de Árvores Binárias",
-        "description": "Saiba por que o balanceamento é importante e como melhorar o desempenho.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "6",
-        "name": "Árvores AVL",
-        "description": "Conheça as árvores AVL e como elas mantêm o balanceamento automaticamente.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "7",
-        "name": "Árvores Vermelho-Preto",
-        "description": "Entenda como funciona o balanceamento dinâmico nas árvores vermelho-preto.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "8",
-        "name": "Casos de Uso e Aplicações",
-        "description": "Veja como árvores binárias são usadas em bancos de dados, IA e mais.",
-        "topics": [
-          {
-            "id": "1",
-            "name": "aula 1",
-            "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
+                "type": "text",
+                "value": "No próximo tópico, exploraremos essas operações de busca, inserção e remoção em Árvores Binárias de Busca de forma mais aprofundada."
+              }
             ]
           }
         ]
