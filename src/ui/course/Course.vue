@@ -310,4 +310,19 @@
 .course-content :deep(li) {
   margin-bottom: 0.5rem;
 }
+
+.course-content :deep(code) {
+  display: block;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: #333;
+}
 </style>
