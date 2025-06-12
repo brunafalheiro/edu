@@ -7,7 +7,7 @@
       {
         "id": "1",
         "name": "Fundamentos de Árvores",
-        "description": "...",
+        "description": "O que são árvores, para que servem, como são representadas e os principais componentes e propriedades que definem esse tipo de estrutura.",
         "topics": [
           {
             "id": "1",
@@ -237,7 +237,7 @@
       }, {
         "id": "2",
         "name": "Árvores Binárias",
-        "description": "...",
+        "description": "Apresentação das árvores binárias e as operações fundamentais realizadas nesse tipo de estrutura, como inserção, busca e remoção.",
         "topics": [
           {
             "id": "1",
@@ -371,7 +371,7 @@
       {
         "id": "3",
         "name": "Percursos em Árvores Binárias",
-        "description": "...",
+        "description": "Como percorrer uma árvore binária de diferentes maneiras para acessar ou processar seus dados. Ensinamento dos principais tipos de percursos: pré-ordem, em ordem, pós-ordem e por nível",
         "topics": [
           {
             "id": "1",
@@ -546,7 +546,7 @@
               },
               {
                 "type": "text",
-                "value": "<ol><li>Subárvore esquerda de A → B<ul><li>Subárvore esquerda de B → D → (visita D)</li><li>Subárvore direita de B → E → (visita E)</li><li>Visita B</li></ul></li><li>Subárvore direita de A → C<ul><li>Subárvore direita de C → F → (visita F)</li><li>Visita C</li></ul></li><li>Visita A</li></ol>"
+                "value": "<ul><li>Subárvore esquerda de A → B<ul><li>Subárvore esquerda de B → D → (visita D)</li><li>Subárvore direita de B → E → (visita E)</li><li>Visita B</li></ul></li><li>Subárvore direita de A → C<ul><li>Subárvore direita de C → F → (visita F)</li><li>Visita C</li></ul></li><li>Visita A</li></ul>"
               },
               {
                 "type": "text",
@@ -563,6 +563,48 @@
               {
                 "type": "text",
                 "value": "<code>função posOrdem(nó):<br>&nbsp;&nbsp;&nbsp;&nbsp;se nó ≠ nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posOrdem(nó.esquerda)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posOrdem(nó.direita)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visitar(nó.valor)</code>"
+              }
+            ]
+          },
+          {
+            "id": "5",
+            "name": "Nível (Level-Order)",
+            "content": [
+              {
+                "type": "text",
+                "value": "O percurso em nível, também conhecido como level-order traversal, é uma forma de visitar todos os nós de uma árvore binária seguindo a ordem dos seus níveis, de cima para baixo e da esquerda para a direita. Diferentemente dos percursos em profundidade (pré-ordem, in-ordem e pós-ordem), que utilizam uma abordagem recursiva e visitam os ramos da árvore até o fundo antes de retornar, o percurso em nível percorre a árvore de forma mais ampla, camada por camada. Imagine a árvore como um conjunto de andares em um prédio. No percurso em nível, você visita todos os apartamentos do primeiro andar (nível 0), depois do segundo (nível 1), e assim por diante."
+              },
+              {
+                "type": "text",
+                "value": "Para realizar esse percurso, utilizamos uma estrutura auxiliar do tipo fila da seguinte forma:"
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Inicializamos a fila com o nó raiz.</li><li>Enquanto a fila não estiver vazia:</li><ul><li>Removemos o primeiro nó da fila e processamos seu valor.</li><li>Em seguida, inserimos na fila seus filhos (primeiro o da esquerda, depois o da direita), se existirem.</li></ul></ul>"
+              },
+              {
+                "type": "text",
+                "value": "Por exemplo, considere a seguinte árvore."
+              },
+              {
+                "type":"image",
+                "value": "courses/binaryTree_3_2_1.png"
+              },
+              {
+                "type": "text",
+                "value": "O percurso em nível desta árvore resultaria na sequência: <strong>A, B, C, D, E, F</strong>."
+              },
+              {
+                "type": "text",
+                "value": "<ul><li>Começamos com A na fila → processamos A, enfileiramos B e C.</li> <li>Processamos B, enfileiramos D e E.</li> <li>Processamos C, enfileiramos F.</li><li>Em seguida, processamos D, E e F.</li></ul>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Pseudocódigo do percurso em nível:</strong>"
+              },
+              {
+                "type": "text",
+                "value": "<code>função percursoEmNivel(raiz):<br>&nbsp;&nbsp;&nbsp;&nbsp;se raiz == nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retorne<br>&nbsp;&nbsp;&nbsp;&nbsp;criar fila vazia<br>&nbsp;&nbsp;&nbsp;&nbsp;enfileirar(raiz)<br>&nbsp;&nbsp;&nbsp;&nbsp;enquanto fila não estiver vazia:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no = desenfileirar()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processar(no.valor)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;se no.esquerda != nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enfileirar(no.esquerda)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;se no.direita != nulo:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enfileirar(no.direita)</code>"
               }
             ]
           }
