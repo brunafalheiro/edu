@@ -628,111 +628,119 @@
             "content": [
               {
                 "type": "text",
-                "value": "Texto de introdução a tabelas hash"
+                "value": "Imagine que você tenha uma grande coleção de informações, como uma lista de nomes de pessoas ou produtos, e precise encontrar um item específico rapidamente. Procurar esse dado diretamente em uma lista pode ser lento, pois pode ser necessário percorrer muitos elementos até encontrar o desejado."
               },
+              { "type": "text", "value": "Nesse contexto, surgem as tabelas hash: uma estrutura de dados que permite acessar valores de forma muito rápida, e, as vezes, quase instantânea. A ideia fundamental por trás da tabela hash é a utilização de uma função hash, um método que transforma a chave de um dado (por exemplo, um nome, um número ou qualquer identificador) em um número inteiro, chamado de índice. Esse índice corresponde a uma posição específica em um array, onde o dado será armazenado." },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "courses/hashTable_1_1_1.png"
               },
-              { "type": "text", "value": "Texto do topico 1 aula 1" }
+              { "type": "text", "value": "Dessa forma, para inserir, buscar ou remover um elemento na tabela, basta aplicar a função hash à chave e acessar diretamente a posição indicada no array, evitando buscas sequenciais demoradas." }
             ]
           },
           {
             "id": "2",
-            "name": "aula 2",
+            "name": "Onde aplicar",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "As tabelas hash estão presentes em muitas soluções computacionais modernas devido à sua principal vantagem: a velocidade de acesso em tempo constante, ou seja, com complexidade O(1) na média dos casos. Isso significa que, independentemente da quantidade de dados armazenados, a busca por um item geralmente leva o mesmo tempo,  algo extremamente valioso em sistemas que lidam com grandes volumes de informação ou que exigem respostas rápidas."
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "3",
-            "name": "aula 3",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "Imagine que você precisa encontrar um nome específico em uma lista com milhares de registros. Em estruturas como listas ou vetores, seria necessário percorrer os elementos um a um até encontrar o desejado. Já com uma tabela hash, o acesso acontece quase como um “salto” direto ao local onde a informação está, sem precisar procurar. Essa propriedade transforma a tabela hash em uma ferramenta extremamente eficiente para inúmeras aplicações práticas."
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "4",
-            "name": "aula 4",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "Essa característica faz das tabelas hash ferramentas ideais para uma variedade de aplicações onde a velocidade de acesso é crítica. Por exemplo:"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "5",
-            "name": "aula 5",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "<ul><li><strong>Sistemas de autenticação:</strong> ao fazer login, o sistema precisa verificar se o nome de usuário e a senha estão corretos. Com tabelas hash, essa verificação acontece de forma muito rápida, mesmo com milhões de registros.</li><li><strong>Compiladores e interpretadores:</strong> identificadores de variáveis, funções e escopos são armazenados em tabelas hash, permitindo acesso imediato durante a análise de código.</li><li><strong>Sistemas de cache:</strong> ao acessar uma página da web, por exemplo, os dados recentes podem ser armazenados em uma tabela hash para que acessos repetidos aconteçam com rapidez.</li><li><strong>Mapas e dicionários em linguagens de programação:</strong> estruturas como dict em Python, HashMap em Java ou objetos em JavaScript são exemplos diretos de tabelas hash.</li><li><strong>Indexação em bancos de dados:</strong> especialmente em campos não ordenados, tabelas hash ajudam a localizar registros com altíssima velocidade.</li></ul>"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
-          },
-          {
-            "id": "6",
-            "name": "aula 6",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
+                "type": "text",
+                "value": "Naturalmente, seu bom desempenho depende de um projeto adequado, especialmente na forma como são tratadas colisões de chaves, mas esses aspectos serão abordados nos próximos tópicos do curso."
+              }
             ]
           }
+          
         ]
       },
       {
         "id": "2",
-        "name": "Pilhas 2",
-        "description": "Aprenda sobre os tipos de percursos: pré-ordem, em-ordem e pós-ordem.",
+        "name": "Funções Hash",
+        "description": "Aprenda sobre as funções hash mais utilizadas e quais escolher.",
         "topics": [
           {
             "id": "1",
-            "name": "aula 1",
+            "name": "Função hash ideal",
             "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
+              { "type": "text", "value": "Sabemos que uma função hash consegue tornar o acesso a dados de forma quase instantânea. Porém, nem toda função de hashing é boa. Uma boa função hash precisa ser simples de calcular, gerar poucos conflitos (ou colisões) e espalhar os dados de maneira equilibrada pela tabela. Pense em uma festa onde você deve distribuir convidados em mesas. Se todos forem parar na mesma mesa (colisão), o evento vira um caos. Se cada mesa tiver um número parecido de pessoas, a festa flui melhor. O mesmo vale para a tabela hash: quanto mais equilibrada a distribuição, melhor o desempenho. " },
+              { "type": "text", "value": "O tamanho da tabela funciona como as mesa, que possui um número ideal:" },
+              { "type": "text", "value": "<ul><li><strong>Tabela com tamanho primo:</strong> Tabelas nesse tamanho reduzem a probabilidade de colisões, mesmo que a função de hashing utilizada não seja muito eficaz</li> <li><strong>Tabela com tamanho de potência de dois:</strong> Tabelas com esse tamanho melhoram a velocidade, mas pode aumentar os problemas de colisão se estiver utilizando uma função de hashing mais simples.</li></ul>" },
+              { "type": "text", "value": "<strong>Função hash ideal:</strong> Para um bom funcionamento, uma função hash deve satisfazer as seguintes condições:" },
+              { "type": "text", "value": "<ul><li>Ser simples e barata de se calcular;</li><li>Garantir que valores diferentes produzam posições diferentes;</li><li>Gerar uma distribuição equilibrada dos dados na tabela. Cada posição da tabela tem a mesma chance de receber uma chave (máximo espalhamento);</li></ul>" },
+              { "type": "text", "value": "Nos próximos capítulos, trataremos das funções de hashing comumente utilizadas." }
             ]
           },
           {
             "id": "2",
-            "name": "aula 2",
+            "name": "Método da Divisão",
             "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
+              {
+                "type": "text",
+                "value": "O método da divisão é uma das formas mais conhecidas e utilizadas para criar funções de hashing. Ele é direto, eficiente e fácil de implementar. A ideia é bem simples: você pega a chave (geralmente um número inteiro) e calcula o resto da divisão dessa chave pelo tamanho da tabela hash. Esse resto se torna o índice onde o dado será armazenado."
+              },
+              {
+                "type": "text",
+                "value": "Para entender melhor, pense numa roda-gigante com várias cadeirinhas numeradas. Quando uma nova pessoa (ou chave) chega, você diz: “Vamos ver qual cadeirinha ela pega”. Fazemos isso dividindo um número da chave pelo número total de cadeiras e vendo onde “sobra lugar”. O “lugar que sobra” (o resto da divisão) é justamente a cadeirinha onde a pessoa vai sentar."
+              },
+              {
+                "type": "text",
+                "value": "Esse processo é chamado de operação módulo, e o número pelo qual dividimos, o tamanho da tabela, desempenha um papel muito importante. À primeira vista, pode parecer que qualquer número serviria. Mas aqui está o segredo: escolher um número primo como tamanho da tabela faz toda a diferença."
+              },
+              {
+                "type": "text",
+                "value": "Imagine que temos uma tabela de tamanho 9, e nossas chaves são os números {3, 6, 9, 12, 15, 18, 21}. Todos esses números são múltiplos de 3. Quando usamos o módulo 9, que também é múltiplo de 3, as posições geradas para essas chaves ficam limitadas a poucos índices: 0, 3 e 6. Resultado? Um monte de chaves brigando pelos mesmos poucos lugares, enquanto o resto da tabela fica vazio. É como se várias pessoas recebessem o mesmo número de cadeirinha e começassem a empilhar umas sobre as outras, deixando outras cadeiras ociosas."
+              },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "courses/hashTable_2_2_1.png"
               },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
+              {
+                "type": "text",
+                "value": "Agora, se em vez de 9, usamos um número primo como 7, a história muda completamente. Como 7 não tem fatores comuns com as chaves, os restos da divisão são mais variados. As chaves se espalham melhor pela tabela, ocupando posições diferentes e reduzindo significativamente as colisões. A roda-gigante gira de forma mais equilibrada, com cada cadeirinha ocupada de forma mais justa."
+              },
+              {
+                "type": "image",
+                "value": "courses/hashTable_2_2_2.png"
+              },
+              {
+                "type": "text",
+                "value": "Claro, nenhuma função de hash é perfeita para todos os casos. Se todas as chaves fossem múltiplos de 7, o módulo 7 também teria problemas. Mas na prática, especialmente quando lidamos com dados variados, usar um número primo como tamanho da tabela oferece mais segurança contra padrões que causam agrupamentos indesejados."
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "name": "Método da Multiplicação",
+            "content": [
+              { "type": "text", "value": "" }
+            ]
+          },
+          {
+            "id": "4",
+            "name": "Método da Dobra",
+            "content": [
+              { "type": "text", "value": "" }
             ]
           }
         ]
       },
       {
         "id": "3",
-        "name": "Pilhas 3",
+        "name": "Tratamento de Colisões",
         "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
         "topics": [
           {
@@ -746,24 +754,12 @@
               },
               { "type": "text", "value": "Texto da aula 1 parte 2." }
             ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
-            ]
           }
         ]
       },
       {
         "id": "4",
-        "name": "Pilhas 4",
+        "name": "Operações com Tabelas Hash",
         "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
         "topics": [
           {
@@ -776,18 +772,6 @@
                 "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
               },
               { "type": "text", "value": "Texto da aula 1 parte 2." }
-            ]
-          },
-          {
-            "id": "2",
-            "name": "aula 2",
-            "content": [
-              { "type": "text", "value": "Texto da aula 2 parte 1" },
-              {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
-              },
-              { "type": "text", "value": "Texto da aula 2 parte 2" }
             ]
           }
         ]
