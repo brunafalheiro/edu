@@ -84,10 +84,15 @@
           </div>
         </div>
 
-        <Button @click="goToHome" class="flex items-center">
-          <i class="pi pi-home mr-1"></i>
-          Voltar à home
-        </Button>
+        <div class="flex">
+          <Button @click="goToHome" class="flex items-center mr-2">
+            <i class="pi pi-home mr-1"></i>
+            Voltar à home
+          </Button>
+          <Button variant="secondary" @click="goToExercises" class="flex items-center">
+            Praticar exercícios
+          </Button>
+        </div>
       </div>
     </div>
     <Sidebar :classes="classesSkeleton" />
@@ -170,6 +175,10 @@
   };
 
   const goToHome = () => router.push("/");
+  const goToExercises = () => {
+    const { courseId } = route.params;
+    router.push(`/exercises/${courseId}`);
+  }
   const goToCourseInfo = () => {
     const { courseId } = route.params;
     router.push(`/course/${courseId}/info`);

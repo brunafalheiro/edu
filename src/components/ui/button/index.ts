@@ -13,7 +13,7 @@ export const buttonVariants = cva(
         outline:
           'border-2 bg-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#000]',
         secondary:
-          'bg-black text-white shadow-[3px_3px_0px_0px_#ffffff,5px_5px_0px_0px_#000000] outline outline-1 outline-black hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]',
+          'bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]',
         ghost: 'border-2 hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline border-0',
       },
