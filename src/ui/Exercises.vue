@@ -91,7 +91,7 @@
               {{ showAnswer ? 'Ocultar Resposta' : 'Ver Resposta' }}
             </Button>
 
-            <Button @click="goToExercise(currentExercise + 1)">
+            <Button v-if="currentExercise < totalExercises" @click="goToExercise(currentExercise + 1)">
               Próximo
             </Button>
           </div>
