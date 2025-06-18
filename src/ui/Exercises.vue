@@ -6,8 +6,19 @@
       </div>
 
       <div class="w-full flex">
-        <div class="w-full bg-gray-50 border-2 border-black rounded-lg p-6 mr-4">
-          <p class="mt-2 mb-8 text-lg font-medium text-gray-800">{{ currentExerciseData.question }}</p>
+        <div class="w-fulL border-2 border-black rounded-lg p-6 mr-4">
+          <!-- Question rendering with support for text and images -->
+          <div class="mt-2 mb-8">
+            <div v-if="Array.isArray(currentExerciseData.question)" v-for="(item, index) in currentExerciseData.question" :key="index">
+              <p v-if="item.type === 'text'" class="text-lg font-medium text-gray-800 mb-4">{{ item.value }}</p>
+              <img 
+                v-else-if="item.type === 'image'" 
+                :src="getQuestionImageUrl(item.value)" 
+                class="max-w-full h-auto mb-4 border border-black"
+              />
+            </div>
+            <p v-else class="text-lg font-medium text-gray-800">{{ currentExerciseData.question }}</p>
+          </div>
           
           <!-- Question Type Exercise -->
           <div v-if="currentExerciseData.type === 'quiz'">
@@ -97,7 +108,7 @@
           </div>
         </div>
         
-        <div class="w-full max-w-96 h-fit bg-gray-50 border-2 border-black rounded-lg p-4 px-6 flex flex-wrap gap-4">
+        <div class="w-full max-w-96 h-fit border-2 border-black rounded-lg p-4 px-6 flex flex-wrap gap-4">
           <div
             v-for="index in totalExercises"
             :key="index"
@@ -224,6 +235,10 @@
 
   const getImageUrl = (imageName) => {
     return `/answers/${imageName}`;
+  };
+
+  const getQuestionImageUrl = (imageName) => {
+    return `/questions/${imageName}`;
   };
 
   onMounted(async () => {
