@@ -694,7 +694,7 @@
               },
               {
                 "type": "text",
-                "value": "Para entender melhor, pense numa roda-gigante com várias cadeirinhas numeradas. Quando uma nova pessoa (ou chave) chega, você diz: “Vamos ver qual cadeirinha ela pega”. Fazemos isso dividindo um número da chave pelo número total de cadeiras e vendo onde “sobra lugar”. O “lugar que sobra” (o resto da divisão) é justamente a cadeirinha onde a pessoa vai sentar."
+                "value": "Para entender melhor, pense numa roda-gigante com várias cadeiras numeradas. Quando uma nova pessoa (ou chave) chega, você diz: “Vamos ver qual cadeira ela pega”. Fazemos isso dividindo um número da chave pelo número total de cadeiras e vendo onde “sobra lugar”. O “lugar que sobra” (o resto da divisão) é justamente a cadeira onde a pessoa vai sentar."
               },
               {
                 "type": "text",
@@ -702,7 +702,7 @@
               },
               {
                 "type": "text",
-                "value": "Imagine que temos uma tabela de tamanho 9, e nossas chaves são os números {3, 6, 9, 12, 15, 18, 21}. Todos esses números são múltiplos de 3. Quando usamos o módulo 9, que também é múltiplo de 3, as posições geradas para essas chaves ficam limitadas a poucos índices: 0, 3 e 6. Resultado? Um monte de chaves brigando pelos mesmos poucos lugares, enquanto o resto da tabela fica vazio. É como se várias pessoas recebessem o mesmo número de cadeirinha e começassem a empilhar umas sobre as outras, deixando outras cadeiras ociosas."
+                "value": "Imagine que temos uma tabela de tamanho 9, e nossas chaves são os números {3, 6, 9, 12, 15, 18, 21}. Todos esses números são múltiplos de 3. Quando usamos o módulo 9, que também é múltiplo de 3, as posições geradas para essas chaves ficam limitadas a poucos índices: 0, 3 e 6. Resultado? Um monte de chaves brigando pelos mesmos poucos lugares, enquanto o resto da tabela fica vazio. É como se várias pessoas recebessem o mesmo número de cadeira e começassem a empilhar umas sobre as outras, deixando outras cadeiras ociosas."
               },
               {
                 "type": "image",
@@ -710,7 +710,7 @@
               },
               {
                 "type": "text",
-                "value": "Agora, se em vez de 9, usamos um número primo como 7, a história muda completamente. Como 7 não tem fatores comuns com as chaves, os restos da divisão são mais variados. As chaves se espalham melhor pela tabela, ocupando posições diferentes e reduzindo significativamente as colisões. A roda-gigante gira de forma mais equilibrada, com cada cadeirinha ocupada de forma mais justa."
+                "value": "Agora, se em vez de 9, usamos um número primo como 7, a história muda completamente. Como 7 não tem fatores comuns com as chaves, os restos da divisão são mais variados. As chaves se espalham melhor pela tabela, ocupando posições diferentes e reduzindo significativamente as colisões. A roda-gigante gira de forma mais equilibrada, com cada cadeira ocupada de forma mais justa."
               },
               {
                 "type": "image",
@@ -726,14 +726,29 @@
             "id": "3",
             "name": "Método da Multiplicação",
             "content": [
-              { "type": "text", "value": "" }
+              { "type": "text", "value": "O método da multiplicação é uma técnica amplamente utilizada para calcular a posição de uma chave em uma tabela hash, especialmente eficaz quando o tamanho da tabela não é um número primo. Nesse método, a chave é inicialmente multiplicada por uma constante A, tal que 0 < A < 1. O objetivo dessa multiplicação é produzir um valor que, ao ser processado, resulte em uma distribuição mais uniforme dos índices dentro da tabela." },
+              { "type": "text", "value": "Após essa multiplicação, o próximo passo é extrair apenas a parte fracionária do produto obtido. Essa fração é então multiplicada por m, que representa o tamanho da tabela hash. O resultado dessa operação é um número real que, ao ser truncado ou convertido para inteiro, indica a posição da chave na tabela." },
+              {
+                "type": "text",
+                "value": "<code>def hash_multiplicacao(k, m, A=0.6180339887):<br>&nbsp;&nbsp;&nbsp;&nbsp;fracao = (k * A) % 1<br>&nbsp;&nbsp;&nbsp;&nbsp;posicao = int(m * fracao)<br>&nbsp;&nbsp;&nbsp;&nbsp;return posicao</code>"
+              },
+              { "type": "text", "value": "Esse método possui uma característica desejável: ele tende a funcionar bem mesmo quando m, o tamanho da tabela, não é um número primo,  o que geralmente causa distribuições desiguais em outros métodos, como o da divisão. O comportamento estável do método da multiplicação nesse contexto se deve à maneira como ele introduz variabilidade nos cálculos, dependendo do valor de A." },
+              { "type": "text", "value": "A escolha do valor de A é importante para o desempenho da função. Valores racionais simples, como 0,5 ou 0,25, devem ser evitados, pois levam a agrupamentos indesejados e má distribuição dos índices. Em vez disso, é recomendável utilizar números irracionais, como a razão áurea (aproximadamente 0,6180339887) ou sua recíproca. Esses valores introduzem mais aleatoriedade e evitam padrões repetitivos, promovendo uma melhor dispersão das chaves pela tabela." }
             ]
           },
           {
             "id": "4",
             "name": "Método da Dobra",
             "content": [
-              { "type": "text", "value": "" }
+              { "type": "text", "value": "Vamos imaginar que temos um número grande, como uma sequência de dígitos anotada em um papel. Agora, imagine que esse papel pode ser dobrado ao meio, de forma que os números nas pontas se encontrem, como dobrar uma folha de carta. Esse é o princípio por trás do método da dobra." },
+              { "type": "text", "value": "Ao contrário de outros métodos que usam divisões ou multiplicações com constantes, o método da dobra se baseia em manipulação direta dos dígitos da chave. Funciona assim: dobramos a sequência de dígitos para que partes diferentes dela se sobreponham, e somamos os valores que ficaram em cima uns dos outros. O detalhe curioso é que a soma ignora o “vai um”, ou seja, somamos apenas os dígitos individuais, sem levar em conta se o total daria dois dígitos. É como somar 7 + 8 e guardar apenas o 5, ignorando o fato de que o total seria 15." },
+              { "type": "text", "value": "O processo pode ser repetido várias vezes, dobrando e somando, até que o valor final caiba no intervalo desejado, geralmente entre 0 e o tamanho da tabela hash. Essa repetição serve para garantir que o valor gerado esteja dentro dos limites adequados da estrutura que estamos usando." },
+              {
+                "type": "image",
+                "value": "courses/hashTable_2_4_1.png"
+              },
+              { "type": "text", "value": "O método da dobra também pode ser adaptado para trabalhar com números binários. Nesse caso, a “soma” dos dígitos sobrepostos é feita com uma operação lógica chamada OU exclusivo (XOR), que ajuda a misturar os bits." },
+              { "type": "text", "value": "Esse método é especialmente útil quando lidamos com números grandes, como CPFs, números de telefone ou códigos de produto, pois oferece uma maneira rápida de espalhar esses valores ao longo da tabela." }
             ]
           }
         ]
@@ -741,37 +756,95 @@
       {
         "id": "3",
         "name": "Tratamento de Colisões",
-        "description": "Explore operações como inserção, remoção e busca em árvores binárias.",
+        "description": "Aprenda sobre técnicas de colisão, como endereçamento aberto e encadeamento",
         "topics": [
           {
             "id": "1",
-            "name": "aula 1",
+            "name": "Endereçamento aberto",
             "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "text", "value": "Durante a utilização de tabelas hash, é comum que diferentes chaves resultem no mesmo valor após a aplicação da função de hashing. Esse fenômeno é chamado de colisão, e ocorre porque o espaço de endereçamento da tabela (ou seja, o número de posições disponíveis) é limitado, enquanto o número de possíveis chaves pode ser muito maior. Assim, duas ou mais chaves distintas podem ser mapeadas para a mesma posição, o que exige estratégias para lidar com esse impasse." },
+              { "type": "text", "value": "Uma das abordagens mais utilizadas para tratar colisões é o endereçamento aberto. Neste método, todos os elementos continuam sendo armazenados dentro da própria tabela hash, e não fora dela. Quando ocorre uma colisão, o algoritmo procura por uma nova posição vaga na própria estrutura de dados. Esse processo de busca por outra posição é chamado de sondagem (ou rehashing), e pode ser implementado de diferentes maneiras." },
               {
-                "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "type": "text",
+                "value": "<strong>Sondagem linear</strong>"
               },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
+              {
+                "type": "text",
+                "value": "Quando uma colisão é detectada, o algoritmo verifica sequencialmente as próximas posições da tabela até encontrar uma que esteja livre. A busca continua em incremento de um em um, ou seja, se a posição inicial estiver ocupada, verifica-se a próxima, depois a seguinte, e assim por diante, até encontrar um espaço disponível."
+              },
+              {
+                "type": "text",
+                "value": "No entanto, embora a sondagem quadrática ofereça suas vantagens, se várias chaves tiverem a mesma colisão, pode levar mais tempo para encontrar um bucket vazio, pois sua sequência de sondagem pode não visitar todos os buckets na tabela de hash."
+              },
+              {
+                "type": "text",
+                "value": "Código da sondagem linear:"
+              },
+              {
+                "type": "text",
+                "value": "<code>def hash_sondagem_quadratica(key, k, i):<br>&nbsp;&nbsp;&nbsp;&nbsp;return (key % k + i**2) % k<br></code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Sondagem quadrática</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Em vez de verificar as posições seguintes de forma sequencial, a sondagem quadrática calcula os próximos índices com base em uma função quadrática. Por exemplo, se a posição original da colisão é i, a próxima tentativa será i + 1², depois i + 2², i + 3² e assim por diante. Isso aumenta a dispersão das chaves pela tabela, reduzindo a formação de agrupamentos consecutivos. No entanto, essa técnica também tem limitações: nem todas as posições da tabela são necessariamente visitadas pela função quadrática, o que pode dificultar a inserção em tabelas com alta taxa de ocupação."
+              },
+              {
+                "type": "text",
+                "value": "Código da sondagem quadrática:"
+              },
+              {
+                "type": "text",
+                "value": "<code>def hash_sondagem_quadratica(key, k, i):<br>&nbsp;&nbsp;&nbsp;&nbsp;return (key % k + i**2) % k<br></code>"
+              },
+              {
+                "type": "text",
+                "value": "<strong>Hashing duplo</strong>"
+              },
+              {
+                "type": "text",
+                "value": "Diferente das sondagens lineares e quadráticas, onde os incrementos aplicados em caso de colisão seguem padrões fixos e previsíveis, o hashing duplo utiliza uma segunda função de hashing para determinar o valor do deslocamento em cada tentativa."
+              },
+              {
+                "type": "text",
+                "value": "No hashing duplo, quando uma colisão ocorre, a posição inicial do elemento é calculada por uma primeira função de hashing, chamada H1. Se essa posição estiver ocupada, aplica-se uma segunda função, H2, sobre a chave, cujo valor é usado como incremento para calcular novas tentativas."
+              },
+              {
+                "type": "text",
+                "value": "A fórmula geral utilizada é:"
+              },
+              {
+                "type": "text",
+                "value": "<code>posição = H1(chave) + i * H2(chave)</code>"
+              },
+              {
+                "type": "text",
+                "value": "onde i é o número da tentativa atual (0, 1, 2, ...). A cada nova colisão, um novo deslocamento é feito com base no valor de H2(chave), resultando em diferentes posições de tentativa. Para garantir que todas as posições da tabela possam ser eventualmente acessadas, é essencial que H2(chave) nunca retorne zero e seja relativamente primo em relação ao tamanho da tabela."
+              },
+              {
+                "type": "text",
+                "value": "A principal vantagem dessa técnica está na sua capacidade de evitar padrões de agrupamento que ocorrem em outras estratégias de sondagem. Com uma boa escolha das funções de hashing, o hashing duplo proporciona uma dispersão mais uniforme das chaves."
+              }
             ]
-          }
-        ]
-      },
-      {
-        "id": "4",
-        "name": "Operações com Tabelas Hash",
-        "description": "Descubra como as árvores binárias de busca organizam dados de forma eficiente.",
-        "topics": [
+          },
           {
-            "id": "1",
-            "name": "aula 1",
+            "id": "2",
+            "name": "Encadeamento",
             "content": [
-              { "type": "text", "value": "Texto da aula 1 parte 1" },
+              { "type": "text", "value": "Antes de falarmos sobre o encadeamento, precisamos passar por um conceito importante em tabelas hash: fator de carga." },
+              { "type": "text", "value": "<strong>Fator de carga:</strong>" },
+              { "type": "text", "value": "O fator de carga é uma métrica para avaliar a eficiência de uma tabela hash. Ele é definido como a razão entre o número de elementos armazenados e o tamanho total da tabela. Esse valor numérico fornece uma indicação direta de quão cheia está a estrutura. Um fator de carga igual a 0,5, por exemplo, indica que metade da tabela está ocupada. À medida que esse fator se aproxima de 1, a chance de colisões aumenta significativamente, o que pode degradar o desempenho das operações de busca e inserção." },
               {
                 "type": "image",
-                "value": "https://media.geeksforgeeks.org/wp-content/cdn-uploads/binary-tree-to-DLL.png"
+                "value": "courses/hashTable_3_2_1.png"
               },
-              { "type": "text", "value": "Texto da aula 1 parte 2." }
+              { "type": "text", "value": "<strong>Encadeamento:</strong>" },
+              { "type": "text", "value": "Nesse método, cada bucket da tabela contém uma lista encadeada onde são armazenados os pares chave-valor que resultam no mesmo índice após a aplicação da função de hashing. Quando uma nova chave gera uma colisão, isto é, quando a posição resultante já está ocupada por outra chave, o novo par chave-valor é simplesmente adicionado à lista encadeada daquele espaço." },
+              { "type": "text", "value": "Com isso, a tabela não precisa se preocupar em encontrar novas posições livres nem recalcular índices alternativos. Ela apenas gerencia listas separadas para cada índice, o que simplifica o processo de inserção, mesmo em cenários de alta taxa de colisão. Porém, há um custo: o tempo de busca, que no melhor caso continua sendo constante, pode se degradar para O(n) no pior cenário." },
+              { "type": "text", "value": "Por isso, a eficiência do encadeamento separado está diretamente relacionada ao tamanho da tabela e ao fator de carga. O ideal, então, é manter esse fator de carga controlado, ampliando a tabela quando necessário ou utilizando uma função de hashing que produza uma distribuição uniforme das chaves." }
             ]
           }
         ]
