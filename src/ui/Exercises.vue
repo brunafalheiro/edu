@@ -103,14 +103,17 @@
             :key="index"
             class="bg-white border flex items-center justify-center rounded-lg w-full h-6 max-w-12 cursor-pointer hover:bg-gray-100 transition-all duration-300 relative"
             :class="{ 
-              'border-gray-800 bg-gray-100': currentExercise === index,
-              'border-green-500 bg-green-50 hover:bg-green-100': isExerciseCompleted(index) && isExerciseCorrect(index),
-              'border-red-400 bg-red-50 hover:bg-red-100': isExerciseCompleted(index) && !isExerciseCorrect(index),
+              'border-lavender bg-lavender/10 scale-105': currentExercise === index,
+              'border-green-500 bg-green-50 hover:bg-green-100': isExerciseCompleted(index) && isExerciseCorrect(index) && currentExercise !== index,
+              'border-red-400 bg-red-50 hover:bg-red-100': isExerciseCompleted(index) && !isExerciseCorrect(index) && currentExercise !== index,
               'border-black': currentExercise !== index && !isExerciseCompleted(index)
             }"
             @click="goToExercise(index)"
           >
-            <p class="text-center text-xs font-medium">{{ index }}</p>
+            <p 
+              class="text-center text-xs font-medium"
+              :class="{ 'font-bold': currentExercise === index }"
+            >{{ index }}</p>
             <div
               v-if="isExerciseCompleted(index)"
               class="absolute -top-2 -right-2 rounded-full p-1 w-5 h-5 flex items-center justify-center border"
