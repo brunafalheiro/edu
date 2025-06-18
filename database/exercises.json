@@ -1,38 +1,77 @@
-[{
-  "id": "binaryTree",
-  "exercises": [
-    {
-      "id": "1",
-      "type": "quiz",
-      "question": "Qual é a raiz da árvore binária?",
-      "options": [
-        {
-          "id": "A",
-          "text": "18"
-        },
-        {
-          "id": "B",
-          "text": "44",
-          "correct": true
-        },
-        {
-          "id": "C",
-          "text": "10"
-        },
-        {
-          "id": "D",
-          "text": "6"
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "type": "single",
-      "question": "Monte a árvore binária com os seguintes números: 18, 44, 10, 6",
-      "answer": [
-        { "type": "text", "value": "A árvore binária deve ser montada da seguinte forma:" },
-        { "type": "image", "value": "binaryTree.png" }
-      ]
-    }
-  ]
-}]
+[
+  {
+    "id": "binaryTree",
+    "exercises": [
+      {
+        "id": "1",
+        "type": "quiz",
+        "question": "Qual é a raiz da árvore binária?",
+        "options": [
+          {
+            "id": "A",
+            "text": "18"
+          },
+          {
+            "id": "B",
+            "text": "44",
+            "correct": true
+          },
+          {
+            "id": "C",
+            "text": "10"
+          },
+          {
+            "id": "D",
+            "text": "6"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "type": "single",
+        "question": "Monte a árvore binária com os seguintes números: 18, 44, 10, 6",
+        "answer": [
+          { "type": "text", "value": "A árvore binária deve ser montada da seguinte forma:" },
+          { "type": "image", "value": "binaryTree.png" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hashTable",
+    "exercises": [
+      {
+        "id": "1",
+        "type": "single",
+        "question": "Quando se utiliza tabelas Hash, pode ocorrer colisão. Explique o que é uma colisão.",
+        "answer": [
+          { "type": "text", "value": "Uma colisão acontece quando duas chaves diferentes geram o mesmo índice na tabela hash, ou seja, elas tentam ocupar a mesma posição. Como cada posição só pode guardar um valor, é preciso usar algum método para lidar com essa situação." }
+        ]
+      },
+      {
+        "id": "2",
+        "type": "single",
+        "question": "Quando se utiliza tabelas Hash, pode ocorrer colisão. Quais são os métodos de tratamento de colisão? Explique cada um deles com suas palavras. ",
+        "answer": [
+          { "type": "text", "value": "Encadeamento: cada posição da tabela contém uma lista (geralmente ligada). Quando há colisão, o novo elemento é adicionado a essa lista. Várias chaves podem ocupar a mesma posição, organizadas na lista. Sondagem linear: busca-se sequencialmente até encontrar espaço vazio. Sondagem quadrática: faz saltos maiores (1², 2², 3²...) até buscar uma posição vazia. Hashing duplo: uma segunda função de hash define o salto." }
+        ]
+      },
+      {
+        "id": "3",
+        "type": "quiz",
+        "question": "Analise a seguinte afirmação: “O fator de carga de qualquer tabela hash é no máximo 1”. Essa afirmação é verdadeira ou falsa?",
+        "options": [
+          {
+            "id": "A",
+            "text": "Verdadeiro",
+            "correct": true
+          },
+          {
+            "id": "B",
+            "text": "Falso"
+          }
+        ]
+      }
+    ]
+  }
+]
