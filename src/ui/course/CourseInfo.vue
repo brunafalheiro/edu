@@ -63,7 +63,7 @@
     } from "@/components/ui/accordion";
   import BackButton from "@/components/ui/BackButton.vue";
   import courses from "@database/courses.json";
-  import { TimeUtils } from "@utils/timeUtils";
+  import { TimeUtils } from "@lib/utils/timeUtils";
   import Button from "@components/ui/button/Button.vue";
   import { ref } from "vue";
   import { useRouter } from "vue-router";

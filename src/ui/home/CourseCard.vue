@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { TimeUtils } from '@utils/timeUtils';
+import { TimeUtils } from '@lib/utils/timeUtils';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({

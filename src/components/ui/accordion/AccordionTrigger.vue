@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@utils/utils'
+import { cn } from '@lib/utils/utils.ts'
 import { ChevronDown } from 'lucide-vue-next'
 import {
   AccordionHeader,

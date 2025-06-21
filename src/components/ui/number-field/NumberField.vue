@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'reka-ui'
-import { cn } from '@utils/utils'
+import { cn } from '@lib/utils/utils.ts'
 import { NumberFieldRoot, useForwardPropsEmits } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 

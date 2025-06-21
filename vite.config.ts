@@ -18,8 +18,8 @@ export default defineConfig(({ command }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
+        '@lib': path.resolve(__dirname, 'src/lib'),
         '@components': path.resolve(__dirname, 'src/components'),
-        '@utils': path.resolve(__dirname, 'src/lib/utils'),
         '@tools': path.resolve(__dirname, 'src/lib/tools'),
         '@ui': path.resolve(__dirname, 'src/ui'),
         '@router': path.resolve(__dirname, 'src/router'),
