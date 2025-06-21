@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@lib/utils/utils.ts'
+import { cn } from '../../../lib/utils/utils'
 import { Label, type LabelProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 

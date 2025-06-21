@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@lib/utils/utils.ts'
+import { cn } from '../../../lib/utils/utils'
 import { NumberFieldInput } from 'reka-ui'
 
 const props = defineProps<{
