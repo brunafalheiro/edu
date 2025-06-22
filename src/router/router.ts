@@ -3,7 +3,7 @@ import Home from '../ui/home/Home.vue';
 import CourseInfo from '../ui/course/CourseInfo.vue';
 import BinaryTreeSimulator from '../ui/simulators/BinaryTreeSimulator.vue';
 import HashTableSimulator from '../ui/simulators/HashTableSimulator.vue';
-import Course from '../ui/course/course.vue'
+import Course from '../ui/course/Course.vue'
 import Exercises from '../ui/Exercises.vue';
 
 const routes = [
