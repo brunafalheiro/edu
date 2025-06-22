@@ -21,7 +21,6 @@ export default defineConfig(({ command }) => {
         '@lib': path.resolve(__dirname, 'src/lib'),
         '@components': path.resolve(__dirname, 'src/components'),
         '@tools': path.resolve(__dirname, 'src/lib/tools'),
-        '@ui': path.resolve(__dirname, 'src/ui'),
         '@router': path.resolve(__dirname, 'src/router'),
         '@public': path.resolve(__dirname, 'public'),
         '@database': path.resolve(__dirname, 'database'),
