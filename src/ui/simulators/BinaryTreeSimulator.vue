@@ -153,9 +153,9 @@
   import { ref, watch, onMounted } from "vue";
   import { Shuffle } from 'lucide-vue-next';
   import Button from "@components/ui/button/Button.vue";
-  import TreeComponent from "@/components/ui/TreeComponent/TreeComponent.vue";
-  import BackButton from "@/components/ui/BackButton.vue";
-  import PseudocodeDisplay from "@/components/ui/PseudocodeDisplay.vue";
+  import TreeComponent from "../../components/ui/treeComponent/TreeComponent.vue";
+  import BackButton from "../../components/ui/BackButton.vue";
+  import PseudocodeDisplay from "../../components/ui/PseudocodeDisplay.vue";
   import panzoom from "panzoom";
   import { Toaster, toast } from 'vue-sonner';
   import {
